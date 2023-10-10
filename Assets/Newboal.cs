@@ -2,41 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ボールに関するscript
+/// </summary>
 public class Newboal : MonoBehaviour
 {
-    //キックの強さ
-    [Header("キックの強さを決定(int)")]
-    [SerializeField] private int boalBouncePower;
-    [Header("縦方向の力を補正する(float)")]
-    [SerializeField] private float powerYAdder;
+    [Header("ボールが超えてはいけない速度(int)")]
+    [SerializeField] int maxBoalSpeed;
+    [Header("ボールの速度を抑える倍率(float)")]
+    [SerializeField] float boalSpeedRatio;
 
     const string playerTagName = "Player";
 
-    Rigidbody2D rig;
-    Transform tra;
+    private Rigidbody2D boalRig;
 
-    Calculation cal = new Calculation();
+    private int counter;
+
     private void Start()
     {
-        rig = gameObject.GetComponent<Rigidbody2D>();
-        tra = gameObject.GetComponent<Transform>();
+        boalRig = gameObject.GetComponent<Rigidbody2D>();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //ボールがプレイヤーと衝突した時
+        //超えてはいけない速度を設定
+        Vector2 boalVec = boalRig.velocity;
+        if (maxBoalSpeed < Mathf.Abs(boalVec.x) + Mathf.Abs(boalVec.y))
+        {
+            boalRig.velocity = boalVec * boalSpeedRatio;
+        }
+
+        //キック回数を加算
         if (collision.gameObject.CompareTag(playerTagName))
         {
-            rig.Sleep();
-            BounceBoal(collision.gameObject.GetComponent<Transform>().position);
+            GameManager.Instance.InformationAccess(GameManager.Information.kick, GameManager.Instruction.add);
         }
-    }
-
-    //跳ね返り処理
-    private void BounceBoal(Vector2 playerPosition)
-    {
-        //プレイヤーとのVector差分を計算
-        (float, float) powerStock = cal.BouncePowerCalculation((Vector2)tra.position - playerPosition);
-        //キック！！
-        rig.AddForce(new Vector2(powerStock.Item1, powerStock.Item2 * powerYAdder) * boalBouncePower, ForceMode2D.Impulse);
     }
 }
