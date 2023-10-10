@@ -30,6 +30,10 @@ public class Newplayer : MonoBehaviour
     {
         if (right)
         {
+            if (rig.velocity.x < 0)
+            {
+                rig.velocity = new Vector2(0, 0);
+            }
             rig.velocity = new Vector2(movePowerX, 0);
             right = false;
         }
@@ -37,6 +41,10 @@ public class Newplayer : MonoBehaviour
         {
             rig.velocity = new Vector2(-1 * movePowerX, 0);
             left = false;
+        }
+        else
+        {
+            rig.velocity = Vector2.zero;
         }
     }
 }
