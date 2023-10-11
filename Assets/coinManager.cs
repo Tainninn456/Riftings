@@ -21,28 +21,19 @@ public class coinManager : MonoBehaviour
     [Header("ÉRÉCÉìê∂ê¨èÍèäÇÃyé≤ç≈çÇíl")]
     [SerializeField] float coinYposOver;
 
-
     ObjectPool<GameObject> pools;
 
     private int createCounter;
-
-    bool once;
     private void Awake()
     {
         pools = new ObjectPool<GameObject>(() => Instantiate(coin), (GameObject obj) => obj.SetActive(true), (GameObject obj) => obj.SetActive(false), (GameObject obj) => Destroy(obj), false, 10, 70);
     }
-
     private void Update()
     {
-        if (!once)
-        {
-            GameManager.Instance.StateChanger(GameManager.State.Play);
-            once = true;
-        }
+        if(GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game) != (int)GameManager.State.game) { Debug.Log("#"); return; }
         createCounter++;
         if(createCounter > coinCreateInterval)
         {
-            //GameObject coinObj = Instantiate(coin, new Vector2(Random.Range(coinXposUnder, coinXposOver), Random.Range(coinYposUnder, coinYposOver)), Quaternion.identity);
             GameObject coinObj =  pools.Get();
             coinObj.GetComponent<Transform>().position = new Vector2(Random.Range(coinXposUnder, coinXposOver), Random.Range(coinYposUnder, coinYposOver));
             createCounter = 0;
