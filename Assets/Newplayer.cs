@@ -14,6 +14,11 @@ public class Newplayer : MonoBehaviour
         rig = gameObject.GetComponent<Rigidbody2D>();
     }
 
+    private void OnEnable()
+    {
+        
+    }
+
     private void Update()
     {
         if (Input.GetKey(KeyCode.D))

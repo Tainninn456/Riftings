@@ -11,16 +11,28 @@ public class Newboal : MonoBehaviour
     [SerializeField] int maxBoalSpeed;
     [Header("ボールの速度を抑える倍率(float)")]
     [SerializeField] float boalSpeedRatio;
+    [Header("ボールのスプライト種類")]
+    [SerializeField] Sprite[] boalSprites;
 
     const string playerTagName = "Player";
 
     private Rigidbody2D boalRig;
-
-    private int counter;
+    private SpriteRenderer boalSprite;
 
     private void Start()
     {
-        boalRig = gameObject.GetComponent<Rigidbody2D>();
+        //ボールのコライダー設定
+        GameObject obj = gameObject;
+
+        boalSprite = obj.GetComponent<SpriteRenderer>();
+        boalSprite.sprite = boalSprites[GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.menu)];
+        boalRig = obj.GetComponent<Rigidbody2D>();
+        obj.AddComponent<PolygonCollider2D>();
+
+        GameObject childobj = obj.transform.GetChild(0).gameObject;
+        PolygonCollider2D targetcollider = childobj.AddComponent<PolygonCollider2D>();
+        targetcollider.isTrigger = true;
+        targetcollider.points = obj.GetComponent<PolygonCollider2D>().points;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
