@@ -32,6 +32,7 @@ public class coinManager : MonoBehaviour
             GameObject createObj = Instantiate(coin);
             createObj.GetComponent<Transform>().position = new Vector2(Random.Range(coinXposUnder, coinXposOver), Random.Range(coinYposUnder, coinYposOver));
             coinInfo.UseCoin(createObj);
+            coinInfo.ReturnCoin(createObj);
         }
     }
     private void Update()
@@ -42,6 +43,7 @@ public class coinManager : MonoBehaviour
         if(createCounter > coinCreateInterval)
         {
             GameObject coinObj = coinInfo.UseCoin(coin);
+            coinObj.SetActive(true);
             coinObj.GetComponent<Transform>().position = new Vector2(Random.Range(coinXposUnder, coinXposOver), Random.Range(coinYposUnder, coinYposOver));
             createCounter = 0;
         }

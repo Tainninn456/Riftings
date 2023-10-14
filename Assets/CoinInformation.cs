@@ -19,6 +19,7 @@ public class CoinInformation : MonoBehaviour
     private GameObject CreateCoin(GameObject coin)
     {
         coinPoolUnActives.Add(coin);
+        coinPoolActives.Add(coin);
         unActiveCount++;
         return coin;
     }
@@ -31,12 +32,14 @@ public class CoinInformation : MonoBehaviour
         }
         else
         {
+            Debug.Log(coinPoolUnActives.Count);
             return ReuseCoin(coin);
         }
     }
 
     public void ReturnCoin(GameObject coin)
     {
+        Debug.Log("##");
         coinPoolUnActives.Add(coin);
         unActiveCount++;
     }

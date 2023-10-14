@@ -99,7 +99,7 @@ public class InputScripts : MonoBehaviour
     public void PopDown(int Index)
     {
         display.pops[Index].GetComponent<RectTransform>().DOScale(new Vector3(MinScale, MinScale,MinScale), animSpeed).OnComplete(() => display.pops[Index].SetActive(false)).OnComplete(() => display.popParent.SetActive(false));
-        if(GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game) == (int)GameManager.State.game)
+        if(GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.stop) == (int)GameManager.State.stop)
         {
             objParent.SetActive(true);
             Time.timeScale = 1;
