@@ -14,11 +14,16 @@ public class Newboal : MonoBehaviour
     [Header("ボールのスプライト種類")]
     [SerializeField] Sprite[] boalSprites;
 
+    
+
     //script内での定数
     readonly string[] resourceSelect = new string[9] { "soccer/", "tennis/", "baseball/", "boring/", "panchi/", "tabletennis/", "ragby/", "biriyard", "volley/" };
 
     const string playerTagName = "Player";
     const string deathTagName = "Death";
+    const string cointTagName = "coin";
+
+
 
     private Rigidbody2D boalRig;
     private SpriteRenderer boalSprite;

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     {
         menu,
         game,
+        stop,
         result
     }
     public enum ModeName
