@@ -10,12 +10,12 @@ public class PlayerSelecter : MonoBehaviour
     {
         GameObject mine = gameObject;
         List<GameObject> objs = new List<GameObject>();
-        for(int i = 0; i < childCount; i++)
+        for (int i = 0; i < childCount; i++)
         {
             objs.Add(mine.transform.GetChild(i).gameObject);
             objs[i].SetActive(false);
         }
-        Debug.Log(GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game));
-        objs[GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game)].SetActive(true);
+        GameObject playObj = objs[GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game)];
+        playObj.SetActive(true);
     }
 }

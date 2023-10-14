@@ -14,7 +14,11 @@ public class Newboal : MonoBehaviour
     [Header("ボールのスプライト種類")]
     [SerializeField] Sprite[] boalSprites;
 
+    //script内での定数
+    readonly string[] resourceSelect = new string[9] { "soccer/", "tennis/", "baseball/", "boring/", "panchi/", "tabletennis/", "ragby/", "biriyard", "volley/" };
+
     const string playerTagName = "Player";
+    const string deathTagName = "Death";
 
     private Rigidbody2D boalRig;
     private SpriteRenderer boalSprite;
@@ -25,7 +29,15 @@ public class Newboal : MonoBehaviour
         GameObject obj = gameObject;
 
         boalSprite = obj.GetComponent<SpriteRenderer>();
-        boalSprite.sprite = boalSprites[GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.menu)];
+        if (!GameManager.Instance.ClothAccess(GameManager.Information.clothbool, GameManager.Instruction.use, false))
+        {
+            boalSprite.sprite = boalSprites[GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.menu)];
+        }
+        else 
+        {
+            boalSprite.sprite = Resources.LoadAll<Sprite>(resourceSelect[GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game)])[GameManager.Instance.InformationAccess(GameManager.Information.cloth, GameManager.Instruction.use, GameManager.ModeName.soccer, 0)];
+        }
+        
         boalRig = obj.GetComponent<Rigidbody2D>();
         obj.AddComponent<PolygonCollider2D>();
 
@@ -47,6 +59,10 @@ public class Newboal : MonoBehaviour
         if (collision.gameObject.CompareTag(playerTagName))
         {
             GameManager.Instance.InformationAccess(GameManager.Information.kick, GameManager.Instruction.add);
+        }
+        else if (collision.gameObject.CompareTag(deathTagName))
+        {
+            GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.insert, GameManager.ModeName.soccer, GameManager.State.result);
         }
     }
 }
