@@ -15,6 +15,7 @@ public class Newboal : MonoBehaviour
     [SerializeField] Sprite[] boalSprites;
 
     const string playerTagName = "Player";
+    const string deathTagName = "Death";
 
     private Rigidbody2D boalRig;
     private SpriteRenderer boalSprite;
@@ -47,6 +48,10 @@ public class Newboal : MonoBehaviour
         if (collision.gameObject.CompareTag(playerTagName))
         {
             GameManager.Instance.InformationAccess(GameManager.Information.kick, GameManager.Instruction.add);
+        }
+        else if (collision.gameObject.CompareTag(deathTagName))
+        {
+            GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.insert, GameManager.ModeName.soccer, GameManager.State.result);
         }
     }
 }

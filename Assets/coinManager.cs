@@ -30,7 +30,7 @@ public class coinManager : MonoBehaviour
     }
     private void Update()
     {
-        if(GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game) != (int)GameManager.State.game) { Debug.Log("#"); return; }
+        if(GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game) != (int)GameManager.State.game) { return; }
         createCounter++;
         if(createCounter > coinCreateInterval)
         {
