@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     private int kickCount;
     private int coinCount;
+    private int[] clothValue = new int[9];
+    private bool clothChange;
 
     private State state;
     private ModeName gameMode;
@@ -34,7 +36,9 @@ public class GameManager : MonoBehaviour
         kick,
         coin,
         mode,
-        state
+        state,
+        cloth,
+        clothbool
     }
 
     public enum Instruction
@@ -71,6 +75,25 @@ public class GameManager : MonoBehaviour
         return 0;
     }
 
+    public int InformationAccess(Information info, Instruction inst, ModeName insertName, int clothIndex)
+    {
+        if(info == Information.cloth) { return ClothOperation(inst, insertName, clothIndex); }
+        return 0;
+    }
+
+    public bool ClothAccess(Information info, Instruction inst, bool value)
+    {
+        if(info == Information.clothbool) { return ClothBoolOperation(inst, value); }
+        return false;
+    }
+
+    private bool ClothBoolOperation(Instruction inst, bool InValue)
+    {
+        if(inst == Instruction.insert) { clothChange = InValue; return false; }
+        else if(inst == Instruction.use) { return clothChange; }
+        return false;
+    }
+
     private int StateOperation(Instruction inst, State instate)
     {
         if (inst == Instruction.insert) { state = instate; return 0; }
@@ -95,6 +118,12 @@ public class GameManager : MonoBehaviour
     {
         if (inst == Instruction.add) { coinCount++; return 0; }
         else if (inst == Instruction.use) { return coinCount; }
+        return 0;
+    }
+    private int ClothOperation(Instruction inst, ModeName insertName, int clothInsertIndex)
+    {
+        if (inst == Instruction.insert) { clothValue[(int)insertName] = clothInsertIndex; return 0; }
+        else if (inst == Instruction.use) { return clothValue[(int)insertName]; }
         return 0;
     }
 }

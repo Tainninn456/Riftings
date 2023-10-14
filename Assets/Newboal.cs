@@ -14,6 +14,9 @@ public class Newboal : MonoBehaviour
     [Header("ボールのスプライト種類")]
     [SerializeField] Sprite[] boalSprites;
 
+    //script内での定数
+    readonly string[] resourceSelect = new string[9] { "soccer/", "tennis/", "baseball/", "boring/", "panchi/", "tabletennis/", "ragby/", "biriyard", "volley/" };
+
     const string playerTagName = "Player";
     const string deathTagName = "Death";
 
@@ -26,7 +29,15 @@ public class Newboal : MonoBehaviour
         GameObject obj = gameObject;
 
         boalSprite = obj.GetComponent<SpriteRenderer>();
-        boalSprite.sprite = boalSprites[GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.menu)];
+        if (!GameManager.Instance.ClothAccess(GameManager.Information.clothbool, GameManager.Instruction.use, false))
+        {
+            boalSprite.sprite = boalSprites[GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.menu)];
+        }
+        else 
+        {
+            boalSprite.sprite = Resources.LoadAll<Sprite>(resourceSelect[GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game)])[GameManager.Instance.InformationAccess(GameManager.Information.cloth, GameManager.Instruction.use, GameManager.ModeName.soccer, 0)];
+        }
+        
         boalRig = obj.GetComponent<Rigidbody2D>();
         obj.AddComponent<PolygonCollider2D>();
 

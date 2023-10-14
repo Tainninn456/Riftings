@@ -23,6 +23,19 @@ public class InputScripts : MonoBehaviour
     //script内での定数
     readonly string[] resourceSelect = new string[9] {"soccer/", "tennis/", "baseball/", "boring/", "panchi/", "tabletennis/", "ragby/", "biriyard", "volley/" };
 
+    enum InputType
+    {
+        soccer = 0,
+        tennis = 1,
+        baseball = 2,
+        boring = 3,
+        panchi = 4,
+        tabletennis = 5,
+        ragby = 6,
+        biriyard = 7,
+        volley = 8
+    }
+
     [Header("対象のゲームモードを指定：パラメータ")]
     [SerializeField] GameManager.ModeName targetModeName;
     [Header("対象のシーンを指定：パラメータ")]
@@ -69,6 +82,7 @@ public class InputScripts : MonoBehaviour
 
     public void PopUp(int Index)
     {
+        
         display.popParent.SetActive(true);
         for(int i = 0; i < display.pops.Length; i++)
         {
@@ -85,12 +99,54 @@ public class InputScripts : MonoBehaviour
 
     public void SelectChange(int Index)
     {
+        GameManager.ModeName name = GameManager.ModeName.soccer;
+        switch (Index)
+        {
+            case 0:
+                name = GameManager.ModeName.soccer;
+                break;
+            case 1:
+                name = GameManager.ModeName.tennis;
+                break;
+            case 2:
+                name = GameManager.ModeName.baseball;
+                break;
+            case 3:
+                name = GameManager.ModeName.boring;
+                break;
+            case 4:
+                name = GameManager.ModeName.panchi;
+                break;
+            case 5:
+                name = GameManager.ModeName.tabletennis;
+                break;
+            case 6:
+                name = GameManager.ModeName.ragby;
+                break;
+            case 7:
+                name = GameManager.ModeName.biriyard;
+                break;
+            case 8:
+                name = GameManager.ModeName.volley;
+                break;
+        }
         Sprite[] playerImages = Resources.LoadAll<Sprite>(resourceSelect[Index]);
         for(int i = 0; i < playerImages.Length; i++)
         {
             Debug.Log(playerImages[i]);
             display.clothes[i].sprite = playerImages[i];
         }
+        for (int i = 0; i < display.clothes.Length; i++)
+        {
+            Debug.Log(name);
+            display.modePrefer[i].targetModeName = name;
+        }
+    }
+
+    public void ClothDesicion(int Index)
+    {
+        GameManager.Instance.ClothAccess(GameManager.Information.clothbool, GameManager.Instruction.insert, true);
+        GameManager.Instance.InformationAccess(GameManager.Information.cloth, GameManager.Instruction.insert, targetModeName, Index);
     }
     [ContextMenu(displayGetMethodName)]
     private void EditorMethodDisplayAssign()
