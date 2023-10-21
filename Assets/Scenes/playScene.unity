@@ -8398,6 +8398,7 @@ GameObject:
   - component: {fileID: 292513144}
   - component: {fileID: 292513143}
   - component: {fileID: 292513142}
+  - component: {fileID: 292513145}
   m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
@@ -8469,7 +8470,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 292513143}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 292513140}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &292513143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8508,6 +8521,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292513140}
   m_CullTransparentMesh: 1
+--- !u!114 &292513145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292513140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a9b13ed8417a7e4bb12b9cd6325fe19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetModeName: 0
+  targetSceneName: 0
+  panelMoveDirection: {fileID: 0}
+  myTrans: {fileID: 0}
+  pop: {fileID: 0}
+  boalRig: {fileID: 0}
+  type: 0
+  instruction: 0
+  display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!1 &294321120
 GameObject:
   m_ObjectHideFlags: 0
@@ -15219,6 +15255,7 @@ GameObject:
   - component: {fileID: 563922448}
   - component: {fileID: 563922447}
   - component: {fileID: 563922446}
+  - component: {fileID: 563922449}
   m_Layer: 5
   m_Name: Home
   m_TagString: Untagged
@@ -15290,7 +15327,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 563922447}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 563922449}
+        m_TargetAssemblyTypeName: InputScripts, Assembly-CSharp
+        m_MethodName: SceneChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &563922447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15329,6 +15378,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 563922444}
   m_CullTransparentMesh: 1
+--- !u!114 &563922449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563922444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a9b13ed8417a7e4bb12b9cd6325fe19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetModeName: 0
+  targetSceneName: 0
+  panelMoveDirection: {fileID: 0}
+  myTrans: {fileID: 0}
+  pop: {fileID: 0}
+  boalRig: {fileID: 0}
+  type: 0
+  instruction: 0
+  display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!1 &567744347
 GameObject:
   m_ObjectHideFlags: 0
@@ -28817,6 +28889,7 @@ GameObject:
   - component: {fileID: 1183692254}
   - component: {fileID: 1183692253}
   - component: {fileID: 1183692252}
+  - component: {fileID: 1183692255}
   m_Layer: 5
   m_Name: Home
   m_TagString: Untagged
@@ -28888,7 +28961,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1183692253}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1183692255}
+        m_TargetAssemblyTypeName: InputScripts, Assembly-CSharp
+        m_MethodName: SceneChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1183692253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28927,6 +29012,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1183692250}
   m_CullTransparentMesh: 1
+--- !u!114 &1183692255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183692250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a9b13ed8417a7e4bb12b9cd6325fe19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetModeName: 0
+  targetSceneName: 0
+  panelMoveDirection: {fileID: 0}
+  myTrans: {fileID: 0}
+  pop: {fileID: 0}
+  boalRig: {fileID: 0}
+  type: 0
+  instruction: 0
+  display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!1 &1189207506
 GameObject:
   m_ObjectHideFlags: 0
@@ -33470,7 +33578,7 @@ GameObject:
   - component: {fileID: 1418246456}
   m_Layer: 0
   m_Name: death
-  m_TagString: Death
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -18,7 +18,6 @@ public class ballTrigger : MonoBehaviour
         {
             GameManager.Instance.InformationAccess(GameManager.Information.coin, GameManager.Instruction.add);
             cMane.coinInfo.ReturnCoin(collision.gameObject);
-            collision.gameObject.SetActive(false);
             texDisplay.TextDisplaing(coinTex, GameManager.Instance.InformationAccess(GameManager.Information.coin, GameManager.Instruction.use));
         }
     }

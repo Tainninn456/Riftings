@@ -27,16 +27,18 @@ public class coinManager : MonoBehaviour
     private bool pozeRock;
     private void Awake()
     {
+        if (GameManager.Instance.created) { return; }
         for(int i = 0; i < InitialCoinAmount; i++)
         {
-            GameObject createObj = Instantiate(coin);
+            GameObject createObj = coinInfo.InitialCreate(coin);
             createObj.GetComponent<Transform>().position = new Vector2(Random.Range(coinXposUnder, coinXposOver), Random.Range(coinYposUnder, coinYposOver));
-            coinInfo.UseCoin(createObj);
             coinInfo.ReturnCoin(createObj);
         }
+        GameManager.Instance.created = true;
     }
     private void Update()
     {
+        //アクティブ系
         if(GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game) != (int)GameManager.State.game) { coinInfo.UnActivator(); pozeRock = true; return; }
         else if (pozeRock) { coinInfo.DoActivator(); pozeRock = false; }
         createCounter++;

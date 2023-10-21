@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     private State state;
     private ModeName gameMode;
+    public bool created;
     public enum State
     {
         menu,

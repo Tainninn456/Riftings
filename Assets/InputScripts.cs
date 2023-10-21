@@ -20,6 +20,10 @@ public class InputScripts : MonoBehaviour
     //エディタ上実行関数の名前
     const string displayGetMethodName = "EditorMethodDisplayAssign";
 
+    //シーン名
+    const string menuSceneName = "menuScene";
+    const string playSceneName = "playScene";
+
     //script内での定数
     readonly string[] resourceSelect = new string[9] {"soccer/", "tennis/", "baseball/", "boring/", "panchi/", "tabletennis/", "ragby/", "biriyard", "volley/" };
 
@@ -59,8 +63,11 @@ public class InputScripts : MonoBehaviour
 
     public void SceneChange()
     {
+        GameManager.State toState = GameManager.State.menu;
+        if (targetSceneName == ChangeScene.SceneName.menuScene) { toState = GameManager.State.menu; }
+        else if(targetSceneName == ChangeScene.SceneName.playScene) { toState = GameManager.State.game; }
         ChangeScene.instance.SceneLoad(targetSceneName);
-        GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.insert, targetModeName, GameManager.State.game);
+        GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.insert, targetModeName, toState);
     }
     public void GameMode()
     {

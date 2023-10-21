@@ -18,12 +18,22 @@ public class CoinInformation : MonoBehaviour
 
     private GameObject CreateCoin(GameObject coin)
     {
-        coinPoolUnActives.Add(coin);
+        GameObject obj = Instantiate(coin);
+        coinPoolUnActives.Add(obj);
         coinPoolActives.Add(coin);
         unActiveCount++;
-        return coin;
+        return obj;
     }
 
+    public GameObject InitialCreate(GameObject coin)
+    {
+        GameObject obj = Instantiate(coin);
+        coinPoolUnActives.Add(obj);
+        unActiveCount++;
+        return obj;
+    }
+
+    //デフォルトの呼び出し関数
     public GameObject UseCoin(GameObject coin)
     {
         if(unActiveCount == 0)
@@ -32,14 +42,13 @@ public class CoinInformation : MonoBehaviour
         }
         else
         {
-            Debug.Log(coinPoolUnActives.Count);
             return ReuseCoin(coin);
         }
     }
 
     public void ReturnCoin(GameObject coin)
     {
-        Debug.Log("##");
+        coin.SetActive(false);
         coinPoolUnActives.Add(coin);
         unActiveCount++;
     }
@@ -49,11 +58,13 @@ public class CoinInformation : MonoBehaviour
         for(int i = 0; i < coinPoolActives.Count; i++)
         {
             coinPoolActives[i].SetActive(false);
+
         }
     }
 
     public void DoActivator()
     {
+        Debug.Log("doactive");
         for(int i = 0; i < coinPoolActives.Count; i++)
         {
             coinPoolActives[i].SetActive(true);
