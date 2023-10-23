@@ -6,7 +6,7 @@ public class coin : MonoBehaviour
 {
     const string ballTagName = "ball";
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         //ボールと衝突した際にコインの数を増加
         if (collision.gameObject.CompareTag(ballTagName))
@@ -14,5 +14,5 @@ public class coin : MonoBehaviour
             GameManager.Instance.InformationAccess(GameManager.Information.coin, GameManager.Instruction.add);
             gameObject.SetActive(false);
         }
-    }
+    }*/
 }

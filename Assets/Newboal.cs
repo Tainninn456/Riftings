@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 /// <summary>
 /// ボールに関するscript
@@ -14,11 +15,16 @@ public class Newboal : MonoBehaviour
     [Header("ボールのスプライト種類")]
     [SerializeField] Sprite[] boalSprites;
 
+    [Header("キックの回数を表示するテキスト")]
+    [SerializeField] TextMeshProUGUI kickTex;
+
     //script内での定数
     readonly string[] resourceSelect = new string[9] { "soccer/", "tennis/", "baseball/", "boring/", "panchi/", "tabletennis/", "ragby/", "biriyard", "volley/" };
 
     const string playerTagName = "Player";
     const string deathTagName = "Death";
+
+    TextDiplay texDisplay = new TextDiplay();
 
     private Rigidbody2D boalRig;
     private SpriteRenderer boalSprite;
@@ -59,6 +65,7 @@ public class Newboal : MonoBehaviour
         if (collision.gameObject.CompareTag(playerTagName))
         {
             GameManager.Instance.InformationAccess(GameManager.Information.kick, GameManager.Instruction.add);
+            texDisplay.TextDisplaing(kickTex, GameManager.Instance.InformationAccess(GameManager.Information.kick, GameManager.Instruction.use));
         }
         else if (collision.gameObject.CompareTag(deathTagName))
         {

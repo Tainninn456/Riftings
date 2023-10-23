@@ -6978,9 +6978,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &214801156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8192,9 +8195,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 1
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &238504020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8346,9 +8352,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 1503412749}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &241959242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10337,9 +10346,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 1503412749}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &312200266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11602,9 +11614,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 1358922837}
   myTrans: {fileID: 918281790}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &373329510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14685,9 +14700,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 1395119489}
   myTrans: {fileID: 1218468359}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &449484560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17194,7 +17212,6 @@ GameObject:
   m_Component:
   - component: {fileID: 549889952}
   - component: {fileID: 549889951}
-  - component: {fileID: 549889950}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -17202,25 +17219,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &549889950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 549889949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09e6bb7fd3f839b48af79c3f54a4779c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coin: {fileID: 8614423737932888132, guid: 71cb1f243269b2d48afeaab12954697d, type: 3}
-  InitialCoinAmount: 50
-  coinCreateInterval: 40
-  coinXposUnder: -2.1
-  coinXposOver: 2.1
-  coinYposUnder: 3.5
-  coinYposOver: 7.5
 --- !u!114 &549889951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22768,9 +22766,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 1
   instruction: 1
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &766292432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23689,9 +23690,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &796136248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23855,9 +23859,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &798231197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30999,9 +31006,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &1082377883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33844,9 +33854,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &1221761468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34901,9 +34914,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &1259660121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36731,9 +36747,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &1331796477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45919,9 +45938,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 352868637}
   myTrans: {fileID: 918281790}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &1633176086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52858,9 +52880,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &1941391414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54867,9 +54892,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 1503412749}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &2015324057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54998,9 +55026,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!4 &2016709335
 Transform:
   m_ObjectHideFlags: 0
@@ -55671,9 +55702,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &2053428079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58176,9 +58210,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &2124823620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58545,9 +58582,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 1358922837}
   myTrans: {fileID: 1218468359}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 0
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &2128801207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58851,9 +58891,12 @@ MonoBehaviour:
   panelMoveDirection: {fileID: 0}
   myTrans: {fileID: 0}
   pop: {fileID: 0}
+  boalRig: {fileID: 0}
   type: 0
   instruction: 1
   display: {fileID: 0}
+  objParent: {fileID: 0}
+  panelSelection: 0
 --- !u!114 &2144688448
 MonoBehaviour:
   m_ObjectHideFlags: 0

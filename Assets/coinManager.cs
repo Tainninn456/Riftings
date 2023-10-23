@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
-
 public class coinManager : MonoBehaviour
 {
     [Header("コインオブジェクト")]
@@ -21,20 +19,33 @@ public class coinManager : MonoBehaviour
     [Header("コイン生成場所のy軸最高値")]
     [SerializeField] float coinYposOver;
 
-    ObjectPool<GameObject> pools;
+    [System.NonSerialized]
+    public CoinInformation coinInfo= new CoinInformation();
 
     private int createCounter;
+
+    private bool pozeRock;
     private void Awake()
     {
-        pools = new ObjectPool<GameObject>(() => Instantiate(coin), (GameObject obj) => obj.SetActive(true), (GameObject obj) => obj.SetActive(false), (GameObject obj) => Destroy(obj), false, 10, 70);
+        if (GameManager.Instance.created) { return; }
+        for(int i = 0; i < InitialCoinAmount; i++)
+        {
+            GameObject createObj = coinInfo.InitialCreate(coin);
+            createObj.GetComponent<Transform>().position = new Vector2(Random.Range(coinXposUnder, coinXposOver), Random.Range(coinYposUnder, coinYposOver));
+            coinInfo.ReturnCoin(createObj);
+        }
+        GameManager.Instance.created = true;
     }
     private void Update()
     {
-        if(GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game) != (int)GameManager.State.game) { return; }
+        //アクティブ系
+        if(GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game) != (int)GameManager.State.game) { coinInfo.UnActivator(); pozeRock = true; return; }
+        else if (pozeRock) { coinInfo.DoActivator(); pozeRock = false; }
         createCounter++;
         if(createCounter > coinCreateInterval)
         {
-            GameObject coinObj =  pools.Get();
+            GameObject coinObj = coinInfo.UseCoin(coin);
+            coinObj.SetActive(true);
             coinObj.GetComponent<Transform>().position = new Vector2(Random.Range(coinXposUnder, coinXposOver), Random.Range(coinYposUnder, coinYposOver));
             createCounter = 0;
         }

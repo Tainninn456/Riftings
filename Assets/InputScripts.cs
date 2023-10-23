@@ -20,20 +20,19 @@ public class InputScripts : MonoBehaviour
     //エディタ上実行関数の名前
     const string displayGetMethodName = "EditorMethodDisplayAssign";
 
+    //シーン名
+    const string menuSceneName = "menuScene";
+    const string playSceneName = "playScene";
+
     //script内での定数
     readonly string[] resourceSelect = new string[9] {"soccer/", "tennis/", "baseball/", "boring/", "panchi/", "tabletennis/", "ragby/", "biriyard", "volley/" };
 
-    enum InputType
+    static Vector2 boalRigStock;
+
+    public enum panelType
     {
-        soccer = 0,
-        tennis = 1,
-        baseball = 2,
-        boring = 3,
-        panchi = 4,
-        tabletennis = 5,
-        ragby = 6,
-        biriyard = 7,
-        volley = 8
+        menuPanel,
+        resultPanel
     }
 
     [Header("対象のゲームモードを指定：パラメータ")]
@@ -46,6 +45,8 @@ public class InputScripts : MonoBehaviour
     [SerializeField] RectTransform myTrans;
     [Header("ポップアニメーションの対象")]
     [SerializeField] RectTransform pop;
+    [Header("ボールのrigidbody")]
+    [SerializeField] Rigidbody2D boalRig;
 
     [Header("Soundの種類を指定")]
     [SerializeField] AudioManager.SountType type;
@@ -54,11 +55,19 @@ public class InputScripts : MonoBehaviour
 
     [Header("表示系をまとめる")]
     [SerializeField] Display display;
+    [Header("プレイに関するオブジェクトをまとめる")]
+    [SerializeField] GameObject objParent;
+
+    [Header("dotweenのアニメーションの種類を指定")]
+    [SerializeField] panelType panelSelection;
 
     public void SceneChange()
     {
+        GameManager.State toState = GameManager.State.menu;
+        if (targetSceneName == ChangeScene.SceneName.menuScene) { toState = GameManager.State.menu; }
+        else if(targetSceneName == ChangeScene.SceneName.playScene) { toState = GameManager.State.game; }
         ChangeScene.instance.SceneLoad(targetSceneName);
-        GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.insert, targetModeName, GameManager.State.game);
+        GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.insert, targetModeName, toState);
     }
     public void GameMode()
     {
@@ -66,7 +75,10 @@ public class InputScripts : MonoBehaviour
     }
     public void PanelMove()
     {
-        myTrans.DOMove(panelMoveDirection.position, animSpeed);
+        if (panelSelection == panelType.menuPanel)
+        {
+            myTrans.DOMove(panelMoveDirection.position, animSpeed);
+        }
     }
     public void SoundVolumeAction()
     {
@@ -82,19 +94,25 @@ public class InputScripts : MonoBehaviour
 
     public void PopUp(int Index)
     {
-        
         display.popParent.SetActive(true);
         for(int i = 0; i < display.pops.Length; i++)
         {
             display.pops[i].SetActive(false);
         }
         display.pops[Index].SetActive(true);
-        display.pops[Index].GetComponent<RectTransform>().DOScale(new Vector3(MaxScale, MaxScale, MaxScale), animSpeed);
+        display.pops[Index].GetComponent<RectTransform>().DOScale(new Vector3(MaxScale, MaxScale, MaxScale), animSpeed).SetUpdate(true);
     }
 
     public void PopDown(int Index)
     {
         display.pops[Index].GetComponent<RectTransform>().DOScale(new Vector3(MinScale, MinScale,MinScale), animSpeed).OnComplete(() => display.pops[Index].SetActive(false)).OnComplete(() => display.popParent.SetActive(false));
+        if(GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.stop) == (int)GameManager.State.stop)
+        {
+            objParent.SetActive(true);
+            Time.timeScale = 1;
+            boalRig.velocity = boalRigStock;
+            GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.insert, GameManager.ModeName.soccer, GameManager.State.game);
+        }
     }
 
     public void SelectChange(int Index)
@@ -133,12 +151,10 @@ public class InputScripts : MonoBehaviour
         Sprite[] playerImages = Resources.LoadAll<Sprite>(resourceSelect[Index]);
         for(int i = 0; i < playerImages.Length; i++)
         {
-            Debug.Log(playerImages[i]);
             display.clothes[i].sprite = playerImages[i];
         }
         for (int i = 0; i < display.clothes.Length; i++)
         {
-            Debug.Log(name);
             display.modePrefer[i].targetModeName = name;
         }
     }
@@ -147,6 +163,14 @@ public class InputScripts : MonoBehaviour
     {
         GameManager.Instance.ClothAccess(GameManager.Information.clothbool, GameManager.Instruction.insert, true);
         GameManager.Instance.InformationAccess(GameManager.Information.cloth, GameManager.Instruction.insert, targetModeName, Index);
+    }
+
+    public void Poze()
+    {
+        boalRigStock = boalRig.velocity;
+        Time.timeScale = 0;
+        objParent.SetActive(false);
+        GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.insert, GameManager.ModeName.soccer, GameManager.State.stop);
     }
     [ContextMenu(displayGetMethodName)]
     private void EditorMethodDisplayAssign()
