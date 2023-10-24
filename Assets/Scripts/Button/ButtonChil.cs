@@ -42,7 +42,7 @@ public class ButtonChil : ButtonParent
         nowImage = Main.panels[4].transform.GetChild(10).transform.GetChild(9).GetComponent<Image>();
         ImaRig = Main.panels[4].transform.GetChild(10).transform.GetChild(9).GetComponent<Rigidbody2D>();
     }
-    public override void OnClick(string objectName)
+    /*public override void OnClick(string objectName)
     {
         switch (objectName)
         {
@@ -707,7 +707,7 @@ public class ButtonChil : ButtonParent
         {
             nowImage.sprite = Main.buttoncloth[c];
         }
-    }
+    }*/
     static void Clother(int cost, int clothLevel, int level)
     {
         if (Main.memory.cloths[clothLevel] > 0 && Main.memory.cloths[clothLevel] < level + 1)
