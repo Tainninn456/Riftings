@@ -47,11 +47,16 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        PlayBGM(BGM.menu);
     }
 
     public void PlayBGM(BGM bgmName)
     {
-        bgm.Stop();
+        if (bgm.isPlaying)
+        {
+            bgm.Stop();
+        }
         bgm.clip = bgmClips[(int)bgmName];
         bgm.Play();
     }

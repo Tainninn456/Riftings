@@ -8,6 +8,7 @@ TagManager:
   - ball
   - Death
   - ActiveObject
+  - DataReciver
   layers:
   - Default
   - TransparentFX

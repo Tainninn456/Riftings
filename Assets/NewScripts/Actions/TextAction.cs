@@ -7,12 +7,23 @@ using TMPro;
 
 public class TextAction : MonoBehaviour
 {
-    const string unActiveTagName = "ActiveObject";
-    const string methodName = "AllTextComponentGeter";
+    const string ActiveTagName = "ActiveObject";
+    const string methodScoreName = "AllScoreTextComponentGeter";
+    const string methodMoneyName = "AllMoneyTextComponentGeter";
 
     [SerializeField] TextMeshProUGUI[] scoreTexts;
-    [ContextMenu(methodName)]
-    private void AllTextComponentGeter()
+    [SerializeField] TextMeshProUGUI[] moneyTexts;
+
+    public void DataIntoImage()
+    {
+
+    }
+
+    /// <summary>
+    /// エディタ上実行関数
+    /// </summary>
+    [ContextMenu(methodScoreName)]
+    private void AllScoreTextComponentGeter()
     {
         List<TextMeshProUGUI> texs = new List<TextMeshProUGUI>();
         foreach (var rootGameObject in Selection.gameObjects)
@@ -20,8 +31,7 @@ public class TextAction : MonoBehaviour
             var children = rootGameObject.GetComponentsInChildren<TextMeshProUGUI>(true);
             foreach (TextMeshProUGUI ob in children)
             {
-                if(ob.tag != unActiveTagName) { continue; }
-                Debug.Log(ob.name);
+                if(ob.tag != ActiveTagName) {continue; }
                 texs.Add(ob);
             }
         }
@@ -29,6 +39,26 @@ public class TextAction : MonoBehaviour
         for(int i = 0; i < texs.Count; i++)
         {
             scoreTexts[i] = texs[i];
+        }
+    }
+
+    [ContextMenu(methodMoneyName)]
+    private void AllMoneyTextComponentGeter()
+    {
+        List<TextMeshProUGUI> texs = new List<TextMeshProUGUI>();
+        foreach (var rootGameObject in Selection.gameObjects)
+        {
+            var children = rootGameObject.GetComponentsInChildren<TextMeshProUGUI>(true);
+            foreach (TextMeshProUGUI ob in children)
+            {
+                if (ob.tag != ActiveTagName) { continue; }
+                texs.Add(ob);
+            }
+        }
+        Array.Resize<TextMeshProUGUI>(ref moneyTexts, texs.Count);
+        for (int i = 0; i < texs.Count; i++)
+        {
+            moneyTexts[i] = texs[i];
         }
     }
 }
