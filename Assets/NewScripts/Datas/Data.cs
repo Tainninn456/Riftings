@@ -15,4 +15,8 @@ public class Data
     public int[] nowCloth = new int[] { 9, 9, 9, 9, 9, 9, 9, 9, 9 };
     public int SEVolume = 2;
     public int BGMVolume = 2;
+
+    public int[] clothAchive = new int[9];
+    public int coinLevel = 1;
+    public int heartLevel = 1;
 }

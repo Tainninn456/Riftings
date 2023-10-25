@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class SoundAction : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum SoundType
     {
-        
+        BGM,
+        SE
     }
 
-    // Update is called once per frame
-    void Update()
+    public void VolumeUp(SoundType soundType)
     {
-        
+        switch (soundType)
+        {
+            case SoundType.BGM:
+                AudioManager.instance.BGMVolumeChange(AudioManager.VolumeInstruction.up);
+                break;
+            case SoundType.SE:
+                AudioManager.instance.SEVolumeChange(AudioManager.VolumeInstruction.up);
+                break;
+        }
+    }
+
+    public void VolumeDown(SoundType soundType)
+    {
+        switch (soundType)
+        {
+            case SoundType.BGM:
+                AudioManager.instance.BGMVolumeChange(AudioManager.VolumeInstruction.down);
+                break;
+            case SoundType.SE:
+                AudioManager.instance.SEVolumeChange(AudioManager.VolumeInstruction.down);
+                break;
+        }
     }
 }
