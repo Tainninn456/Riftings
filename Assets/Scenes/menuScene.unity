@@ -8968,6 +8968,7 @@ MonoBehaviour:
   soundPop: {fileID: 190273900}
   clothPop: {fileID: 184464670}
   popParent: {fileID: 516053162}
+  dataAction: {fileID: 1487266087}
 --- !u!114 &1487266086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8994,6 +8995,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textAction: {fileID: 1487266089}
   imageAction: {fileID: 1487266088}
+  sportSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &1487266088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9026,6 +9037,8 @@ MonoBehaviour:
   - {fileID: 1130612415}
   - {fileID: 2055142691}
   - {fileID: 323631157}
+  sportSprites:
+  - {fileID: 21300000, guid: 76dfb4e57016d994ba5d4173397f2af2, type: 3}
 --- !u!114 &1487266089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9050,6 +9063,8 @@ MonoBehaviour:
   - {fileID: 493923171}
   moneyTexts:
   - {fileID: 1239306405}
+  kickText: {fileID: 0}
+  coinText: {fileID: 0}
 --- !u!114 &1487266090
 MonoBehaviour:
   m_ObjectHideFlags: 0

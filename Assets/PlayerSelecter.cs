@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerSelecter : MonoBehaviour
 {
+    [Header("initializeの参照")]
+    [SerializeField] DataReciver initialData;
     //プレイヤーの格納数
     const int childCount = 9;
     void Start()
@@ -15,7 +17,8 @@ public class PlayerSelecter : MonoBehaviour
             objs.Add(mine.transform.GetChild(i).gameObject);
             objs[i].SetActive(false);
         }
-        GameObject playObj = objs[GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game)];
-        playObj.SetActive(true);
+        //GameObject playObj = objs[GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game)];
+        GameObject playerObj = objs[initialData.sportType];
+        playerObj.SetActive(true);
     }
 }

@@ -12,19 +12,18 @@ public class Newboal : MonoBehaviour
     [SerializeField] int maxBoalSpeed;
     [Header("ボールの速度を抑える倍率(float)")]
     [SerializeField] float boalSpeedRatio;
-    [Header("ボールのスプライト種類")]
-    [SerializeField] Sprite[] boalSprites;
 
-    [Header("キックの回数を表示するテキスト")]
-    [SerializeField] TextMeshProUGUI kickTex;
+    [Header("Initializeの参照")]
+    [SerializeField] DataReciver initialData;
 
-    //script内での定数
-    readonly string[] resourceSelect = new string[9] { "soccer/", "tennis/", "baseball/", "boring/", "panchi/", "tabletennis/", "ragby/", "biriyard", "volley/" };
+    [Header("インゲームデータストックへのアクセス")]
+    [SerializeField] InGameStockData gameDatas;
+
+    [Header("コイン情報へのアクセス")]
+    [SerializeField] CoinInformation coinInfo;
 
     const string playerTagName = "Player";
     const string deathTagName = "Death";
-
-    TextDiplay texDisplay = new TextDiplay();
 
     private Rigidbody2D boalRig;
     private SpriteRenderer boalSprite;
@@ -34,19 +33,15 @@ public class Newboal : MonoBehaviour
         //ボールのコライダー設定
         GameObject obj = gameObject;
 
+        //ボールの着せ替え設定
         boalSprite = obj.GetComponent<SpriteRenderer>();
-        if (!GameManager.Instance.ClothAccess(GameManager.Information.clothbool, GameManager.Instruction.use, false))
-        {
-            boalSprite.sprite = boalSprites[GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.menu)];
-        }
-        else 
-        {
-            boalSprite.sprite = Resources.LoadAll<Sprite>(resourceSelect[GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game)])[GameManager.Instance.InformationAccess(GameManager.Information.cloth, GameManager.Instruction.use, GameManager.ModeName.soccer, 0)];
-        }
-        
+        boalSprite.sprite = initialData.clothSprite;
+
+        //ボールのcollision用コライダー
         boalRig = obj.GetComponent<Rigidbody2D>();
         obj.AddComponent<PolygonCollider2D>();
 
+        //ボールのtrigger用コライダー
         GameObject childobj = obj.transform.GetChild(0).gameObject;
         PolygonCollider2D targetcollider = childobj.AddComponent<PolygonCollider2D>();
         targetcollider.isTrigger = true;
@@ -65,7 +60,7 @@ public class Newboal : MonoBehaviour
         if (collision.gameObject.CompareTag(playerTagName))
         {
             GameManager.Instance.InformationAccess(GameManager.Information.kick, GameManager.Instruction.add);
-            texDisplay.TextDisplaing(kickTex, GameManager.Instance.InformationAccess(GameManager.Information.kick, GameManager.Instruction.use));
+            //texDisplay.TextDisplaing(kickTex, GameManager.Instance.InformationAccess(GameManager.Information.kick, GameManager.Instruction.use));
         }
         else if (collision.gameObject.CompareTag(deathTagName))
         {

@@ -19,8 +19,8 @@ public class coinManager : MonoBehaviour
     [Header("コイン生成場所のy軸最高値")]
     [SerializeField] float coinYposOver;
 
-    [System.NonSerialized]
-    public CoinInformation coinInfo= new CoinInformation();
+
+    [SerializeField] CoinPool coinPool;
 
     private int createCounter;
 
@@ -28,23 +28,20 @@ public class coinManager : MonoBehaviour
     private void Awake()
     {
         if (GameManager.Instance.created) { return; }
-        for(int i = 0; i < InitialCoinAmount; i++)
+        for (int i = 0; i < InitialCoinAmount; i++)
         {
-            GameObject createObj = coinInfo.InitialCreate(coin);
+            GameObject createObj = coinPool.InitialCreate(coin);
             createObj.GetComponent<Transform>().position = new Vector2(Random.Range(coinXposUnder, coinXposOver), Random.Range(coinYposUnder, coinYposOver));
-            coinInfo.ReturnCoin(createObj);
+            coinPool.ReturnCoin(createObj);
         }
         GameManager.Instance.created = true;
     }
     private void Update()
     {
-        //アクティブ系
-        if(GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game) != (int)GameManager.State.game) { coinInfo.UnActivator(); pozeRock = true; return; }
-        else if (pozeRock) { coinInfo.DoActivator(); pozeRock = false; }
         createCounter++;
-        if(createCounter > coinCreateInterval)
+        if (createCounter > coinCreateInterval)
         {
-            GameObject coinObj = coinInfo.UseCoin(coin);
+            GameObject coinObj = coinPool.UseCoin(coin);
             coinObj.SetActive(true);
             coinObj.GetComponent<Transform>().position = new Vector2(Random.Range(coinXposUnder, coinXposOver), Random.Range(coinYposUnder, coinYposOver));
             createCounter = 0;

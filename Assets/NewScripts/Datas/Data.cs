@@ -16,7 +16,14 @@ public class Data
     public int SEVolume = 2;
     public int BGMVolume = 2;
 
-    public int[] clothAchive = new int[9];
+    //着せ替えをどこまでアンロックしているか
+    public int[] clothAchive = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    //コインのアンロックレベル
     public int coinLevel = 1;
+    //ハートのアンロックレベル
     public int heartLevel = 1;
+    //インデックスに対応した着せ替えの内容
+    public int[] sportCloth = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    //ゲームの記録
+    public int[] PlayScores = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 }
