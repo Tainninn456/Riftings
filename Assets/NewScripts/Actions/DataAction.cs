@@ -2,30 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// データに関するアクションを実行、TextActionとImageActionの動作も実行する可能性アリ
 /// </summary>
 public class DataAction : MonoBehaviour
 {
+    [Header("メインメニュー")]
     [SerializeField] TextAction textAction;
     [SerializeField] ImageAction imageAction;
+
+    const string menuSceneName = "menuScene";
+    const string playSceneName = "playScene";
 
     const string bothWrite = "TextAndImage";
     const string textWrite = "TextOnly";
     const string imageWrite = "ImageOnly";
 
+    //他からアクセス出来ない真のデータ
     private Data data = new Data();
+    //ショップの情報が入っている定数のデータ
     private shopPrices shopData = new shopPrices();
+    //現在のスポーツ各種のスプライトを保持
+    public Sprite[] sportSprites = new Sprite[9];
 
+    //着せ替えの中で現在アクションを行っているスポーツのインデックス
     private int clothChangeIndex;
     private string dataFilePath;
     private void Start()
     {
+        //データ関連のinitialize
         dataFilePath = Application.persistentDataPath + "/Data.json";
         DataLoad();
         data.CoinAmount = 500;
         DataSave();
+
+        if (SceneManager.GetActiveScene().name == menuSceneName)
+        {
+            //その他initialize
+            SpritesInsert();
+        }
     }
 
     //消費するスポーツタイプを決定
@@ -82,15 +99,24 @@ public class DataAction : MonoBehaviour
         switch (operationName)
         {
             case bothWrite:
-                textAction.DataIntoImage();
-                imageAction.DataIntoText();
+                textAction.DataIntoText();
+                imageAction.DataIntoImage();
                 break;
             case textWrite:
-                textAction.DataIntoImage();
+                textAction.DataIntoText();
                 break;
             case imageWrite:
-                imageAction.DataIntoText();
+                imageAction.DataIntoImage();
                 break;
+        }
+    }
+
+    //スポーツ各種の現在のスプライトを取得
+    private void SpritesInsert()
+    {
+        for(int i = 0; i < sportSprites.Length; i++)
+        {
+            sportSprites[i] = imageAction.sportSprites[i * 9 + data.sportCloth[i]];
         }
     }
 
@@ -112,5 +138,11 @@ public class DataAction : MonoBehaviour
         writer.Write(jsonstr);
         writer.Flush();
         writer.Close();
+    }
+
+    public Data DataCopy()
+    {
+        Data copyData = data;
+        return copyData;
     }
 }

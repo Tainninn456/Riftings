@@ -10,12 +10,28 @@ public class ImageAction : MonoBehaviour
     const string unActiveTagName = "ActiveObject";
     const string scoreImageGetName = "AllScoreImageComponentGeter";
     const string clothImageGetName = "AllClothImageComponentGeter";
+    const string sportSpritesGetName = "AllSportSpritesGeter";
+    const int sportTypeCount = 9;
 
+    //script“à‚Å‚Ì’è”
+    readonly string[] resourceSelect = new string[9] { "soccer/", "tennis/", "baseball/", "boring/", "panchi/", "tabletennis/", "ragby/", "biriyard", "volley/" };
+
+    [Header("ƒƒCƒ“ƒƒjƒ…[")]
     [SerializeField] Image[] scoreImages;
     [SerializeField] Image[] clothImages;
 
+    [SerializeField]
+    public Sprite[] sportSprites;
 
-    public void DataIntoText()
+    public void clothButtonImageChanger(int index)
+    {
+        for(int i = 0; i < clothImages.Length; i++)
+        {
+            clothImages[i].sprite = sportSprites[index * sportTypeCount + i];
+        }
+    }
+
+    public void DataIntoImage()
     {
 
     }
@@ -60,6 +76,20 @@ public class ImageAction : MonoBehaviour
         for (int i = 0; i < texs.Count; i++)
         {
             clothImages[i] = texs[i];
+        }
+    }
+
+    [ContextMenu(sportSpritesGetName)]
+    private void AllSportSpritesGeter()
+    {
+        sportSprites = new Sprite[sportTypeCount * sportTypeCount];
+        for(int i = 0; i < sportTypeCount; i++)
+        {
+            Sprite[] playerSprites = Resources.LoadAll<Sprite>(resourceSelect[i]);
+            for(int j = 0; j < sportTypeCount; j++)
+            {
+                sportSprites[i * sportTypeCount + j] = playerSprites[j];
+            }
         }
     }
 }

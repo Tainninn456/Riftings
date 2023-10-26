@@ -11,12 +11,34 @@ public class TextAction : MonoBehaviour
     const string methodScoreName = "AllScoreTextComponentGeter";
     const string methodMoneyName = "AllMoneyTextComponentGeter";
 
+    [Header("メインメニュー")]
     [SerializeField] TextMeshProUGUI[] scoreTexts;
     [SerializeField] TextMeshProUGUI[] moneyTexts;
 
-    public void DataIntoImage()
+    [Header("インゲーム")]
+    [SerializeField] TextMeshProUGUI kickText;
+    [SerializeField] TextMeshProUGUI coinText;
+
+    /// <summary>
+    /// メインメニュー内実行関数
+    /// </summary>
+    public void DataIntoText()
     {
 
+    }
+
+    /// <summary>
+    /// インゲーム内実行関数
+    /// </summary>
+    
+    public void KickCountDisplay(int kickCount)
+    {
+        kickText.text = kickCount.ToString();
+    }
+
+    public void CoinCountDisplay(int coinAmount)
+    {
+        coinText.text = coinAmount.ToString();
     }
 
     /// <summary>

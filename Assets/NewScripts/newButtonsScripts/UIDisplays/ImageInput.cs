@@ -11,6 +11,16 @@ public class ImageInput : InputParent
     [SerializeField] ImageAction imageAction;
 
     [SerializeField] Button[] clothChangeButtons = new Button[0];
+
+    private void Start()
+    {
+        for(int i = 0; i < clothChangeButtons.Length; i++)
+        {
+            int indexNumber = i;
+            clothChangeButtons[i].onClick.AddListener(() => imageAction.clothButtonImageChanger(indexNumber));
+        }
+    }
+
     [ContextMenu(methodClothMoneyName)]
     private void ClothChangeButtonsGetter()
     {

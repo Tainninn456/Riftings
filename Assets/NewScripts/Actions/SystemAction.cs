@@ -13,6 +13,7 @@ public class SystemAction : MonoBehaviour
     const float minScale = 0.05f;
     const int maxScale = 1;
 
+    [Header("メインメニュー")]
     [Header("シーン遷移時に着せ替え情報を取得するため")]
     [SerializeField] DataAction useData;
 
@@ -30,6 +31,8 @@ public class SystemAction : MonoBehaviour
 
     [Header("ポップの親オブジェクト")]
     [SerializeField] GameObject popParent;
+
+    [SerializeField] DataAction dataAction;
 
     private int sportTypeNumber = 0;
     public enum MoveDirection
@@ -128,8 +131,12 @@ public class SystemAction : MonoBehaviour
     //シーン遷移内で受け渡すデータの内容
     private void GameSceneLoaded(Scene next, LoadSceneMode mode)
     {
+        //遷移先シーンのオブジェクト検索
         var datareciver = GameObject.FindWithTag("DataReciver").GetComponent<DataReciver>();
+        //データの取得
+        Data stockData = dataAction.DataCopy();
         datareciver.sportType = sportTypeNumber;
+        datareciver.clothSprite = dataAction.sportSprites[sportTypeNumber];
         SceneManager.sceneLoaded -= GameSceneLoaded;
     }
 }
