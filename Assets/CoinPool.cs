@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class CoinPool : MonoBehaviour
 {
@@ -8,49 +9,62 @@ public class CoinPool : MonoBehaviour
     private static List<GameObject> coinPoolUnActives = new List<GameObject>();
     private static List<GameObject> coinPoolActives = new List<GameObject>();
 
-    private GameObject ReuseCoin(GameObject coinbase)
+    [Header("コイン生成場所のx軸最低値")]
+    [SerializeField] float coinXposUnder;
+    [Header("コイン生成場所のx軸最高値")]
+    [SerializeField] float coinXposOver;
+    [Header("コイン生成場所のy軸最低値")]
+    [SerializeField] float coinYposUnder;
+    [Header("コイン生成場所のy軸最高値")]
+    [SerializeField] float coinYposOver;
+
+    private ObjectPool<GameObject> coinPool;
+
+    private GameObject createCoinInformation;
+
+    //coinInformationに情報を渡す
+    public void CoinInformationInput(GameObject info)
     {
-        unActiveCount--;
-        GameObject returnObj = coinPoolUnActives[0];
-        coinPoolUnActives.Remove(returnObj);
-        return returnObj;
+        createCoinInformation = info;
     }
 
-    private GameObject CreateCoin(GameObject coin)
+    void Awake()
     {
-        GameObject obj = Instantiate(coin);
-        coinPoolUnActives.Add(obj);
-        coinPoolActives.Add(coin);
-        unActiveCount++;
+        coinPool = new ObjectPool<GameObject>(OnCreatePooledObject, OnGetFromPool, OnReleaseToPool, OnDestroyPooledObject);
+    }
+
+    GameObject OnCreatePooledObject()
+    {
+        return Instantiate(createCoinInformation);
+    }
+
+    void OnGetFromPool(GameObject obj)
+    {
+        obj.SetActive(true);
+    }
+
+    void OnReleaseToPool(GameObject obj)
+    {
+        obj.SetActive(false);
+    }
+
+    void OnDestroyPooledObject(GameObject obj)
+    {
+        Destroy(obj);
+    }
+
+    public GameObject GetGameObject()
+    {
+        GameObject obj = coinPool.Get();
+        Transform tf = obj.transform;
+        tf.position = new Vector2(Random.Range(coinXposUnder, coinXposOver), Random.Range(coinYposUnder, coinYposOver));
+
         return obj;
     }
 
-    public GameObject InitialCreate(GameObject coin)
+    public void ReleaseGameObject(GameObject obj)
     {
-        GameObject obj = Instantiate(coin);
-        coinPoolUnActives.Add(obj);
-        unActiveCount++;
-        return obj;
-    }
-
-    //デフォルトの呼び出し関数
-    public GameObject UseCoin(GameObject coin)
-    {
-        if(unActiveCount == 0)
-        {
-            return CreateCoin(coin);
-        }
-        else
-        {
-            return ReuseCoin(coin);
-        }
-    }
-
-    public void ReturnCoin(GameObject coin)
-    {
-        coin.SetActive(false);
-        coinPoolUnActives.Add(coin);
-        unActiveCount++;
+        coinPool.Release(obj);
     }
 
     public void UnActivator()
@@ -64,7 +78,6 @@ public class CoinPool : MonoBehaviour
 
     public void DoActivator()
     {
-        Debug.Log("doactive");
         for(int i = 0; i < coinPoolActives.Count; i++)
         {
             coinPoolActives[i].SetActive(true);

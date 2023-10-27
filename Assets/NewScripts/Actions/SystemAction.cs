@@ -23,16 +23,29 @@ public class SystemAction : MonoBehaviour
     [Header("実際に動かすパネル")]
     [SerializeField] RectTransform[] movePanel;
 
-    [Header("サウンドのポップ")]
+    [Header("サウンドのポップ(インゲームでも使用)")]
     [SerializeField] GameObject soundPop;
 
     [Header("着せ替えのポップ")]
     [SerializeField] GameObject clothPop;
 
-    [Header("ポップの親オブジェクト")]
+    [Header("ポップの親オブジェクト(インゲームでも使用)")]
     [SerializeField] GameObject popParent;
 
     [SerializeField] DataAction dataAction;
+
+    [Header("インゲーム")]
+    [Header("ポーズのポップ")]
+    [SerializeField] GameObject porzPop;
+
+    [Header("シーン遷移データの参照")]
+    [SerializeField] DataReciver referencsData;
+
+    [Header("ゲーム内アクティブオブジェクトの親")]
+    [SerializeField] GameObject activeParent;
+
+    [Header("ポーズ用オブジェクト")]
+    [SerializeField] RePlayDatas replayer;
 
     private int sportTypeNumber = 0;
     public enum MoveDirection
@@ -43,8 +56,10 @@ public class SystemAction : MonoBehaviour
 
     public enum PopName
     {
+        None,
         Sound,
-        Cloth
+        Cloth,
+        Porz
     }
 
     public enum PopOperaition
@@ -82,6 +97,10 @@ public class SystemAction : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 下記ポップ系
+    /// </summary>
+
     //下記popに関して
     public void PopUp(PopName popName)
     {
@@ -96,6 +115,11 @@ public class SystemAction : MonoBehaviour
             case PopName.Cloth:
                 clothPop.SetActive(true);
                 myTrans = clothPop.GetComponent<RectTransform>();
+                break;
+            case PopName.Porz:
+                porzPop.SetActive(true);
+                myTrans = porzPop.GetComponent<RectTransform>();
+                ActiveOperation(true);
                 break;
         }
         myTrans.DOScale(new Vector3(maxScale, maxScale, maxScale), animaionSpeed);
@@ -112,8 +136,76 @@ public class SystemAction : MonoBehaviour
             case PopName.Cloth:
                 myObj = clothPop;
                 break;
+            case PopName.Porz:
+                myObj = porzPop;
+                ActiveOperation(false);
+                break;
         }
         myObj.GetComponent<RectTransform>().DOScale(new Vector3(minScale, minScale, 1), animaionSpeed).OnComplete(() => myObj.SetActive(false)).OnComplete(() => popParent.SetActive(false));
+    }
+
+    public void PopChain(PopOperaition operationName, PopName targetPopName)
+    {
+        GameObject myObj = null;
+        switch (targetPopName)
+        {
+            case PopName.Sound:
+                myObj = soundPop;
+                break;
+            case PopName.Cloth:
+                myObj = clothPop;
+                break;
+            case PopName.Porz:
+                myObj = porzPop;
+                break;
+        }
+        switch (operationName)
+        {
+            case PopOperaition.up:
+                myObj.SetActive(true);
+                myObj.GetComponent<RectTransform>().DOScale(new Vector3(maxScale, maxScale, maxScale), animaionSpeed);
+                break;
+            //自身を非表示にするのみ
+            case PopOperaition.down:
+                myObj.GetComponent<RectTransform>().DOScale(new Vector3(minScale, minScale, 1), animaionSpeed).OnComplete(() => myObj.SetActive(false));
+                break;
+        }
+    }
+
+    private void ActiveOperation(bool Operation)
+    {
+        if(SceneManager.GetActiveScene().name == menuSceneName) { return; }
+        //止める場合の処理
+        if (Operation)
+        {
+            replayer.StopWorldInfrence();
+            activeParent.SetActive(false);
+        }
+        else
+        {
+            activeParent.SetActive(true);
+            replayer.ReWorldInfrence();
+        }
+    }
+
+    /// <summary>
+    /// 下記シーン遷移系
+    /// </summary>
+
+    //スポーツの種類を指定しないシーン遷移
+    public void SimpleSceneMover(int sceneIndex)
+    {
+        ActiveOperation(false);
+        switch (sceneIndex)
+        {
+            case 0:
+                SceneManager.sceneLoaded += ReloadScene;
+                SceneManager.LoadScene(playSceneName);
+                break;
+            case 1:
+                SceneManager.LoadScene(menuSceneName);
+                break;
+        }
     }
 
     //外部入力からシーン遷移の開始を宣言
@@ -125,6 +217,7 @@ public class SystemAction : MonoBehaviour
     //実際のシーン遷移
     private void SceneMove()
     {
+        ActiveOperation(false);
         SceneManager.sceneLoaded += GameSceneLoaded;
         SceneManager.LoadScene(playSceneName);
     }
@@ -138,5 +231,14 @@ public class SystemAction : MonoBehaviour
         datareciver.sportType = sportTypeNumber;
         datareciver.clothSprite = dataAction.sportSprites[sportTypeNumber];
         SceneManager.sceneLoaded -= GameSceneLoaded;
+    }
+    private void ReloadScene(Scene next, LoadSceneMode mode)
+    {
+        //遷移先シーンのオブジェクト検索
+        var datareciver = GameObject.FindWithTag("DataReciver").GetComponent<DataReciver>();
+        //データの取得
+        datareciver.sportType = referencsData.sportType;
+        datareciver.clothSprite = referencsData.clothSprite;
+        SceneManager.sceneLoaded -= ReloadScene;
     }
 }

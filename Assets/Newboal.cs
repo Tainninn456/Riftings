@@ -16,11 +16,15 @@ public class Newboal : MonoBehaviour
     [Header("Initializeの参照")]
     [SerializeField] DataReciver initialData;
 
-    [Header("インゲームデータストックへのアクセス")]
-    [SerializeField] InGameStockData gameDatas;
+    private InGameStockData gameDatas;
 
-    [Header("コイン情報へのアクセス")]
-    [SerializeField] CoinInformation coinInfo;
+    private CoinInformation coinInfo;
+
+    [Header("データ系へのアクセス")]
+    [SerializeField] GameObject managerInformation;
+
+    [Header("テキストへのアクセス")]
+    [SerializeField] TextAction textAction;
 
     const string playerTagName = "Player";
     const string deathTagName = "Death";
@@ -46,6 +50,10 @@ public class Newboal : MonoBehaviour
         PolygonCollider2D targetcollider = childobj.AddComponent<PolygonCollider2D>();
         targetcollider.isTrigger = true;
         targetcollider.points = obj.GetComponent<PolygonCollider2D>().points;
+
+        //コンポーネントを取得
+        gameDatas = managerInformation.GetComponent<InGameStockData>();
+        coinInfo = managerInformation.GetComponent<CoinInformation>();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -59,12 +67,25 @@ public class Newboal : MonoBehaviour
         //キック回数を加算
         if (collision.gameObject.CompareTag(playerTagName))
         {
-            GameManager.Instance.InformationAccess(GameManager.Information.kick, GameManager.Instruction.add);
-            //texDisplay.TextDisplaing(kickTex, GameManager.Instance.InformationAccess(GameManager.Information.kick, GameManager.Instruction.use));
+            gameDatas.kickCount++;
+            textAction.KickCountDisplay(gameDatas.kickCount);
         }
         else if (collision.gameObject.CompareTag(deathTagName))
         {
             GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.insert, GameManager.ModeName.soccer, GameManager.State.result);
         }
+    }
+
+    public Vector2 BallRigChanger(string access, Vector2 inputSpeed)
+    {
+        switch (access)
+        {
+            case "get":
+                return boalRig.velocity;
+            case "set":
+                boalRig.velocity = inputSpeed;
+                break;
+        }
+        return new Vector2(50, 50);
     }
 }

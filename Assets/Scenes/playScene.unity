@@ -299,6 +299,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cMane: {fileID: 742631751}
   coinTex: {fileID: 1206231146}
+  managerInformation: {fileID: 742631750}
+  textAction: {fileID: 604201970}
 --- !u!1 &97824496
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,14 +898,14 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1752396592}
   - {fileID: 1017796739}
   - {fileID: 1171621019}
   - {fileID: 433329670}
   m_Father: {fileID: 516481379}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1154,8 +1156,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 432257259}
   - {fileID: 1861350193}
+  - {fileID: 432257259}
   m_Father: {fileID: 1447299093}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1527,19 +1529,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 537713453}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 935874598}
-        m_TargetAssemblyTypeName: InputScripts, Assembly-CSharp
-        m_MethodName: SoundVolumeAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &537713453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1881,6 +1871,7 @@ GameObject:
   m_Component:
   - component: {fileID: 591894456}
   - component: {fileID: 591894457}
+  - component: {fileID: 591894458}
   m_Layer: 0
   m_Name: DataReciverPoint
   m_TagString: DataReciver
@@ -1918,7 +1909,20 @@ MonoBehaviour:
   sportType: 0
   clothNumber: 0
   clothSprite: {fileID: 0}
-  test: 
+--- !u!114 &591894458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591894455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb49e409cd9d7b4885725df1787fef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballScript: {fileID: 603763439}
+  cmaneScript: {fileID: 742631751}
 --- !u!1 &603763434
 GameObject:
   m_ObjectHideFlags: 0
@@ -2042,8 +2046,8 @@ MonoBehaviour:
   maxBoalSpeed: 9
   boalSpeedRatio: 0.7
   initialData: {fileID: 591894457}
-  gameDatas: {fileID: 742631753}
-  coinInfo: {fileID: 742631755}
+  managerInformation: {fileID: 742631750}
+  textAction: {fileID: 604201970}
 --- !u!1 &604201964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2053,6 +2057,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 604201965}
+  - component: {fileID: 604201971}
+  - component: {fileID: 604201972}
   - component: {fileID: 604201970}
   - component: {fileID: 604201969}
   - component: {fileID: 604201968}
@@ -2146,10 +2152,14 @@ MonoBehaviour:
   useData: {fileID: 0}
   movePanelPositions: []
   movePanel: []
-  soundPop: {fileID: 0}
+  soundPop: {fileID: 432257258}
   clothPop: {fileID: 0}
-  popParent: {fileID: 0}
+  popParent: {fileID: 516481378}
   dataAction: {fileID: 0}
+  porzPop: {fileID: 1861350192}
+  referencsData: {fileID: 591894457}
+  activeParent: {fileID: 860002456}
+  replayer: {fileID: 591894458}
 --- !u!114 &604201970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2166,6 +2176,53 @@ MonoBehaviour:
   moneyTexts: []
   kickText: {fileID: 521979761}
   coinText: {fileID: 1206231146}
+--- !u!114 &604201971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604201964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 658b24f30e54c4b4387b8069eb79168d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  systemAction: {fileID: 604201969}
+  clothBackButton: {fileID: 0}
+  ToClothButton: {fileID: 0}
+  ToScoreButton: {fileID: 0}
+  scoreBackButton: {fileID: 0}
+  soundPopButtons:
+  - {fileID: 2142540480}
+  - {fileID: 1017796741}
+  clothPopUpButtons: []
+  clothPopDownButton: {fileID: 0}
+  sceneButtons:
+  - {fileID: 1351885605}
+  - {fileID: 1183692252}
+  porzPopButtons:
+  - {fileID: 1716085587}
+  - {fileID: 695789359}
+--- !u!114 &604201972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604201964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73673944bf88d2b4da6ec3c917c5430d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundAction: {fileID: 604201968}
+  BGMButtons:
+  - {fileID: 721123167}
+  - {fileID: 1818770542}
+  SEButtons:
+  - {fileID: 537713452}
+  - {fileID: 935874599}
 --- !u!1 &642509766
 GameObject:
   m_ObjectHideFlags: 0
@@ -2315,7 +2372,7 @@ GameObject:
   - component: {fileID: 695789359}
   - component: {fileID: 695789358}
   m_Layer: 5
-  m_Name: soundBack
+  m_Name: porzBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2338,7 +2395,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -331.35}
+  m_AnchoredPosition: {x: -117.95, y: -331.35}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &695789358
@@ -2361,7 +2418,7 @@ MonoBehaviour:
   boalRig: {fileID: 603763436}
   type: 0
   instruction: 0
-  display: {fileID: 1073242805}
+  display: {fileID: 0}
   objParent: {fileID: 860002456}
   panelSelection: 0
 --- !u!114 &695789359
@@ -2407,19 +2464,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 695789360}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 695789358}
-        m_TargetAssemblyTypeName: InputScripts, Assembly-CSharp
-        m_MethodName: PopDown
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &695789360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2564,19 +2609,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 721123168}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1818770541}
-        m_TargetAssemblyTypeName: InputScripts, Assembly-CSharp
-        m_MethodName: SoundVolumeAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &721123168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2650,11 +2683,10 @@ MonoBehaviour:
   coin: {fileID: 8614423737932888132, guid: 71cb1f243269b2d48afeaab12954697d, type: 3}
   InitialCoinAmount: 30
   coinCreateInterval: 120
-  coinXposUnder: -2.1
-  coinXposOver: 2.1
-  coinYposUnder: 3.1
-  coinYposOver: 7.4
+  coinsParent: {fileID: 1139999155}
+  coinInfo: {fileID: 742631755}
   coinPool: {fileID: 742631754}
+  porzBool: 0
 --- !u!4 &742631752
 Transform:
   m_ObjectHideFlags: 0
@@ -2696,6 +2728,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02c306e6e1bbee4459936c5ba0b32a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinXposUnder: -1.8
+  coinXposOver: 1.8
+  coinYposUnder: 3.2
+  coinYposOver: 7.2
 --- !u!114 &742631755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3131,7 +3167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 860002457}
   m_Layer: 0
-  m_Name: news
+  m_Name: Actives
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3151,7 +3187,7 @@ Transform:
   m_Children:
   - {fileID: 47930153}
   - {fileID: 603763438}
-  - {fileID: 1073242806}
+  - {fileID: 1139999156}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3261,19 +3297,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 935874600}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 935874598}
-        m_TargetAssemblyTypeName: InputScripts, Assembly-CSharp
-        m_MethodName: SoundVolumeAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &935874600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3507,7 +3531,7 @@ MonoBehaviour:
   boalRig: {fileID: 0}
   type: 0
   instruction: 0
-  display: {fileID: 1073242805}
+  display: {fileID: 0}
   objParent: {fileID: 860002456}
   panelSelection: 0
 --- !u!114 &1017796741
@@ -3553,19 +3577,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1017796742}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1017796740}
-        m_TargetAssemblyTypeName: InputScripts, Assembly-CSharp
-        m_MethodName: PopDown
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1017796742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3586,7 +3598,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 25c2d239600db471aabc8ffa640bc0ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 493fd7d0e626d4db091f50928058f0b8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3854,7 +3866,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1073242804
+--- !u!1 &1139999155
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3862,42 +3874,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1073242806}
-  - component: {fileID: 1073242805}
+  - component: {fileID: 1139999156}
   m_Layer: 0
-  m_Name: Displays
+  m_Name: poolParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1073242805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1073242804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b92a8cfb413043146a8d7aa1d186f682, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  popParent: {fileID: 516481378}
-  pops:
-  - {fileID: 432257258}
-  - {fileID: 1861350192}
-  clothes: []
-  modePrefer: []
---- !u!4 &1073242806
+--- !u!4 &1139999156
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1073242804}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.0791926, y: -4.700644, z: 585.68207}
+  m_GameObject: {fileID: 1139999155}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4017,7 +4010,7 @@ RectTransform:
   m_Children:
   - {fileID: 642509767}
   m_Father: {fileID: 1861350193}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4067,19 +4060,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1183692253}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1183692255}
-        m_TargetAssemblyTypeName: InputScripts, Assembly-CSharp
-        m_MethodName: SceneChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1183692253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4420,7 +4401,7 @@ RectTransform:
   m_Children:
   - {fileID: 1002109689}
   m_Father: {fileID: 1861350193}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5119,7 +5100,7 @@ MonoBehaviour:
   boalRig: {fileID: 603763436}
   type: 0
   instruction: 0
-  display: {fileID: 1073242805}
+  display: {fileID: 0}
   objParent: {fileID: 860002456}
   panelSelection: 0
 --- !u!114 &1716085587
@@ -5165,31 +5146,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1716085588}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1716085586}
-        m_TargetAssemblyTypeName: InputScripts, Assembly-CSharp
-        m_MethodName: PopUp
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1716085586}
-        m_TargetAssemblyTypeName: InputScripts, Assembly-CSharp
-        m_MethodName: Poze
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1716085588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5489,19 +5446,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1818770543}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1818770541}
-        m_TargetAssemblyTypeName: InputScripts, Assembly-CSharp
-        m_MethodName: SoundVolumeAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1818770543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5906,14 +5851,15 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 40940733}
   - {fileID: 695789357}
+  - {fileID: 2142540478}
   - {fileID: 1351885604}
   - {fileID: 1183692251}
   m_Father: {fileID: 516481379}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6837,3 +6783,148 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2142540477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2142540478}
+  - component: {fileID: 2142540482}
+  - component: {fileID: 2142540481}
+  - component: {fileID: 2142540480}
+  - component: {fileID: 2142540479}
+  m_Layer: 5
+  m_Name: soundGo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2142540478
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142540477}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1861350193}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 120.62, y: -331.35}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2142540479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142540477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a9b13ed8417a7e4bb12b9cd6325fe19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetModeName: 0
+  targetSceneName: 0
+  panelMoveDirection: {fileID: 0}
+  myTrans: {fileID: 0}
+  pop: {fileID: 0}
+  boalRig: {fileID: 603763436}
+  type: 0
+  instruction: 0
+  display: {fileID: 0}
+  objParent: {fileID: 860002456}
+  panelSelection: 0
+--- !u!114 &2142540480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142540477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 2142540481}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2142540481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142540477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 493fd7d0e626d4db091f50928058f0b8, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2142540482
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142540477}
+  m_CullTransparentMesh: 1

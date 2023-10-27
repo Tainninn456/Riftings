@@ -17,7 +17,6 @@ public class PlayerSelecter : MonoBehaviour
             objs.Add(mine.transform.GetChild(i).gameObject);
             objs[i].SetActive(false);
         }
-        //GameObject playObj = objs[GameManager.Instance.InformationAccess(GameManager.Information.mode, GameManager.Instruction.use, GameManager.ModeName.soccer, GameManager.State.game)];
         GameObject playerObj = objs[initialData.sportType];
         playerObj.SetActive(true);
     }
