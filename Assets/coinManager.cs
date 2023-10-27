@@ -10,41 +10,41 @@ public class coinManager : MonoBehaviour
     [Header("コインを生成する間隔")]
     [SerializeField] int coinCreateInterval;
 
-    [Header("コイン生成場所のx軸最低値")]
-    [SerializeField] float coinXposUnder;
-    [Header("コイン生成場所のx軸最高値")]
-    [SerializeField] float coinXposOver;
-    [Header("コイン生成場所のy軸最低値")]
-    [SerializeField] float coinYposUnder;
-    [Header("コイン生成場所のy軸最高値")]
-    [SerializeField] float coinYposOver;
+    [Header("コインプール群の親オブジェクト")]
+    [SerializeField] GameObject coinsParent;
 
+    [SerializeField] CoinInformation coinInfo;
 
     [SerializeField] CoinPool coinPool;
 
     private int createCounter;
 
-    private bool pozeRock;
+    public bool porzBool;
     private void Awake()
     {
-        if (GameManager.Instance.created) { return; }
-        for (int i = 0; i < InitialCoinAmount; i++)
-        {
-            GameObject createObj = coinPool.InitialCreate(coin);
-            createObj.GetComponent<Transform>().position = new Vector2(Random.Range(coinXposUnder, coinXposOver), Random.Range(coinYposUnder, coinYposOver));
-            coinPool.ReturnCoin(createObj);
-        }
-        GameManager.Instance.created = true;
+        coinPool.CoinInformationInput(coin);
+        CoinValueChanger(1);
     }
     private void Update()
     {
+        if (porzBool) { return; }
         createCounter++;
         if (createCounter > coinCreateInterval)
         {
-            GameObject coinObj = coinPool.UseCoin(coin);
-            coinObj.SetActive(true);
-            coinObj.GetComponent<Transform>().position = new Vector2(Random.Range(coinXposUnder, coinXposOver), Random.Range(coinYposUnder, coinYposOver));
+            coinPool.GetGameObject().transform.parent = coinsParent.transform;
             createCounter = 0;
         }
+    }
+
+    //CoinPoolに関する外部からの呼び出し関数
+    public void CoinPoolReturn(GameObject returnObj)
+    {
+        coinPool.ReleaseGameObject(returnObj);
+    }
+
+    //CoinInformationに関する外部からの呼び出し関数
+    public void CoinValueChanger(int value)
+    {
+        coinInfo.CoinValue = value;
     }
 }
