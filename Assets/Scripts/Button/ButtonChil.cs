@@ -2,7 +2,7 @@ using UnityEngine;
 using System.IO;
 using TMPro;
 using UnityEngine.UI;
-public class ButtonChil : ButtonParent
+public class ButtonChil : MonoBehaviour//ButtonParent
 {
     public static int gameMord = 9; public static bool startKey; public static bool porzKey;
     static GameObject[] cloChain = new GameObject[8];

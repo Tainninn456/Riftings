@@ -7,7 +7,6 @@ public class ballTrigger : MonoBehaviour
 {
     const string coinTagName = "coin";
 
-    TextDiplay texDisplay = new TextDiplay();
     [Header("コインマネージャー")]
     [SerializeField] coinManager cMane;
     [Header("コインの取得数を表示するテキスト")]
