@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ButtonsParent : MonoBehaviour
 {
-    public ButtonParent button;
+    //public ButtonParent button;
     public void OnClick()
     {
         OnClick(gameObject.name);

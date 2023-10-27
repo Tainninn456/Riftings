@@ -72,7 +72,6 @@ public class Newboal : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag(deathTagName))
         {
-            GameManager.Instance.InformationAccess(GameManager.Information.state, GameManager.Instruction.insert, GameManager.ModeName.soccer, GameManager.State.result);
         }
     }
 
