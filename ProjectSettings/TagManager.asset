@@ -9,6 +9,10 @@ TagManager:
   - Death
   - ActiveObject
   - DataReciver
+  - Gimic
+  - wall
+  - pluscoin
+  - minuscoin
   layers:
   - Default
   - TransparentFX

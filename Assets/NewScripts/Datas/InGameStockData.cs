@@ -8,4 +8,12 @@ public class InGameStockData: MonoBehaviour
     public int kickCount;
     [HideInInspector]
     public int coinCount;
+    [HideInInspector]
+    public int plusCoinCount;
+    [HideInInspector]
+    public int minusCoinCount;
+    [HideInInspector]
+    public bool GameOver;
+    [HideInInspector]
+    public bool AnimationEnd;
 }

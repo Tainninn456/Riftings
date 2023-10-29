@@ -40,7 +40,7 @@ public class SystemInputer : InputParent
     [SerializeField] Button clothPopDownButton;
 
     //シーン遷移ボタンの取得
-    [Header("シーン遷移ボタン(インゲームでも使用,0=リロード,1=メニューに遷移)")]
+    [Header("シーン遷移ボタン(インゲームでも使用,0=リロード,1=メニューに遷移、ポーズとリザルトの順番で保持)")]
     [SerializeField] Button[] sceneButtons;
 
     [Header("インゲーム")]
@@ -82,6 +82,8 @@ public class SystemInputer : InputParent
 
             sceneButtons[0].onClick.AddListener(() => systemAction.SimpleSceneMover(0));
             sceneButtons[1].onClick.AddListener(() => systemAction.SimpleSceneMover(1));
+            sceneButtons[2].onClick.AddListener(() => systemAction.SimpleSceneMover(0));
+            sceneButtons[3].onClick.AddListener(() => systemAction.SimpleSceneMover(1));
         }
     }
 

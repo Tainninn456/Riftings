@@ -17,10 +17,10 @@ public class SystemAction : MonoBehaviour
     [Header("シーン遷移時に着せ替え情報を取得するため")]
     [SerializeField] DataAction useData;
 
-    [Header("パネルの遷移先位置")]
+    [Header("パネルの遷移先位置(インゲームでは0=resultLastPosition)")]
     [SerializeField] RectTransform[] movePanelPositions;
 
-    [Header("実際に動かすパネル")]
+    [Header("実際に動かすパネル(インゲームでは0=resultPanel)")]
     [SerializeField] RectTransform[] movePanel;
 
     [Header("サウンドのポップ(インゲームでも使用)")]
@@ -51,7 +51,8 @@ public class SystemAction : MonoBehaviour
     public enum MoveDirection
     {
         left,
-        right
+        right,
+        over
     }
 
     public enum PopName
@@ -70,30 +71,39 @@ public class SystemAction : MonoBehaviour
 
     public void PanelMove(MoveDirection directionName, int panelNumber)
     {
-        Vector3 leftPosition = new Vector3(0, 0, 0);
-        Vector3 rightPosition = new Vector3(0, 0, 0);
-        switch (panelNumber)
+        if (directionName == MoveDirection.over)
         {
-            //着せ替えパネルの場合
-            case 0:
-                leftPosition = movePanelPositions[1].position;
-                rightPosition = movePanelPositions[2].position;
-                break;
-            //スコアパネルの場合
-            case 1:
-                leftPosition = movePanelPositions[0].position;
-                rightPosition = movePanelPositions[1].position;
-                break;
+            Vector3 downPosition = new Vector3(0, 0, 0);
+            RectTransform myTrans = movePanel[panelNumber];
+            myTrans.DOMove(downPosition, animaionSpeed).OnComplete(() => Debug.Log("##"));
         }
-        RectTransform myTrans = movePanel[panelNumber];
-        switch (directionName)
+        else
         {
-            case MoveDirection.left:
-                myTrans.DOMove(leftPosition, animaionSpeed);
-                break;
-            case MoveDirection.right:
-                myTrans.DOMove(rightPosition, animaionSpeed);
-                break;
+            Vector3 leftPosition = new Vector3(0, 0, 0);
+            Vector3 rightPosition = new Vector3(0, 0, 0);
+            switch (panelNumber)
+            {
+                //着せ替えパネルの場合
+                case 0:
+                    leftPosition = movePanelPositions[1].position;
+                    rightPosition = movePanelPositions[2].position;
+                    break;
+                //スコアパネルの場合
+                case 1:
+                    leftPosition = movePanelPositions[0].position;
+                    rightPosition = movePanelPositions[1].position;
+                    break;
+            }
+            RectTransform myTrans = movePanel[panelNumber];
+            switch (directionName)
+            {
+                case MoveDirection.left:
+                    myTrans.DOMove(leftPosition, animaionSpeed);
+                    break;
+                case MoveDirection.right:
+                    myTrans.DOMove(rightPosition, animaionSpeed);
+                    break;
+            }
         }
     }
 
@@ -172,6 +182,7 @@ public class SystemAction : MonoBehaviour
         }
     }
 
+    //ポーズに関する処理(内容が増えるごとに追加していく)
     private void ActiveOperation(bool Operation)
     {
         if(SceneManager.GetActiveScene().name == menuSceneName) { return; }

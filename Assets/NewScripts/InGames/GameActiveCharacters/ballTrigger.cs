@@ -6,11 +6,15 @@ using TMPro;
 public class ballTrigger : MonoBehaviour
 {
     const string coinTagName = "coin";
+    const string coinPlusTagName = "pluscoin";
+    const string coinMinusTagName = "minuscoin";
+    const string gimicTagName = "Gimic";
 
-    [Header("コインマネージャー")]
-    [SerializeField] coinManager cMane;
     [Header("コインの取得数を表示するテキスト")]
     [SerializeField] TextMeshProUGUI coinTex;
+
+    [Header("ボールの参照")]
+    [SerializeField] Newboal parentBoalScript;
 
     [Header("データ系へのアクセス")]
     [SerializeField] GameObject managerInformation;
@@ -21,6 +25,8 @@ public class ballTrigger : MonoBehaviour
     InGameStockData parentGameStockData;
     coinManager coinMane;
     CoinInformation coinInfo;
+
+    private bool GimicBool;
 
     private void Start()
     {
@@ -36,5 +42,25 @@ public class ballTrigger : MonoBehaviour
             parentGameStockData.coinCount += coinInfo.CoinValue;
             textAction.CoinCountDisplay(parentGameStockData.coinCount);
         }
+        else if (collision.gameObject.CompareTag(gimicTagName))
+        {
+            if (GimicBool)
+            {
+                parentBoalScript.WindAttackGimic();
+            }
+        }
+        else if (collision.gameObject.CompareTag(coinPlusTagName))
+        {
+            coinMane.GimicCoin(1, false);
+        }
+        else if (collision.gameObject.CompareTag(coinMinusTagName))
+        {
+            coinMane.GimicCoin(2, false);
+        }
+    }
+
+    public void WallGimicStarter(bool gimicBool)
+    {
+        GimicBool = gimicBool;
     }
 }

@@ -6,6 +6,9 @@ public class PlayerSelecter : MonoBehaviour
 {
     [Header("initializeの参照")]
     [SerializeField] DataReciver initialData;
+
+    [Header("実際のプレイヤーの参照")]
+    [SerializeField] Newplayer player;
     //プレイヤーの格納数
     const int childCount = 9;
     void Start()
@@ -19,5 +22,6 @@ public class PlayerSelecter : MonoBehaviour
         }
         GameObject playerObj = objs[initialData.sportType];
         playerObj.SetActive(true);
+        player.PlayerComponentInserter(playerObj.GetComponent<Rigidbody2D>(), playerObj.GetComponent<Transform>(), initialData.sportType);
     }
 }

@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
+using DG.Tweening;
 
 public class ImageAction : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class ImageAction : MonoBehaviour
     const string clothImageGetName = "AllClothImageComponentGeter";
     const string sportSpritesGetName = "AllSportSpritesGeter";
     const int sportTypeCount = 9;
+    const int bomAnimationMaxScale = 3;
+    const float animSpeed = 1.3f;
 
     //scriptì‡Ç≈ÇÃíËêî
     readonly string[] resourceSelect = new string[9] { "soccer/", "tennis/", "baseball/", "boring/", "panchi/", "tabletennis/", "ragby/", "biriyard", "volley/" };
@@ -23,12 +26,28 @@ public class ImageAction : MonoBehaviour
     [SerializeField]
     public Sprite[] sportSprites;
 
+    [Header("ÉCÉìÉQÅ[ÉÄ")]
+    [SerializeField] GameObject endAnimationBom;
+
+    [SerializeField] InGameStockData gameDatas;
+
+    [SerializeField] GameObject ingameAllObjects;
+
+    [SerializeField] SystemAction systemAction;
+
     public void clothButtonImageChanger(int index)
     {
         for(int i = 0; i < clothImages.Length; i++)
         {
             clothImages[i].sprite = sportSprites[index * sportTypeCount + i];
         }
+    }
+
+    public void Animation(Vector2 lastBallPosition)
+    {
+        Transform bomTra = endAnimationBom.GetComponent<Transform>();
+        bomTra.position = lastBallPosition;
+        bomTra.DOScale(new Vector3(bomAnimationMaxScale, bomAnimationMaxScale, bomAnimationMaxScale), animSpeed).OnComplete(() => { ingameAllObjects.SetActive(false); systemAction.PanelMove(SystemAction.MoveDirection.over, 0); });
     }
 
     public void DataIntoImage()
