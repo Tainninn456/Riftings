@@ -5,9 +5,6 @@ using UnityEngine.Pool;
 
 public class CoinPool : MonoBehaviour
 {
-    private static int unActiveCount;
-    private static List<GameObject> coinPoolUnActives = new List<GameObject>();
-    private static List<GameObject> coinPoolActives = new List<GameObject>();
 
     [Header("コイン生成場所のx軸最低値")]
     [SerializeField] float coinXposUnder;
@@ -18,9 +15,13 @@ public class CoinPool : MonoBehaviour
     [Header("コイン生成場所のy軸最高値")]
     [SerializeField] float coinYposOver;
 
+    [SerializeField] coinManager cmane;
+
     private ObjectPool<GameObject> coinPool;
 
     private GameObject createCoinInformation;
+
+    private int counter;
 
     //coinInformationに情報を渡す
     public void CoinInformationInput(GameObject info)
@@ -30,10 +31,11 @@ public class CoinPool : MonoBehaviour
 
     void Awake()
     {
-        coinPool = new ObjectPool<GameObject>(OnCreatePooledObject, OnGetFromPool, OnReleaseToPool, OnDestroyPooledObject);
+        coinPool = new ObjectPool<GameObject>(OnCreatePooledObjectNormal, OnGetFromPool, OnReleaseToPool, OnDestroyPooledObject);
+        cmane.GimicCoinPositionsGetter(coinXposUnder, coinXposOver, coinYposUnder, coinYposOver);
     }
-
-    GameObject OnCreatePooledObject()
+    
+    GameObject OnCreatePooledObjectNormal()
     {
         return Instantiate(createCoinInformation);
     }
@@ -65,22 +67,5 @@ public class CoinPool : MonoBehaviour
     public void ReleaseGameObject(GameObject obj)
     {
         coinPool.Release(obj);
-    }
-
-    public void UnActivator()
-    {
-        for(int i = 0; i < coinPoolActives.Count; i++)
-        {
-            coinPoolActives[i].SetActive(false);
-
-        }
-    }
-
-    public void DoActivator()
-    {
-        for(int i = 0; i < coinPoolActives.Count; i++)
-        {
-            coinPoolActives[i].SetActive(true);
-        }
     }
 }
