@@ -46,16 +46,41 @@ public class Newplayer : MonoBehaviour
                 rig.velocity = new Vector2(0, 0);
             }
             rig.velocity = new Vector2(movePowerX, 0);
-            right = false;
         }
         else if (left)
         {
             rig.velocity = new Vector2(-1 * movePowerX, 0);
-            left = false;
         }
         else
         {
             rig.velocity = Vector2.zero;
+        }
+    }
+
+    //入力及び移動
+    public void MoveDirectionStart(int directionNumber)
+    {
+        switch (directionNumber)
+        {
+            case 0:
+                left = true;
+                break;
+            case 1:
+                right = true;
+                break;
+        }
+    }
+
+    public void MoveDirectionEnd(int directionNumber)
+    {
+        switch (directionNumber)
+        {
+            case 0:
+                left = false;
+                break;
+            case 1:
+                right = false;
+                break;
         }
     }
 
@@ -101,7 +126,7 @@ public class Newplayer : MonoBehaviour
     }
 
 
-
+#if UNITY_EDITOR
     //なぜか順番が保障されない
     [ContextMenu(scaleGetMethodName)]
     private void ScalePositionGetter()
@@ -117,4 +142,5 @@ public class Newplayer : MonoBehaviour
             scalePosition[i] = scalePositions[i];
         }
     }
+#endif
 }

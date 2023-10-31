@@ -22,6 +22,7 @@ public class SoundInputer : InputParent
         SEButtons[0].onClick.AddListener(() => soundAction.VolumeUp(SoundAction.SoundType.SE));
         SEButtons[1].onClick.AddListener(() => soundAction.VolumeDown(SoundAction.SoundType.SE));
     }
+#if UNITY_EDITOR
 
     /// <summary>
     /// エディタ上実行関数
@@ -47,4 +48,5 @@ public class SoundInputer : InputParent
             SEButtons[i] = buttonArray[i];
         }
     }
+#endif
 }

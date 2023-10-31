@@ -20,6 +20,7 @@ public class ImageInput : InputParent
             clothChangeButtons[i].onClick.AddListener(() => imageAction.clothButtonImageChanger(indexNumber));
         }
     }
+#if UNITY_EDITOR
 
     [ContextMenu(methodClothMoneyName)]
     private void ClothChangeButtonsGetter()
@@ -31,4 +32,5 @@ public class ImageInput : InputParent
             clothChangeButtons[i] = buttonArray[i];
         }
     }
+#endif
 }

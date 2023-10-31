@@ -23,6 +23,9 @@ public class SystemAction : MonoBehaviour
     [Header("実際に動かすパネル(インゲームでは0=resultPanel)")]
     [SerializeField] RectTransform[] movePanel;
 
+    [Header("モードチェンジ用の回転アクション(0=menu,1=sub)")]
+    [SerializeField] GameObject[] rotationGroups;
+
     [Header("サウンドのポップ(インゲームでも使用)")]
     [SerializeField] GameObject soundPop;
 
@@ -178,6 +181,28 @@ public class SystemAction : MonoBehaviour
             //自身を非表示にするのみ
             case PopOperaition.down:
                 myObj.GetComponent<RectTransform>().DOScale(new Vector3(minScale, minScale, 1), animaionSpeed).OnComplete(() => myObj.SetActive(false));
+                break;
+        }
+    }
+
+    public void RotationGroups(int rotatoNumber)
+    {
+        Transform r1tra = rotationGroups[1].GetComponent<Transform>();
+        Transform r0tra = rotationGroups[0].GetComponent<Transform>();
+        switch (rotatoNumber)
+        {
+            //メインからピンボールへ
+            case 0:
+                Debug.Log("#");
+                r1tra.Rotate(new Vector3(0, -90, 0));
+                rotationGroups[1].SetActive(true);
+                r0tra.DORotate(new Vector3(0, -90, 0), 2).OnComplete(() => r1tra.DORotate(new Vector3(0, 0, 0), 2)).OnComplete(() => rotationGroups[0].SetActive(false));
+                break;
+            //ピンボールからメインへ
+            case 1:
+                r0tra.Rotate(new Vector3(0, -90, 0));
+                rotationGroups[0].SetActive(true);
+                r1tra.DORotate(new Vector3(0, -90, 0), 2).OnComplete(() => r0tra.DORotate(new Vector3(0, 0, 0), 2)).OnComplete(() => rotationGroups[1].SetActive(false));
                 break;
         }
     }

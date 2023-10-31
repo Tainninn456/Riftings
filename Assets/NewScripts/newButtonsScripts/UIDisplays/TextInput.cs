@@ -16,6 +16,7 @@ public class TextInput : InputParent
     [Header("0=コイン、1=ハート")]
     [SerializeField] Button[] itemMoneyConsumeButtons = new Button[0];
 
+#if UNITY_EDITOR
     [ContextMenu(methodClothMoneyName)]
     private void ClothButtonGetter()
     {
@@ -37,4 +38,5 @@ public class TextInput : InputParent
             itemMoneyConsumeButtons[i] = buttonArray[i];
         }
     }
+#endif
 }

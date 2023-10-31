@@ -38,10 +38,13 @@ public class GimicManager : MonoBehaviour
 
     private bool gimicCoinning;
     private bool randGimic;
-    private void Update()
+
+    private void FixedUpdate()
     {
         gimicCounter++;
-
+    }
+    private void Update()
+    {
         if(gimicCounter > gimicPoint)
         {
             GimicResetter();

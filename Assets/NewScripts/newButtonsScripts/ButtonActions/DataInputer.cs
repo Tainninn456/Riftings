@@ -31,6 +31,7 @@ public class DataInputer : InputParent
         itemMoneyConsumeButtons[0].onClick.AddListener(() => dataAction.ItemConsume(0));
         itemMoneyConsumeButtons[1].onClick.AddListener(() => dataAction.ItemConsume(1));
     }
+#if UNITY_EDITOR
 
     /// <summary>
     /// エディタ上実行関数
@@ -67,4 +68,5 @@ public class DataInputer : InputParent
             consumeDesicionButtons[i] = buttonArray[i];
         }
     }
+#endif
 }
