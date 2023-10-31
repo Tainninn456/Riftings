@@ -54,7 +54,7 @@ public class ImageAction : MonoBehaviour
     {
 
     }
-
+#if UNITY_EDITOR
     /// <summary>
     /// エディタ上実行関数
     /// </summary>
@@ -111,4 +111,5 @@ public class ImageAction : MonoBehaviour
             }
         }
     }
+#endif
 }

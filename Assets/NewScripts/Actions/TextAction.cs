@@ -41,6 +41,8 @@ public class TextAction : MonoBehaviour
         coinText.text = coinAmount.ToString();
     }
 
+#if UNITY_EDITOR
+
     /// <summary>
     /// エディタ上実行関数
     /// </summary>
@@ -83,4 +85,5 @@ public class TextAction : MonoBehaviour
             moneyTexts[i] = texs[i];
         }
     }
+#endif
 }

@@ -29,6 +29,9 @@ public class SystemInputer : InputParent
     [Header("スコアパネルからメインパネルへ戻る")]
     [SerializeField] Button scoreBackButton;
 
+    [Header("モード変更ボタン(0=menu,1=sub)")]
+    [SerializeField] Button[] rotationButtons;
+
     //ポップボタンの取得
     [Header("サウンドポップ(0=up,1=down)&(インゲームでも使用)")]
     [SerializeField] Button[] soundPopButtons;
@@ -71,6 +74,9 @@ public class SystemInputer : InputParent
             }
             soundPopButtons[0].onClick.AddListener(() => systemAction.PopUp(SystemAction.PopName.Sound));
             soundPopButtons[1].onClick.AddListener(() => systemAction.PopDown(SystemAction.PopName.Sound));
+
+            rotationButtons[0].onClick.AddListener(() => systemAction.RotationGroups(0));
+            rotationButtons[1].onClick.AddListener(() => systemAction.RotationGroups(1));
         }
         else if (SceneManager.GetActiveScene().name == playSceneName)
         {
@@ -87,6 +93,7 @@ public class SystemInputer : InputParent
         }
     }
 
+#if UNITY_EDITOR
     /// <summary>
     /// エディタ上実行関数
     /// </summary>
@@ -100,4 +107,5 @@ public class SystemInputer : InputParent
             sceneButtons[i] = buttonArray[i];
         }
     }
+#endif
 }

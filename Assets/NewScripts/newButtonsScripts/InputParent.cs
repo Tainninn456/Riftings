@@ -7,6 +7,7 @@ using UnityEditor;
 
 public class InputParent : MonoBehaviour
 {
+#if UNITY_EDITOR
     const string ActiveTagName = "ActiveObject";
     protected virtual Button[] ButtonGetter()
     {
@@ -28,4 +29,5 @@ public class InputParent : MonoBehaviour
         }
         return returnButtons;
     }
+#endif
 }
