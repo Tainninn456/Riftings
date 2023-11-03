@@ -13,6 +13,8 @@ public class SystemAction : MonoBehaviour
     const float minScale = 0.05f;
     const int maxScale = 1;
 
+    const float animationSpeed = 0.4f;
+
     [Header("メインメニュー")]
     [Header("シーン遷移時に着せ替え情報を取得するため")]
     [SerializeField] DataAction useData;
@@ -194,15 +196,29 @@ public class SystemAction : MonoBehaviour
             //メインからピンボールへ
             case 0:
                 Debug.Log("#");
-                r1tra.Rotate(new Vector3(0, -90, 0));
+                r1tra.rotation = Quaternion.Euler(0.0f, -90, 0);
                 rotationGroups[1].SetActive(true);
-                r0tra.DORotate(new Vector3(0, -90, 0), 2).OnComplete(() => r1tra.DORotate(new Vector3(0, 0, 0), 2)).OnComplete(() => rotationGroups[0].SetActive(false));
+                r0tra.DORotate(new Vector3(0, -90, 0), animaionSpeed).OnComplete(() =>
+                {
+                    r1tra.DORotate(new Vector3(0, 0, 0), animaionSpeed).OnComplete(() =>
+                    {//非同期処理タイミング対策
+                        rotationGroups[1].SetActive(true);
+                        rotationGroups[0].SetActive(false);
+                    });
+                });
                 break;
             //ピンボールからメインへ
             case 1:
-                r0tra.Rotate(new Vector3(0, -90, 0));
+                r0tra.rotation = Quaternion.Euler(0.0f, -90, 0);
                 rotationGroups[0].SetActive(true);
-                r1tra.DORotate(new Vector3(0, -90, 0), 2).OnComplete(() => r0tra.DORotate(new Vector3(0, 0, 0), 2)).OnComplete(() => rotationGroups[1].SetActive(false));
+                r1tra.DORotate(new Vector3(0, -90, 0), animaionSpeed).OnComplete(() =>
+                {//非同期処理タイミング対策
+                    r0tra.DORotate(new Vector3(0, 0, 0), animaionSpeed).OnComplete(() =>
+                    {
+                        rotationGroups[0].SetActive(true);
+                        rotationGroups[1].SetActive(false);
+                    });
+                });
                 break;
         }
     }
@@ -234,21 +250,28 @@ public class SystemAction : MonoBehaviour
         ActiveOperation(false);
         switch (sceneIndex)
         {
+            //プレイシーンに移動する
             case 0:
                 SceneManager.sceneLoaded += ReloadScene;
                 SceneManager.LoadScene(playSceneName);
                 break;
+            //メニューシーンに移動する
             case 1:
                 SceneManager.LoadScene(menuSceneName);
                 break;
         }
     }
 
-    //外部入力からシーン遷移の開始を宣言
+    //通常プレイモードでシーン遷移
     public void SceneMoveStarter(int sendSportTypeNumber)
     {
         sportTypeNumber = sendSportTypeNumber;
         SceneMove();
+    }
+
+    public void PinSceneMover()
+    {
+
     }
     //実際のシーン遷移
     private void SceneMove()

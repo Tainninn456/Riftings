@@ -46,6 +46,9 @@ public class SystemInputer : InputParent
     [Header("シーン遷移ボタン(インゲームでも使用,0=リロード,1=メニューに遷移、ポーズとリザルトの順番で保持)")]
     [SerializeField] Button[] sceneButtons;
 
+    [Header("ピンボールシーン遷移ボタン")]
+    [SerializeField] Button pinSceneButton;
+
     [Header("インゲーム")]
     [Header("ポーズポップ(0=up,1=down)")]
     [SerializeField] Button[] porzPopButtons;
