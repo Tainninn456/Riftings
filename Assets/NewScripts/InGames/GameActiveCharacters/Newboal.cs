@@ -47,6 +47,9 @@ public class Newboal : MonoBehaviour
     [Header("イメージへのアクセス")]
     [SerializeField] ImageAction imageAction;
 
+    [Header("ファイルデータを管理しているscriptへのアクセス")]
+    [SerializeField] DataAction dataAction;
+
     const string playerTagName = "Player";
     const string deathTagName = "Death";
     const string wallTagName = "wall";
@@ -63,6 +66,8 @@ public class Newboal : MonoBehaviour
     private int gravityChangePoint = 10;
     private bool gimicing;
     private bool gravityGimicing;
+
+    private Vector2 ballDefaultPosition;
 
     private int playIndex;
     private void Start()
@@ -92,6 +97,9 @@ public class Newboal : MonoBehaviour
         coinInfo = managerInformation.GetComponent<CoinInformation>();
 
         playIndex = initialData.sportType;
+
+        //ボールのスタートのポジションを保持
+        ballDefaultPosition = boalTra.position;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -118,6 +126,7 @@ public class Newboal : MonoBehaviour
         {
             boalRig.Sleep();
             gameDatas.GameOver = true;
+            dataAction.GameEndDataSaveStarter(playIndex);
             imageAction.Animation(gameObject.GetComponent<Transform>().position);
         }
         else if (gimicing && collision.gameObject.CompareTag(wallTagName))
@@ -141,7 +150,6 @@ public class Newboal : MonoBehaviour
 
     public void WindRandomAttackGimic()
     {
-        Debug.Log("###");
         boalRig.AddForce(new Vector2(Random.Range(-randPower, randPower), Random.Range(-randPower, randPower)), ForceMode2D.Force);
     }
 

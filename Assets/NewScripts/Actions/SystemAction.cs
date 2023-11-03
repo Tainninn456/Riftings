@@ -80,7 +80,7 @@ public class SystemAction : MonoBehaviour
         {
             Vector3 downPosition = new Vector3(0, 0, 0);
             RectTransform myTrans = movePanel[panelNumber];
-            myTrans.DOMove(downPosition, animaionSpeed).OnComplete(() => Debug.Log("##"));
+            myTrans.DOMove(downPosition, animaionSpeed);
         }
         else
         {
@@ -268,11 +268,6 @@ public class SystemAction : MonoBehaviour
         sportTypeNumber = sendSportTypeNumber;
         SceneMove();
     }
-
-    public void PinSceneMover()
-    {
-
-    }
     //実際のシーン遷移
     private void SceneMove()
     {
@@ -289,6 +284,7 @@ public class SystemAction : MonoBehaviour
         Data stockData = dataAction.DataCopy();
         datareciver.sportType = sportTypeNumber;
         datareciver.clothSprite = dataAction.sportSprites[sportTypeNumber];
+        datareciver.heartAmount = stockData.Heart;
         SceneManager.sceneLoaded -= GameSceneLoaded;
     }
     private void ReloadScene(Scene next, LoadSceneMode mode)
@@ -298,6 +294,7 @@ public class SystemAction : MonoBehaviour
         //データの取得
         datareciver.sportType = referencsData.sportType;
         datareciver.clothSprite = referencsData.clothSprite;
+        datareciver.heartAmount = referencsData.heartAmount;
         SceneManager.sceneLoaded -= ReloadScene;
     }
 }

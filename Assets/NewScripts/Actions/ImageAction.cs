@@ -22,6 +22,11 @@ public class ImageAction : MonoBehaviour
     [Header("ƒƒCƒ“ƒƒjƒ…[")]
     [SerializeField] Image[] scoreImages;
     [SerializeField] Image[] clothImages;
+    [SerializeField] GameObject[] rockObjs;
+
+    [SerializeField] DataAction dataAction;
+
+    [SerializeField] shopPrices shopDatas;
 
     [SerializeField]
     public Sprite[] sportSprites;
@@ -50,9 +55,17 @@ public class ImageAction : MonoBehaviour
         bomTra.DOScale(new Vector3(bomAnimationMaxScale, bomAnimationMaxScale, bomAnimationMaxScale), animSpeed).OnComplete(() => { ingameAllObjects.SetActive(false); systemAction.PanelMove(SystemAction.MoveDirection.over, 0); });
     }
 
-    public void DataIntoImage()
+    public void RockDataIntoImage(int achiveIndex)
     {
-
+        Data useData = dataAction.DataCopy();
+        foreach(GameObject ob in rockObjs)
+        {
+            ob.SetActive(true);
+        }
+        for(int i = 0; i < useData.clothAchive[achiveIndex]; i++)
+        {
+            rockObjs[i].SetActive(false);
+        }
     }
 #if UNITY_EDITOR
     /// <summary>

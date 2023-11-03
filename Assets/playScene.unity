@@ -2492,6 +2492,7 @@ MonoBehaviour:
   managerInformation: {fileID: 742631750}
   textAction: {fileID: 604201970}
   imageAction: {fileID: 604201967}
+  dataAction: {fileID: 604201966}
 --- !u!1 &604201964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2544,6 +2545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textAction: {fileID: 0}
   imageAction: {fileID: 0}
+  gameDataStock: {fileID: 742631753}
   sportSprites:
   - {fileID: 0}
   - {fileID: 0}
@@ -2602,6 +2604,7 @@ MonoBehaviour:
   - {fileID: 1289846837}
   movePanel:
   - {fileID: 255207043}
+  rotationGroups: []
   soundPop: {fileID: 432257258}
   clothPop: {fileID: 0}
   popParent: {fileID: 516481378}
@@ -2643,6 +2646,7 @@ MonoBehaviour:
   ToClothButton: {fileID: 0}
   ToScoreButton: {fileID: 0}
   scoreBackButton: {fileID: 0}
+  rotationButtons: []
   soundPopButtons:
   - {fileID: 2142540480}
   - {fileID: 1017796741}
@@ -2653,6 +2657,7 @@ MonoBehaviour:
   - {fileID: 1183692252}
   - {fileID: 292513142}
   - {fileID: 563922446}
+  pinSceneButton: {fileID: 0}
   porzPopButtons:
   - {fileID: 1716085587}
   - {fileID: 695789359}
@@ -5944,7 +5949,7 @@ GameObject:
   - component: {fileID: 1418246456}
   m_Layer: 0
   m_Name: death
-  m_TagString: Untagged
+  m_TagString: Death
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

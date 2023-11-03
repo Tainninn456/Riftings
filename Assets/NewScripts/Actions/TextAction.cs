@@ -14,17 +14,57 @@ public class TextAction : MonoBehaviour
     [Header("メインメニュー")]
     [SerializeField] TextMeshProUGUI[] scoreTexts;
     [SerializeField] TextMeshProUGUI[] moneyTexts;
+    [SerializeField] TextMeshProUGUI[] shopTexts;
+    [SerializeField] TextMeshProUGUI[] itemTexts;
+
+    [SerializeField] DataAction dataAction;
 
     [Header("インゲーム")]
     [SerializeField] TextMeshProUGUI kickText;
     [SerializeField] TextMeshProUGUI coinText;
 
+    private shopPrices shopDatas = new shopPrices();
+
     /// <summary>
     /// メインメニュー内実行関数
     /// </summary>
+    /// 
+
+    public void ShopDataIntoText(int shopValueIndex)
+    {
+        Data useData = dataAction.DataCopy();
+        for(int i = 0; i < 9; i++)
+        {
+            if (useData.clothAchive[shopValueIndex] >= i)
+            {
+                shopTexts[i].text = "使用";
+            }
+            else
+            {
+                shopTexts[i].text = shopDatas.shopConsumePrices[shopValueIndex, i].ToString();
+            }
+        }
+    }
     public void DataIntoText()
     {
+        Data useData = dataAction.DataCopy();
+        for(int i = 0; i < scoreTexts.Length; i++)
+        {
+            scoreTexts[i].text = useData.GameScores[i].ToString();
+        }
+        //お金の総額を表示
+        moneyTexts[0].text = useData.CoinAmount.ToString();
+        //コインのレベルを表示
+        moneyTexts[1].text = "× " + useData.coinLevel.ToString();
+        //ハートのレベルを表示
+        moneyTexts[2].text = "× " + useData.heartLevel.ToString();
+    }
 
+    public void ItemDataText()
+    {
+        Data useData = dataAction.DataCopy();
+        //コイン側の処理
+        //ハート側の処理
     }
 
     /// <summary>

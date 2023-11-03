@@ -13,6 +13,8 @@ public class InGameStockData: MonoBehaviour
     [HideInInspector]
     public int minusCoinCount;
     [HideInInspector]
+    public int heartAmount;
+    [HideInInspector]
     public bool GameOver;
     [HideInInspector]
     public bool AnimationEnd;
