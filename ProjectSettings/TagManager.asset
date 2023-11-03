@@ -13,6 +13,7 @@ TagManager:
   - wall
   - pluscoin
   - minuscoin
+  - bumper
   layers:
   - Default
   - TransparentFX
