@@ -70,6 +70,8 @@ public class Newboal : MonoBehaviour
     private Vector2 ballDefaultPosition;
 
     private int playIndex;
+
+    private int useHeartAmount;
     private void Start()
     {
         //ボールのコライダー設定
@@ -97,6 +99,8 @@ public class Newboal : MonoBehaviour
         coinInfo = managerInformation.GetComponent<CoinInformation>();
 
         playIndex = initialData.sportType;
+        useHeartAmount = initialData.heartAmount;
+        imageAction.HeartDisplay(useHeartAmount);
 
         //ボールのスタートのポジションを保持
         ballDefaultPosition = boalTra.position;
@@ -125,9 +129,21 @@ public class Newboal : MonoBehaviour
         else if (collision.gameObject.CompareTag(deathTagName))
         {
             boalRig.Sleep();
-            gameDatas.GameOver = true;
-            dataAction.GameEndDataSaveStarter(playIndex);
-            imageAction.Animation(gameObject.GetComponent<Transform>().position);
+            if (useHeartAmount == 0)
+            {
+                gameDatas.GameOver = true;
+                dataAction.GameEndDataSaveStarter(playIndex);
+                imageAction.Animation(gameObject.GetComponent<Transform>().position);
+                AudioManager.instance.StopBGM();
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                Debug.Log("##");
+                imageAction.DeathDisplay(useHeartAmount);
+                useHeartAmount -= 1;
+                boalTra.position = ballDefaultPosition;
+            }
         }
         else if (gimicing && collision.gameObject.CompareTag(wallTagName))
         {

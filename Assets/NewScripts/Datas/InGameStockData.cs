@@ -18,4 +18,6 @@ public class InGameStockData: MonoBehaviour
     public bool GameOver;
     [HideInInspector]
     public bool AnimationEnd;
+    [HideInInspector]
+    public bool GimicCalculating = true;
 }

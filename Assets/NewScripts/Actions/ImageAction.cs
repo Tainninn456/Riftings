@@ -14,6 +14,7 @@ public class ImageAction : MonoBehaviour
     const string sportSpritesGetName = "AllSportSpritesGeter";
     const int sportTypeCount = 9;
     const int bomAnimationMaxScale = 3;
+    const int rockMax = 8;
     const float animSpeed = 1.3f;
 
     //script内での定数
@@ -40,6 +41,9 @@ public class ImageAction : MonoBehaviour
 
     [SerializeField] SystemAction systemAction;
 
+    [SerializeField] GameObject[] heartDisplays;
+
+    private int useHeartAmount;
     public void clothButtonImageChanger(int index)
     {
         for(int i = 0; i < clothImages.Length; i++)
@@ -52,7 +56,7 @@ public class ImageAction : MonoBehaviour
     {
         Transform bomTra = endAnimationBom.GetComponent<Transform>();
         bomTra.position = lastBallPosition;
-        bomTra.DOScale(new Vector3(bomAnimationMaxScale, bomAnimationMaxScale, bomAnimationMaxScale), animSpeed).OnComplete(() => { ingameAllObjects.SetActive(false); systemAction.PanelMove(SystemAction.MoveDirection.over, 0); });
+        bomTra.DOScale(new Vector3(bomAnimationMaxScale, bomAnimationMaxScale, bomAnimationMaxScale), animSpeed).OnComplete(() => { ingameAllObjects.SetActive(false); systemAction.PanelMove(SystemAction.MoveDirection.over, 0); AudioManager.instance.PlaySE(AudioManager.SE.ResultSE); });
     }
 
     public void RockDataIntoImage(int achiveIndex)
@@ -62,11 +66,37 @@ public class ImageAction : MonoBehaviour
         {
             ob.SetActive(true);
         }
-        for(int i = 0; i < useData.clothAchive[achiveIndex]; i++)
+        int loopAmount;
+        if(rockMax == useData.clothAchive[achiveIndex])
+        {
+            loopAmount = rockObjs.Length;
+        }
+        else
+        {
+            loopAmount = useData.clothAchive[achiveIndex];
+        }
+        for(int i = 0; i < loopAmount; i++)
         {
             rockObjs[i].SetActive(false);
         }
     }
+
+    public void HeartDisplay(int heartActiveValue)
+    {
+        useHeartAmount = heartActiveValue;
+        for(int i = 0; i < heartActiveValue; i++)
+        {
+            heartDisplays[i].SetActive(true);
+        }
+    }
+
+    public void DeathDisplay(int heartIndex)
+    {
+        Debug.Log(useHeartAmount - heartIndex);
+        Debug.Log(useHeartAmount);
+        heartDisplays[useHeartAmount - heartIndex].SetActive(false);
+    }
+
 #if UNITY_EDITOR
     /// <summary>
     /// エディタ上実行関数

@@ -17,6 +17,9 @@ public class GimicManager : MonoBehaviour
     [Header("ボールのトリガー参照(当たった時の処理はこっちの方が多いかも?)")]
     [SerializeField] ballTrigger ballTriggerReference;
 
+    [Header("ゲーム内データの参照")]
+    [SerializeField] InGameStockData gameDatas;
+
     [Header("ルーレット")]
     [SerializeField] Rouleter roulette;
 
@@ -41,6 +44,7 @@ public class GimicManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!gameDatas.GimicCalculating) { return; }
         gimicCounter++;
     }
     private void Update()

@@ -11,6 +11,8 @@ public class TextAction : MonoBehaviour
     const string methodScoreName = "AllScoreTextComponentGeter";
     const string methodMoneyName = "AllMoneyTextComponentGeter";
 
+    const int levelMax = 10;
+
     [Header("メインメニュー")]
     [SerializeField] TextMeshProUGUI[] scoreTexts;
     [SerializeField] TextMeshProUGUI[] moneyTexts;
@@ -64,7 +66,27 @@ public class TextAction : MonoBehaviour
     {
         Data useData = dataAction.DataCopy();
         //コイン側の処理
+        string coinString = "";
+        if(useData.coinLevel == levelMax) 
+        {
+            coinString = "Max";
+        }
+        else
+        {
+            coinString = shopDatas.coinPrices[useData.coinLevel - 1].ToString();
+        }
+        itemTexts[0].text = coinString;
         //ハート側の処理
+        string heartString = "";
+        if(useData.heartLevel == levelMax)
+        {
+            heartString = "Max";
+        }
+        else
+        {
+            heartString = shopDatas.heartPrices[useData.heartLevel - 1].ToString();
+        }
+        itemTexts[1].text = heartString;
     }
 
     /// <summary>

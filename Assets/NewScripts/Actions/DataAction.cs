@@ -23,6 +23,8 @@ public class DataAction : MonoBehaviour
     const string textWrite = "TextOnly";
     const string imageWrite = "ImageOnly";
 
+    const int levelMax = 10;
+
     //他からアクセス出来ない真のデータ
     private Data data = new Data();
     //ショップの情報が入っている定数のデータ
@@ -43,6 +45,7 @@ public class DataAction : MonoBehaviour
             //その他initialize
             SpritesInsert();
             textAction.DataIntoText();
+            textAction.ItemDataText();
         }
     }
 
@@ -60,6 +63,7 @@ public class DataAction : MonoBehaviour
         //もし既に購入していたらただ着せ替えを実行
         if (data.clothAchive[clothChangeIndex] > consumeIndex - 1)
         {
+            AudioManager.instance.PlaySE(AudioManager.SE.ItemOk);
             data.sportCloth[clothChangeIndex] = consumeIndex;
         }
         else
@@ -71,11 +75,13 @@ public class DataAction : MonoBehaviour
                 data.clothAchive[clothChangeIndex]++;
                 data.sportCloth[clothChangeIndex] = consumeIndex;
                 imageAction.RockDataIntoImage(clothChangeIndex);
+                textAction.ShopDataIntoText(clothChangeIndex);
                 textAction.DataIntoText();
-                Debug.Log("bye");
+                AudioManager.instance.PlaySE(AudioManager.SE.ItemOk);
             }
             else
             {
+                AudioManager.instance.PlaySE(AudioManager.SE.ItemMiss);
                 Debug.Log("miss");
             }
         }
@@ -89,27 +95,40 @@ public class DataAction : MonoBehaviour
         //コインの処理
         if(itemIndex == 0)
         {
-            if (data.CoinAmount > shopData.coinPrices[data.coinLevel])
+            if(data.coinLevel == levelMax) { return; }
+            int moneyValue = shopData.coinPrices[data.coinLevel - 1];
+            if (data.CoinAmount > moneyValue)
             {
-                Debug.Log("bye");
+                AudioManager.instance.PlaySE(AudioManager.SE.ItemOk);
+                data.CoinAmount -= moneyValue;
+                data.coinLevel++;
             }
             else
             {
+                AudioManager.instance.PlaySE(AudioManager.SE.ItemMiss);
                 Debug.Log("miss");
             }
         }
         //ハートの処理
         else if(itemIndex == 1)
         {
-            if (data.CoinAmount > shopData.coinPrices[data.heartLevel])
+            if(data.heartLevel == levelMax) { return; }
+            int moneyValue = shopData.heartPrices[data.heartLevel - 1];
+            if (data.CoinAmount > moneyValue)
             {
-                Debug.Log("bye");
+                AudioManager.instance.PlaySE(AudioManager.SE.ItemOk);
+                data.CoinAmount -= moneyValue;
+                data.heartLevel++;
             }
             else
             {
+                AudioManager.instance.PlaySE(AudioManager.SE.ItemMiss);
                 Debug.Log("miss");
             }
         }
+        textAction.DataIntoText();
+        textAction.ItemDataText();
+        DataSave();
     }
 
     public void GameEndDataSaveStarter(int scoreIndex)
