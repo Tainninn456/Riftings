@@ -26,14 +26,13 @@ public class Rouleter : MonoBehaviour
         switch (rouletteType)
         {
             case 0:
-                Debug.Log("plus");
                 InsertSprites = plusSprites;
                 break;
             case 1:
-                Debug.Log("minus");
                 InsertSprites = minusSprites;
                 break;
         }
+        gMane.RouletteReset();
         StartCoroutine("Roulette");
     }
 
@@ -48,6 +47,7 @@ public class Rouleter : MonoBehaviour
             if(i == 29)
             {
                 returnNumber = rand;
+                Debug.Log(returnNumber);
             }
         }
         gMane.RouletteDesicion(returnNumber, nowRouletteType);

@@ -39,6 +39,8 @@ public class DataAction : MonoBehaviour
     {
         //データ関連のinitialize
         dataFilePath = Application.persistentDataPath + "/Data.json";
+        data.CoinAmount = 2000000;
+        DataSave();
         DataLoad();
         if (SceneManager.GetActiveScene().name == menuSceneName)
         {
@@ -82,7 +84,6 @@ public class DataAction : MonoBehaviour
             else
             {
                 AudioManager.instance.PlaySE(AudioManager.SE.ItemMiss);
-                Debug.Log("miss");
             }
         }
         DataSave();
@@ -106,7 +107,6 @@ public class DataAction : MonoBehaviour
             else
             {
                 AudioManager.instance.PlaySE(AudioManager.SE.ItemMiss);
-                Debug.Log("miss");
             }
         }
         //ハートの処理
@@ -123,7 +123,6 @@ public class DataAction : MonoBehaviour
             else
             {
                 AudioManager.instance.PlaySE(AudioManager.SE.ItemMiss);
-                Debug.Log("miss");
             }
         }
         textAction.DataIntoText();

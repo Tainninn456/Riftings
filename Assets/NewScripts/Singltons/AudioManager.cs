@@ -52,6 +52,25 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        for (int k = 0; k < 6; k++)
+        {
+            int ini = 600 + k * 100;
+            int inc = 80;
+            int[] resu = new int[8];
+            resu[0] = ini;
+            string[] dis = new string[8];
+            dis[0] = resu[0].ToString();
+            for (int i = 1; i < 8; i++)
+            {
+                resu[i] = resu[i - 1] + inc;
+                inc += 80;
+                dis[i] = resu[i].ToString();
+            }
+            for (int i = 0; i < 8; i++)
+            {
+                Debug.Log(string.Join(", ", dis));
+            }
+        }
     }
 
     public void PlayBGM(BGM bgmName)

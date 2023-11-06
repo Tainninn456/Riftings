@@ -29,6 +29,8 @@ public class Newboal : MonoBehaviour
 
     [SerializeField] float ballBigScaleValue;
 
+    [SerializeField] float ballSmallScaleValue;
+
     [SerializeField] Transform[] scalePosition;
 
     [Header("Initializeの参照")]
@@ -36,7 +38,7 @@ public class Newboal : MonoBehaviour
 
     private InGameStockData gameDatas;
 
-    private CoinInformation coinInfo;
+    private coinManager cMane;
 
     [Header("データ系へのアクセス")]
     [SerializeField] GameObject managerInformation;
@@ -96,11 +98,13 @@ public class Newboal : MonoBehaviour
 
         //コンポーネントを取得
         gameDatas = managerInformation.GetComponent<InGameStockData>();
-        coinInfo = managerInformation.GetComponent<CoinInformation>();
+        cMane = managerInformation.GetComponent<coinManager>();
 
         playIndex = initialData.sportType;
         useHeartAmount = initialData.heartAmount;
+        gameDatas.coinMultiplication = initialData.coinLevel;
         imageAction.HeartDisplay(useHeartAmount);
+        cMane.CoinValueChanger(1 * gameDatas.coinMultiplication);
 
         //ボールのスタートのポジションを保持
         ballDefaultPosition = boalTra.position;
@@ -133,13 +137,13 @@ public class Newboal : MonoBehaviour
             {
                 gameDatas.GameOver = true;
                 dataAction.GameEndDataSaveStarter(playIndex);
+                textAction.GameEndTextDisplay(gameDatas.kickCount, gameDatas.coinCount);
                 imageAction.Animation(gameObject.GetComponent<Transform>().position);
                 AudioManager.instance.StopBGM();
                 gameObject.SetActive(false);
             }
             else
             {
-                Debug.Log("##");
                 imageAction.DeathDisplay(useHeartAmount);
                 useHeartAmount -= 1;
                 boalTra.position = ballDefaultPosition;
@@ -220,6 +224,9 @@ public class Newboal : MonoBehaviour
                 boalTra.localScale = new Vector3(ballBigScaleValue, ballBigScaleValue, 1);
                 break;
             case 1:
+                boalTra.localScale = new Vector3(ballSmallScaleValue, ballSmallScaleValue, 1);
+                break;
+            case 2:
                 boalTra.localScale = new Vector3(defaultBallScaleValue, defaultBallScaleValue, 1);
                 break;
         }

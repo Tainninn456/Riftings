@@ -24,6 +24,8 @@ public class TextAction : MonoBehaviour
     [Header("インゲーム")]
     [SerializeField] TextMeshProUGUI kickText;
     [SerializeField] TextMeshProUGUI coinText;
+    [SerializeField] TextMeshProUGUI resultKickText;
+    [SerializeField] TextMeshProUGUI resultCoinText;
 
     private shopPrices shopDatas = new shopPrices();
 
@@ -87,6 +89,13 @@ public class TextAction : MonoBehaviour
             heartString = shopDatas.heartPrices[useData.heartLevel - 1].ToString();
         }
         itemTexts[1].text = heartString;
+    }
+
+    //game終了時のリザルト表示：kick回数、coin個数
+    public void GameEndTextDisplay(int kickCount, int coinCount)
+    {
+        resultKickText.text = kickCount.ToString();
+        resultCoinText.text = coinCount.ToString();
     }
 
     /// <summary>

@@ -125,7 +125,18 @@ public class GimicManager : MonoBehaviour
 
     private void CoinAmountGimic(int actionType)
     {
-        cMane.CoinValueChanger(coinValueBig);
+        switch (actionType)
+        {
+            case 0:
+                cMane.CoinValueChanger(2 * gameDatas.coinMultiplication);
+                break;
+            case 1:
+                cMane.CoinValueChanger(-1);
+                break;
+            case 2:
+                cMane.CoinValueChanger(1 * gameDatas.coinMultiplication);
+                break;
+        }
     }
 
     private void KickAmountGimic(int actionType)
@@ -133,13 +144,15 @@ public class GimicManager : MonoBehaviour
         switch (actionType)
         {
             case 0:
-                boalReference.KickAddValueChanger(1);
-                break;
-            case 1:
                 boalReference.KickAddValueChanger(2);
                 break;
+            case 1:
+                boalReference.KickAddValueChanger(-1);
+                break;
+            case 2:
+                boalReference.KickAddValueChanger(1);
+                break;
         }
-        //boalReference.KickAddValueChanger(actionType);
     }
 
     private void BallScaleGimic(int actionType)
@@ -176,5 +189,13 @@ public class GimicManager : MonoBehaviour
                 BallScaleGimic(actionType);
                 break;
         }
+    }
+
+    //ルーレット内容物をリセット
+    public void RouletteReset()
+    {
+        CoinAmountGimic(2);
+        KickAmountGimic(2);
+        boalReference.BallScaleChanger(2);
     }
 }

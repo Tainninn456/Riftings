@@ -38,7 +38,6 @@ public class coinManager : MonoBehaviour
     private void Awake()
     {
         coinPool.CoinInformationInput(coin);
-        CoinValueChanger(1);
     }
     private void Update()
     {

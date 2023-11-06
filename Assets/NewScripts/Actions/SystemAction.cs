@@ -315,6 +315,7 @@ public class SystemAction : MonoBehaviour
         datareciver.sportType = sportTypeNumber;
         datareciver.clothSprite = dataAction.sportSprites[sportTypeNumber];
         datareciver.heartAmount = stockData.heartLevel;
+        datareciver.coinLevel = stockData.coinLevel;
         SceneManager.sceneLoaded -= GameSceneLoaded;
     }
     private void ReloadScene(Scene next, LoadSceneMode mode)
@@ -325,6 +326,7 @@ public class SystemAction : MonoBehaviour
         datareciver.sportType = referencsData.sportType;
         datareciver.clothSprite = referencsData.clothSprite;
         datareciver.heartAmount = referencsData.heartAmount;
+        datareciver.coinLevel = referencsData.coinLevel;
         SceneManager.sceneLoaded -= ReloadScene;
     }
 }
