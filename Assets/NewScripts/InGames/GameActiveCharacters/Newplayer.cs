@@ -3,11 +3,33 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEditor;
+using DG.Tweening;
 
+/// <summary>
+/// ゲームプレイ中のプレイヤー
+/// </summary>
 public class Newplayer : MonoBehaviour
 {
+    //エディタ上実行関数
     const string scaleGetMethodName = "ScalePositionGetter";
-    const float defaultPlayerScaleValue = 0.15f;
+
+    [Header("プレイヤーの移動速度")]
+    [SerializeField] int movePowerX;
+
+    [Header("ギミックによるプレイヤーの拡大スケール")]
+    [SerializeField] float playerBigScaleValue;
+
+    [Header("ギミックによるプレイヤーの縮小スケール")]
+    [SerializeField] float playerSmallScaleValue;
+
+    [Header("プレイヤーの通常時のスケール")]
+    [SerializeField] float defaultPlayerScaleValue;
+
+    [Header("スケール変更の速度")]
+    [SerializeField] float animSpeed;
+
+    [Header("拡大縮小時の位置調整用")]
+    [SerializeField] Transform[] scalePosition;
 
     Transform tra;
 
@@ -17,28 +39,9 @@ public class Newplayer : MonoBehaviour
 
     private int sportIndex;
 
-    [SerializeField] int movePowerX;
-
-    [SerializeField] float playerBigScaleValue;
-
-    [SerializeField] float playerSmallScaleValue;
-
-    [SerializeField] Transform[] scalePosition;
-
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.D))
-        {
-            right = true;
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            left = true;
-        }
-    }
-
     private void FixedUpdate()
     {
+        //右方向移動
         if (right)
         {
             if (rig.velocity.x < 0)
@@ -47,10 +50,12 @@ public class Newplayer : MonoBehaviour
             }
             rig.velocity = new Vector2(movePowerX, 0);
         }
+        //左方向移動
         else if (left)
         {
             rig.velocity = new Vector2(-1 * movePowerX, 0);
         }
+        //滑り防止
         else
         {
             rig.velocity = Vector2.zero;
@@ -112,15 +117,18 @@ public class Newplayer : MonoBehaviour
         {
             //通常の大きさ
             case 0:
-                tra.localScale = new Vector3(defaultPlayerScaleValue, defaultPlayerScaleValue, 1);
+                tra.DOScale(new Vector3(defaultPlayerScaleValue, defaultPlayerScaleValue, 1), animSpeed);
+                //tra.localScale = new Vector3(defaultPlayerScaleValue, defaultPlayerScaleValue, 1);
                 break;
             //大きいバージョン
             case 1:
-                tra.localScale = new Vector3(playerBigScaleValue, playerBigScaleValue, 1);
+                tra.DOScale(new Vector3(playerBigScaleValue, playerBigScaleValue, 1), animSpeed);
+                //tra.localScale = new Vector3(playerBigScaleValue, playerBigScaleValue, 1);
                 break;
             //小さいバージョン
             case 2:
-                tra.localScale = new Vector3(playerSmallScaleValue, playerSmallScaleValue, 1);
+                tra.DOScale(new Vector3(playerSmallScaleValue, playerSmallScaleValue, 1), animSpeed);
+                //tra.localScale = new Vector3(playerSmallScaleValue, playerSmallScaleValue, 1);
                 break;
         }
     }

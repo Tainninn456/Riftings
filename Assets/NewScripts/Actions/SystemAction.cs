@@ -79,6 +79,7 @@ public class SystemAction : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
         if (SceneManager.GetActiveScene().name == menuSceneName)
         {
             AudioManager.instance.PlayBGM(AudioManager.BGM.menu);

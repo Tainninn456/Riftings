@@ -1022,7 +1022,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 15, y: 15, z: 15, w: 15}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2615,7 +2615,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 15, y: 15, z: 15, w: 15}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3656,7 +3656,7 @@ GameObject:
   - component: {fileID: 519420029}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3692,7 +3692,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.03
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -5426,7 +5426,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 15, y: 15, z: 15, w: 15}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5542,7 +5542,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 15, y: 15, z: 15, w: 15}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5833,7 +5833,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -6397,7 +6397,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 15, y: 15, z: 15, w: 15}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7488,7 +7488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -8516,7 +8516,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 15, y: 15, z: 15, w: 15}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9076,6 +9076,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: eaeeb92e9df2c5449b4a76663bd54fd6, type: 3}
   - {fileID: 8300000, guid: 3ced33e86ea4ead40abbf59da0071199, type: 3}
   - {fileID: 8300000, guid: 3fff717027420914fb7fcbbd5e46e79e, type: 3}
+  - {fileID: 8300000, guid: 11de7afbc4a370a4f94c74cf929ea7c7, type: 3}
+  - {fileID: 8300000, guid: 04ccc6d62c08b8b42a542ddb11d9fefc, type: 3}
+  - {fileID: 8300000, guid: 4fc11f64305682e44b3d3a63d2386926, type: 3}
   bgm: {fileID: 1378453001}
   se: {fileID: 1378453000}
 --- !u!4 &1378453003
@@ -9405,7 +9408,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 15, y: 15, z: 15, w: 15}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9450,6 +9453,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1429063123
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 100006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+      propertyPath: m_Name
+      value: touchEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.6390148
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+--- !u!1 &1429063124 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+  m_PrefabInstance: {fileID: 1429063123}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1447299089
 GameObject:
   m_ObjectHideFlags: 0
@@ -9715,6 +9784,7 @@ GameObject:
   - component: {fileID: 1487266087}
   - component: {fileID: 1487266086}
   - component: {fileID: 1487266085}
+  - component: {fileID: 1487266094}
   m_Layer: 0
   m_Name: AllInput
   m_TagString: Untagged
@@ -9933,6 +10003,9 @@ MonoBehaviour:
   gameDatas: {fileID: 0}
   ingameAllObjects: {fileID: 0}
   systemAction: {fileID: 0}
+  heartDisplays: []
+  backImages: []
+  backGroundImage: {fileID: 0}
 --- !u!114 &1487266089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9975,6 +10048,8 @@ MonoBehaviour:
   dataAction: {fileID: 1487266087}
   kickText: {fileID: 0}
   coinText: {fileID: 0}
+  resultKickText: {fileID: 0}
+  resultCoinText: {fileID: 0}
 --- !u!114 &1487266090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10099,6 +10174,19 @@ MonoBehaviour:
   - {fileID: 1971383815}
   - {fileID: 1304193968}
   - {fileID: 1640082720}
+--- !u!114 &1487266094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487266078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1f544365cebf4f408302e898b812366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchEffect: {fileID: 1429063124}
 --- !u!1001 &1549647452
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10829,7 +10917,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 15, y: 15, z: 15, w: 15}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -12656,7 +12744,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 15, y: 15, z: 15, w: 15}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

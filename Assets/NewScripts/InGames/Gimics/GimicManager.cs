@@ -32,10 +32,7 @@ public class GimicManager : MonoBehaviour
     [Header("ギミックを表示するディスプレイ")]
     [SerializeField] Image gimicDisplay;
 
-    const int coinValueBig = 2;
-
     private int gimicCounter;
-    private int hitgimicCounter;
 
     private int gimicNumber;
 
@@ -56,30 +53,27 @@ public class GimicManager : MonoBehaviour
             switch(gimicNumber)
             {
                 case 0:
+                    //横方向の風
                     WideWindowGimic();
-                    Debug.Log("wide");
                     break;
                 case 1:
+                    //ボールの重力を変更
                     GravityChangerGimic();
-                    Debug.Log("gravity");
                     break;
                 case 2:
+                    //ランダムに風でボールを動かす
                     RandomWindowGimic(true);
-                    Debug.Log("random");
                     break;
                 case 3:
                     //大きい
                     PlayerScaleChangerGimic(1);
-                    Debug.Log("scalebigger");
                     break;
                 case 4:
                     //小さい
                     PlayerScaleChangerGimic(2);
-                    Debug.Log("scalesmaller");
                     break;
                 case 5:
                     WallChangerGimic();
-                    Debug.Log("wallchanger");
                     break;
             }
             RouletteCoinGimic();

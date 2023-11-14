@@ -39,7 +39,6 @@ public class DataAction : MonoBehaviour
     {
         //データ関連のinitialize
         dataFilePath = Application.persistentDataPath + "/Data.json";
-        data.CoinAmount = 2000000;
         DataSave();
         DataLoad();
         if (SceneManager.GetActiveScene().name == menuSceneName)

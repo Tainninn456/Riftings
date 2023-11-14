@@ -43,6 +43,10 @@ public class ImageAction : MonoBehaviour
 
     [SerializeField] GameObject[] heartDisplays;
 
+    [SerializeField] Sprite[] backImages;
+
+    [SerializeField] Image backGroundImage;
+
     private int useHeartAmount;
     public void clothButtonImageChanger(int index)
     {
@@ -92,9 +96,12 @@ public class ImageAction : MonoBehaviour
 
     public void DeathDisplay(int heartIndex)
     {
-        Debug.Log(useHeartAmount - heartIndex);
-        Debug.Log(useHeartAmount);
         heartDisplays[useHeartAmount - heartIndex].SetActive(false);
+    }
+
+    public void BackGroundChanger(int backIndex)
+    {
+        backGroundImage.sprite = backImages[backIndex];
     }
 
 #if UNITY_EDITOR

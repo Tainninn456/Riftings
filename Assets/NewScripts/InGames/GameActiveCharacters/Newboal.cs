@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 /// <summary>
-/// ボールに関するscript
+/// ボール自体のscript
 /// </summary>
 public class Newboal : MonoBehaviour
 {
+
+    const string playerTagName = "Player";
+    const string deathTagName = "Death";
+    const string wallTagName = "wall";
+
+    [Header("ボールを蹴る際の増えるカウント")]
+    [SerializeField] int kickCountAddValue;
+    [Header("重力を変更する境界")]
+    [SerializeField] int gravityChangePoint;
     [Header("ボールが超えてはいけない速度(int)")]
     [SerializeField] int maxBoalSpeed;
     [Header("ボールの速度を抑える倍率(float)")]
@@ -25,55 +35,65 @@ public class Newboal : MonoBehaviour
     [Header("ギミック用：乱気流用")]
     [SerializeField] float randPower;
     [Header("ギミック用：壁の反射力")]
-    [SerializeField] int wallReflectPower;
+    [SerializeField] float wallReflectPower;
+    [Header("ギミック用：横方向の風力")]
+    [SerializeField] float windPower;
 
     [SerializeField] float ballBigScaleValue;
 
     [SerializeField] float ballSmallScaleValue;
+
+    [SerializeField] float defaultBallScaleValue;
+
+    [Header("スケール変更の速度")]
+    [SerializeField] float animSpeed;
+
+    [SerializeField] int[] backChangeValues;
 
     [SerializeField] Transform[] scalePosition;
 
     [Header("Initializeの参照")]
     [SerializeField] DataReciver initialData;
 
-    private InGameStockData gameDatas;
-
-    private coinManager cMane;
-
-    [Header("データ系へのアクセス")]
+    [Header("ゲーム内データ群へのアクセス")]
     [SerializeField] GameObject managerInformation;
 
-    [Header("テキストへのアクセス")]
-    [SerializeField] TextAction textAction;
+    [Header("アクション全般へのアクセス")]
+    [SerializeField] GameObject actions;
 
-    [Header("イメージへのアクセス")]
-    [SerializeField] ImageAction imageAction;
+    [Header("エフェクトへのアクセス")]
+    [SerializeField] GameObject hitEffect;
 
-    [Header("ファイルデータを管理しているscriptへのアクセス")]
-    [SerializeField] DataAction dataAction;
+    //managerInformationの内容をstart関数にて取得
+    private InGameStockData gameDatas;
+    private coinManager cMane;
+    private TextAction textAction;
+    private ImageAction imageAction;
+    private DataAction dataAction;
 
-    const string playerTagName = "Player";
-    const string deathTagName = "Death";
-    const string wallTagName = "wall";
-
-    const float windPower = 1.3f;
-
-    const float defaultBallScaleValue = 0.1f;
-
+    //ボールのコンポーネントを取得
     private Rigidbody2D boalRig;
     private Transform boalTra;
     private SpriteRenderer boalSprite;
 
-    private int kickCountAddValue = 1;
-    private int gravityChangePoint = 10;
+    //エフェクトのコンポーネントを取得
+    private Transform effectTrans;
+    private ParticleSystem hitParticle;
+
+    //ボールのギミックに関すること
     private bool gimicing;
     private bool gravityGimicing;
 
+    //ボールの初期ポジション
     private Vector2 ballDefaultPosition;
 
+    //
     private int playIndex;
+    private int judgeValueIndex;
 
+    //残基を示す
     private int useHeartAmount;
+
     private void Start()
     {
         //ボールのコライダー設定
@@ -99,10 +119,19 @@ public class Newboal : MonoBehaviour
         //コンポーネントを取得
         gameDatas = managerInformation.GetComponent<InGameStockData>();
         cMane = managerInformation.GetComponent<coinManager>();
+        textAction = actions.GetComponent<TextAction>();
+        imageAction = actions.GetComponent<ImageAction>();
+        dataAction = actions.GetComponent<DataAction>();
 
+        //エフェクトの方のコンポーネントを取得
+        effectTrans = hitEffect.GetComponent<Transform>();
+        hitParticle = hitEffect.GetComponent<ParticleSystem>();
+
+        //イニシャライザーからの取得
         playIndex = initialData.sportType;
         useHeartAmount = initialData.heartAmount;
         gameDatas.coinMultiplication = initialData.coinLevel;
+
         imageAction.HeartDisplay(useHeartAmount);
         cMane.CoinValueChanger(1 * gameDatas.coinMultiplication);
 
@@ -118,18 +147,35 @@ public class Newboal : MonoBehaviour
             boalRig.velocity = boalVec * boalSpeedRatio;
         }
 
-        //キック回数を加算
+        //プレイヤーに衝突した時の処理
         if (collision.gameObject.CompareTag(playerTagName))
         {
             gameDatas.kickCount += kickCountAddValue;
             textAction.KickCountDisplay(gameDatas.kickCount);
-            boalRig.AddForce(boalRig.velocity.normalized * kickDefault, ForceMode2D.Impulse);
-            if(gameDatas.kickCount > gravityChangePoint) 
+            EffectAction(boalTra.position);
+
+            //キック時の計算
+            Vector2 kickVelocity = boalRig.velocity.normalized;
+            float newValue = Mathf.Lerp(0.6f, 1, (kickVelocity.y + 1) / 2f);
+            kickVelocity.y = newValue;
+            boalRig.AddForce(kickVelocity * kickDefault, ForceMode2D.Impulse);
+            int judgeValue = gameDatas.kickCount;
+            if(judgeValue > gravityChangePoint) 
             {
                 gravityChangePoint += gravityfrequency;
                 GravityChanger(0);
             }
+            if (judgeValue > backChangeValues[judgeValueIndex])
+            {
+                if(judgeValueIndex < backChangeValues.Length)
+                {
+                    judgeValueIndex++;
+                    imageAction.BackGroundChanger(judgeValueIndex - 1);
+                }
+            }
+            AudioManager.instance.PlaySE(AudioManager.SE.kick);
         }
+        //デススペースに衝突した時の処理
         else if (collision.gameObject.CompareTag(deathTagName))
         {
             boalRig.Sleep();
@@ -149,15 +195,22 @@ public class Newboal : MonoBehaviour
                 boalTra.position = ballDefaultPosition;
             }
         }
-        else if (gimicing && collision.gameObject.CompareTag(wallTagName))
+        //壁との衝突処理(ギミック発動中でなければ発生しない処理)
+        else if (collision.gameObject.CompareTag(wallTagName))
         {
-            boalRig.AddForce(boalRig.velocity.normalized * wallReflectPower, ForceMode2D.Impulse);
+            AudioManager.instance.PlaySE(AudioManager.SE.wall);
+            EffectAction(boalTra.position);
+            if (gimicing)
+            {
+                boalRig.AddForce(boalRig.velocity.normalized * wallReflectPower, ForceMode2D.Impulse);
+            }
         }
     }
 
     public void WindAttackGimic()
     {
         int rand = Random.Range(0, 11);
+        boalRig.velocity = new Vector2(0, boalRig.velocity.y);
         if(rand > 5)
         {
             boalRig.AddForce(new Vector2(windPower, 0), ForceMode2D.Impulse);
@@ -221,13 +274,16 @@ public class Newboal : MonoBehaviour
         switch (value)
         {
             case 0:
-                boalTra.localScale = new Vector3(ballBigScaleValue, ballBigScaleValue, 1);
+                boalTra.DOScale(new Vector3(ballBigScaleValue, ballBigScaleValue, 1), animSpeed);
+                //boalTra.localScale = new Vector3(ballBigScaleValue, ballBigScaleValue, 1);
                 break;
             case 1:
-                boalTra.localScale = new Vector3(ballSmallScaleValue, ballSmallScaleValue, 1);
+                boalTra.DOScale(new Vector3(ballSmallScaleValue, ballSmallScaleValue, 1), animSpeed);
+                //boalTra.localScale = new Vector3(ballSmallScaleValue, ballSmallScaleValue, 1);
                 break;
             case 2:
-                boalTra.localScale = new Vector3(defaultBallScaleValue, defaultBallScaleValue, 1);
+                boalTra.DOScale(new Vector3(defaultBallScaleValue, defaultBallScaleValue, 1), animSpeed);
+                //boalTra.localScale = new Vector3(defaultBallScaleValue, defaultBallScaleValue, 1);
                 break;
         }
     }
@@ -252,5 +308,12 @@ public class Newboal : MonoBehaviour
                 break;
         }
         return new Vector2(50, 50);
+    }
+
+    //エフェクト実行
+    private void EffectAction(Vector2 targetPosition)
+    {
+        effectTrans.position = targetPosition;
+        hitParticle.Play();
     }
 }
