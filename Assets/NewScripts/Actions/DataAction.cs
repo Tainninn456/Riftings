@@ -13,12 +13,17 @@ public class DataAction : MonoBehaviour
     [SerializeField] TextAction textAction;
     [SerializeField] ImageAction imageAction;
 
+    [Header("インゲーム")]
+    [SerializeField] InGameStockData gameDataStock;
+
     const string menuSceneName = "menuScene";
     const string playSceneName = "playScene";
 
     const string bothWrite = "TextAndImage";
     const string textWrite = "TextOnly";
     const string imageWrite = "ImageOnly";
+
+    const int levelMax = 10;
 
     //他からアクセス出来ない真のデータ
     private Data data = new Data();
@@ -34,14 +39,14 @@ public class DataAction : MonoBehaviour
     {
         //データ関連のinitialize
         dataFilePath = Application.persistentDataPath + "/Data.json";
-        DataLoad();
-        data.CoinAmount = 500;
         DataSave();
-
+        DataLoad();
         if (SceneManager.GetActiveScene().name == menuSceneName)
         {
             //その他initialize
             SpritesInsert();
+            textAction.DataIntoText();
+            textAction.ItemDataText();
         }
     }
 
@@ -49,19 +54,39 @@ public class DataAction : MonoBehaviour
     public void ClothDesicion(int inputIndex)
     {
         clothChangeIndex = inputIndex;
+        imageAction.RockDataIntoImage(clothChangeIndex);
+        textAction.ShopDataIntoText(clothChangeIndex);
     }
 
     //着せ替えの消費を確定
     public void ClothConsume(int consumeIndex)
     {
-        if(data.CoinAmount > shopData.shopConsumePrices[clothChangeIndex, consumeIndex])
+        //もし既に購入していたらただ着せ替えを実行
+        if (data.clothAchive[clothChangeIndex] > consumeIndex - 1)
         {
-            Debug.Log("bye");
+            AudioManager.instance.PlaySE(AudioManager.SE.ItemOk);
+            data.sportCloth[clothChangeIndex] = consumeIndex;
         }
         else
         {
-            Debug.Log("miss");
+            int moneyValue = shopData.shopConsumePrices[clothChangeIndex, consumeIndex];
+            if (data.CoinAmount > moneyValue)
+            {
+                data.CoinAmount -= moneyValue;
+                data.clothAchive[clothChangeIndex]++;
+                data.sportCloth[clothChangeIndex] = consumeIndex;
+                imageAction.RockDataIntoImage(clothChangeIndex);
+                textAction.ShopDataIntoText(clothChangeIndex);
+                textAction.DataIntoText();
+                AudioManager.instance.PlaySE(AudioManager.SE.ItemOk);
+            }
+            else
+            {
+                AudioManager.instance.PlaySE(AudioManager.SE.ItemMiss);
+            }
         }
+        DataSave();
+        SpritesInsert();
     }
 
     //アイテムの消費を確定
@@ -70,27 +95,48 @@ public class DataAction : MonoBehaviour
         //コインの処理
         if(itemIndex == 0)
         {
-            if (data.CoinAmount > shopData.coinPrices[data.coinLevel])
+            if(data.coinLevel == levelMax) { return; }
+            int moneyValue = shopData.coinPrices[data.coinLevel - 1];
+            if (data.CoinAmount > moneyValue)
             {
-                Debug.Log("bye");
+                AudioManager.instance.PlaySE(AudioManager.SE.ItemOk);
+                data.CoinAmount -= moneyValue;
+                data.coinLevel++;
             }
             else
             {
-                Debug.Log("miss");
+                AudioManager.instance.PlaySE(AudioManager.SE.ItemMiss);
             }
         }
         //ハートの処理
         else if(itemIndex == 1)
         {
-            if (data.CoinAmount > shopData.coinPrices[data.heartLevel])
+            if(data.heartLevel == levelMax) { return; }
+            int moneyValue = shopData.heartPrices[data.heartLevel - 1];
+            if (data.CoinAmount > moneyValue)
             {
-                Debug.Log("bye");
+                AudioManager.instance.PlaySE(AudioManager.SE.ItemOk);
+                data.CoinAmount -= moneyValue;
+                data.heartLevel++;
             }
             else
             {
-                Debug.Log("miss");
+                AudioManager.instance.PlaySE(AudioManager.SE.ItemMiss);
             }
         }
+        textAction.DataIntoText();
+        textAction.ItemDataText();
+        DataSave();
+    }
+
+    public void GameEndDataSaveStarter(int scoreIndex)
+    {
+        if (gameDataStock.kickCount > data.GameScores[scoreIndex])
+        {
+            data.GameScores[scoreIndex] = gameDataStock.kickCount;
+        }
+        data.CoinAmount += gameDataStock.coinCount;
+        DataSave();
     }
 
     //テキストとイメージをデータから変更
@@ -100,13 +146,13 @@ public class DataAction : MonoBehaviour
         {
             case bothWrite:
                 textAction.DataIntoText();
-                imageAction.DataIntoImage();
+                //imageAction.DataIntoImage();
                 break;
             case textWrite:
                 textAction.DataIntoText();
                 break;
             case imageWrite:
-                imageAction.DataIntoImage();
+                //imageAction.DataIntoImage();
                 break;
         }
     }
@@ -127,6 +173,7 @@ public class DataAction : MonoBehaviour
         StreamReader reader;
         reader = new StreamReader(dataFilePath);
         datastr = reader.ReadToEnd();
+        JsonUtility.FromJsonOverwrite(datastr, data);
         reader.Close();
     }
 

@@ -13,7 +13,13 @@ public class InGameStockData: MonoBehaviour
     [HideInInspector]
     public int minusCoinCount;
     [HideInInspector]
+    public int heartAmount;
+    [HideInInspector]
+    public int coinMultiplication = 1;
+    [HideInInspector]
     public bool GameOver;
     [HideInInspector]
     public bool AnimationEnd;
+    [HideInInspector]
+    public bool GimicCalculating = true;
 }

@@ -21,8 +21,6 @@ public class CoinPool : MonoBehaviour
 
     private GameObject createCoinInformation;
 
-    private int counter;
-
     //coinInformation‚Éî•ñ‚ğ“n‚·
     public void CoinInformationInput(GameObject info)
     {

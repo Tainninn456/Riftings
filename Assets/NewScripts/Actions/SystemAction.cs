@@ -52,6 +52,9 @@ public class SystemAction : MonoBehaviour
     [Header("ポーズ用オブジェクト")]
     [SerializeField] RePlayDatas replayer;
 
+    [Header("ゲーム内データへの参照")]
+    [SerializeField] InGameStockData gameDatas;
+
     private int sportTypeNumber = 0;
     public enum MoveDirection
     {
@@ -74,16 +77,31 @@ public class SystemAction : MonoBehaviour
         down
     }
 
+    private void Start()
+    {
+        Application.targetFrameRate = 60;
+        if (SceneManager.GetActiveScene().name == menuSceneName)
+        {
+            AudioManager.instance.PlayBGM(AudioManager.BGM.menu);
+        }
+        else if (SceneManager.GetActiveScene().name == playSceneName)
+        {
+            AudioManager.instance.PlayBGM(AudioManager.BGM.play);
+        }
+    }
+
     public void PanelMove(MoveDirection directionName, int panelNumber)
     {
         if (directionName == MoveDirection.over)
         {
             Vector3 downPosition = new Vector3(0, 0, 0);
             RectTransform myTrans = movePanel[panelNumber];
-            myTrans.DOMove(downPosition, animaionSpeed).OnComplete(() => Debug.Log("##"));
+            myTrans.DOMove(downPosition, animaionSpeed);
         }
         else
         {
+            //メインメニュー画面遷移
+            AudioManager.instance.PlaySE(AudioManager.SE.panelMove);
             Vector3 leftPosition = new Vector3(0, 0, 0);
             Vector3 rightPosition = new Vector3(0, 0, 0);
             switch (panelNumber)
@@ -121,6 +139,7 @@ public class SystemAction : MonoBehaviour
     {
         popParent.SetActive(true);
         RectTransform myTrans = null;
+        AudioManager.instance.PlaySE(AudioManager.SE.popUp);
         switch (popName)
         {
             case PopName.Sound:
@@ -143,6 +162,7 @@ public class SystemAction : MonoBehaviour
     public void PopDown(PopName popName)
     {
         GameObject myObj = null;
+        AudioManager.instance.PlaySE(AudioManager.SE.popDown);
         switch (popName)
         {
             case PopName.Sound:
@@ -156,7 +176,13 @@ public class SystemAction : MonoBehaviour
                 ActiveOperation(false);
                 break;
         }
-        myObj.GetComponent<RectTransform>().DOScale(new Vector3(minScale, minScale, 1), animaionSpeed).OnComplete(() => myObj.SetActive(false)).OnComplete(() => popParent.SetActive(false));
+        myObj.GetComponent<RectTransform>()
+    .DOScale(new Vector3(minScale, minScale, 1), animationSpeed)
+    .OnComplete(() =>
+    {
+        myObj.SetActive(false);
+        popParent.SetActive(false);
+    });
     }
 
     public void PopChain(PopOperaition operationName, PopName targetPopName)
@@ -232,9 +258,11 @@ public class SystemAction : MonoBehaviour
         {
             replayer.StopWorldInfrence();
             activeParent.SetActive(false);
+            gameDatas.GimicCalculating = false;
         }
         else
         {
+            gameDatas.GimicCalculating = true;
             activeParent.SetActive(true);
             replayer.ReWorldInfrence();
         }
@@ -247,16 +275,18 @@ public class SystemAction : MonoBehaviour
     //スポーツの種類を指定しないシーン遷移
     public void SimpleSceneMover(int sceneIndex)
     {
-        ActiveOperation(false);
+        //ActiveOperation(false);
         switch (sceneIndex)
         {
             //プレイシーンに移動する
             case 0:
+                AudioManager.instance.PlaySE(AudioManager.SE.sceneMove);
                 SceneManager.sceneLoaded += ReloadScene;
                 SceneManager.LoadScene(playSceneName);
                 break;
             //メニューシーンに移動する
             case 1:
+                AudioManager.instance.PlaySE(AudioManager.SE.sceneMove);
                 SceneManager.LoadScene(menuSceneName);
                 break;
         }
@@ -265,13 +295,9 @@ public class SystemAction : MonoBehaviour
     //通常プレイモードでシーン遷移
     public void SceneMoveStarter(int sendSportTypeNumber)
     {
+        AudioManager.instance.PlaySE(AudioManager.SE.sceneMove);
         sportTypeNumber = sendSportTypeNumber;
         SceneMove();
-    }
-
-    public void PinSceneMover()
-    {
-
     }
     //実際のシーン遷移
     private void SceneMove()
@@ -289,6 +315,8 @@ public class SystemAction : MonoBehaviour
         Data stockData = dataAction.DataCopy();
         datareciver.sportType = sportTypeNumber;
         datareciver.clothSprite = dataAction.sportSprites[sportTypeNumber];
+        datareciver.heartAmount = stockData.heartLevel;
+        datareciver.coinLevel = stockData.coinLevel;
         SceneManager.sceneLoaded -= GameSceneLoaded;
     }
     private void ReloadScene(Scene next, LoadSceneMode mode)
@@ -298,6 +326,8 @@ public class SystemAction : MonoBehaviour
         //データの取得
         datareciver.sportType = referencsData.sportType;
         datareciver.clothSprite = referencsData.clothSprite;
+        datareciver.heartAmount = referencsData.heartAmount;
+        datareciver.coinLevel = referencsData.coinLevel;
         SceneManager.sceneLoaded -= ReloadScene;
     }
 }

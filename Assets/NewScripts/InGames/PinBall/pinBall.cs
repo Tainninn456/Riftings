@@ -24,7 +24,6 @@ public class pinBall : MonoBehaviour
         
         if (collision.gameObject.CompareTag(bumperTagName))
         {
-            Debug.Log("#");
             boalRig.Sleep();
             boalRig.AddForce((boalTra.position - collision.gameObject.GetComponent<Transform>().position).normalized * bouncePower, ForceMode2D.Impulse);
         }

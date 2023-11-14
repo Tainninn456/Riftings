@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -22,11 +23,18 @@ public class AudioManager : MonoBehaviour
     }
     public enum SE
     {
-        tap,
-        change,
-        kick
+        panelMove,
+        popUp,
+        popDown,
+        ItemOk,
+        ItemMiss,
+        sceneMove,
+        ResultSE,
+        kick,
+        coin,
+        wall
     }
-    public enum SountType
+    public enum SoundType
     {
         BGM,
         SE
@@ -47,8 +55,6 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        PlayBGM(BGM.menu);
     }
 
     public void PlayBGM(BGM bgmName)
@@ -59,6 +65,11 @@ public class AudioManager : MonoBehaviour
         }
         bgm.clip = bgmClips[(int)bgmName];
         bgm.Play();
+    }
+
+    public void StopBGM()
+    {
+        bgm.Stop();
     }
 
     public void PlaySE(SE seName)

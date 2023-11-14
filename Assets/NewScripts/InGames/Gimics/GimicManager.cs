@@ -17,6 +17,9 @@ public class GimicManager : MonoBehaviour
     [Header("ボールのトリガー参照(当たった時の処理はこっちの方が多いかも?)")]
     [SerializeField] ballTrigger ballTriggerReference;
 
+    [Header("ゲーム内データの参照")]
+    [SerializeField] InGameStockData gameDatas;
+
     [Header("ルーレット")]
     [SerializeField] Rouleter roulette;
 
@@ -29,10 +32,7 @@ public class GimicManager : MonoBehaviour
     [Header("ギミックを表示するディスプレイ")]
     [SerializeField] Image gimicDisplay;
 
-    const int coinValueBig = 2;
-
     private int gimicCounter;
-    private int hitgimicCounter;
 
     private int gimicNumber;
 
@@ -41,6 +41,7 @@ public class GimicManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!gameDatas.GimicCalculating) { return; }
         gimicCounter++;
     }
     private void Update()
@@ -52,30 +53,27 @@ public class GimicManager : MonoBehaviour
             switch(gimicNumber)
             {
                 case 0:
+                    //横方向の風
                     WideWindowGimic();
-                    Debug.Log("wide");
                     break;
                 case 1:
+                    //ボールの重力を変更
                     GravityChangerGimic();
-                    Debug.Log("gravity");
                     break;
                 case 2:
+                    //ランダムに風でボールを動かす
                     RandomWindowGimic(true);
-                    Debug.Log("random");
                     break;
                 case 3:
                     //大きい
                     PlayerScaleChangerGimic(1);
-                    Debug.Log("scalebigger");
                     break;
                 case 4:
                     //小さい
                     PlayerScaleChangerGimic(2);
-                    Debug.Log("scalesmaller");
                     break;
                 case 5:
                     WallChangerGimic();
-                    Debug.Log("wallchanger");
                     break;
             }
             RouletteCoinGimic();
@@ -121,7 +119,18 @@ public class GimicManager : MonoBehaviour
 
     private void CoinAmountGimic(int actionType)
     {
-        cMane.CoinValueChanger(coinValueBig);
+        switch (actionType)
+        {
+            case 0:
+                cMane.CoinValueChanger(2 * gameDatas.coinMultiplication);
+                break;
+            case 1:
+                cMane.CoinValueChanger(-1);
+                break;
+            case 2:
+                cMane.CoinValueChanger(1 * gameDatas.coinMultiplication);
+                break;
+        }
     }
 
     private void KickAmountGimic(int actionType)
@@ -129,13 +138,15 @@ public class GimicManager : MonoBehaviour
         switch (actionType)
         {
             case 0:
-                boalReference.KickAddValueChanger(1);
-                break;
-            case 1:
                 boalReference.KickAddValueChanger(2);
                 break;
+            case 1:
+                boalReference.KickAddValueChanger(-1);
+                break;
+            case 2:
+                boalReference.KickAddValueChanger(1);
+                break;
         }
-        //boalReference.KickAddValueChanger(actionType);
     }
 
     private void BallScaleGimic(int actionType)
@@ -172,5 +183,13 @@ public class GimicManager : MonoBehaviour
                 BallScaleGimic(actionType);
                 break;
         }
+    }
+
+    //ルーレット内容物をリセット
+    public void RouletteReset()
+    {
+        CoinAmountGimic(2);
+        KickAmountGimic(2);
+        boalReference.BallScaleChanger(2);
     }
 }

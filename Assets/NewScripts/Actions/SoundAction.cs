@@ -12,6 +12,7 @@ public class SoundAction : MonoBehaviour
 
     public void VolumeUp(SoundType soundType)
     {
+        AudioManager.instance.PlaySE(AudioManager.SE.popUp);
         switch (soundType)
         {
             case SoundType.BGM:
@@ -25,6 +26,7 @@ public class SoundAction : MonoBehaviour
 
     public void VolumeDown(SoundType soundType)
     {
+        AudioManager.instance.PlaySE(AudioManager.SE.popDown);
         switch (soundType)
         {
             case SoundType.BGM:
