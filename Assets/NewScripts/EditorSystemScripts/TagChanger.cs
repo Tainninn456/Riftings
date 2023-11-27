@@ -7,22 +7,22 @@ using UnityEngine.UI;
 using TMPro;
 
 /// <summary>
-/// ƒGƒfƒBƒ^ã‚Åtag‚ğ•ÏX‚·‚é
+/// ã‚¨ãƒ‡ã‚£ã‚¿ä¸Šã§tagã‚’å¤‰æ›´ã™ã‚‹
 /// </summary>
 public class TagChanger : MonoBehaviour
 {
-    //ContextMenu‚É‚Äæ“¾‚·‚éƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ–¾¦‚·‚é‚½‚ß‚Ìtag–¼
+    //ContextMenuã«ã¦å–å¾—ã™ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’æ˜ç¤ºã™ã‚‹ãŸã‚ã®tagå
     const string textActiveTagName = "ActiveObject";
-    //ContextMenu‚É‚Äæ“¾‚·‚é‘ÎÛ‚©‚çŠO‚·Û‚Ég—p‚·‚é
+    //ContextMenuã«ã¦å–å¾—ã™ã‚‹å¯¾è±¡ã‹ã‚‰å¤–ã™éš›ã«ä½¿ç”¨ã™ã‚‹
     const string tagResetName = "Untagged";
 
-    //Tools‚©‚çg—p‚·‚éÛ‚Ì–¼‘O
+    //Toolsã‹ã‚‰ä½¿ç”¨ã™ã‚‹éš›ã®åå‰
     const string textTagMethod = "Tools/TagChangeToActiveForText";
     const string imageTagMethod = "Tools/TagChangeToActiveForImage";
     const string buttonTagMethod = "Tools/TagChangeToActiveForButton";
     const string tagReseterMethod = "Tools/DangerTagReseter";
 
-    //æ“¾‚·‚éƒeƒLƒXƒg‚ÉActiveObjectƒ^ƒO‚ğ•t—^‚·‚éŠÖ”
+    //å–å¾—ã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆã«ActiveObjectã‚¿ã‚°ã‚’ä»˜ä¸ã™ã‚‹é–¢æ•°
     [MenuItem(textTagMethod)]
     private static void TagChangeToActiveForText()
     {
@@ -36,8 +36,8 @@ public class TagChanger : MonoBehaviour
         }
     }
 
-    //æ“¾‚·‚éƒCƒ[ƒW‚ÉActiveObjectƒ^ƒO‚ğ•t—^‚·‚éŠÖ”
-    //ƒCƒ[ƒW‚ÍƒRƒ“ƒ|[ƒlƒ“ƒg‚ªŠK‘w‚Åd‚È‚é‰Â”\«‚ª‚ ‚é‚½‚ßrootƒIƒuƒWƒFƒNƒg‚Ì‚İæ“¾
+    //å–å¾—ã™ã‚‹ã‚¤ãƒ¡ãƒ¼ã‚¸ã«ActiveObjectã‚¿ã‚°ã‚’ä»˜ä¸ã™ã‚‹é–¢æ•°
+    //ã‚¤ãƒ¡ãƒ¼ã‚¸ã¯ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒéšå±¤ã§é‡ãªã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ãŸã‚rootã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã¿å–å¾—
     [MenuItem(imageTagMethod)]
     private static void TagChangeToActiveForImageParent()
     {
@@ -47,7 +47,7 @@ public class TagChanger : MonoBehaviour
         }
     }
 
-    //æ“¾‚·‚éƒ{ƒ^ƒ“‚ÉActiveObjectƒ^ƒO‚ğ•t—^‚·‚éŠÖ”
+    //å–å¾—ã™ã‚‹ãƒœã‚¿ãƒ³ã«ActiveObjectã‚¿ã‚°ã‚’ä»˜ä¸ã™ã‚‹é–¢æ•°
     [MenuItem(buttonTagMethod)]
     private static void TagChangeToActiveForButton()
     {
@@ -61,7 +61,7 @@ public class TagChanger : MonoBehaviour
         }
     }
 
-    //g—p’ˆÓFƒ^ƒO‚ğƒŠƒZƒbƒg‚·‚éŠÖ”
+    //ä½¿ç”¨æ³¨æ„ï¼šã‚¿ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹é–¢æ•°
     [MenuItem(tagReseterMethod)]
     private static void DangerTagReseter()
     {

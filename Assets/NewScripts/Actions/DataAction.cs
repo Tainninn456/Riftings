@@ -5,48 +5,48 @@ using System.IO;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// ƒf[ƒ^‚ÉŠÖ‚·‚éƒAƒNƒVƒ‡ƒ“‚ğÀs‚·‚éƒNƒ‰ƒX
+/// ãƒ‡ãƒ¼ã‚¿ã«é–¢ã™ã‚‹ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’å®Ÿè¡Œã™ã‚‹ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class DataAction : MonoBehaviour
 {
     const string menuSceneName = "menuScene";
 
-    [Header("ƒƒCƒ“ƒƒjƒ…[")]
-    [Header("TextActionƒNƒ‰ƒX‚ÌQÆ")]
+    [Header("ãƒ¡ã‚¤ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼")]
+    [Header("TextActionã‚¯ãƒ©ã‚¹ã®å‚ç…§")]
     [SerializeField] TextAction textAction;
-    [Header("ImageActionƒNƒ‰ƒX‚ÌQÆ")]
+    [Header("ImageActionã‚¯ãƒ©ã‚¹ã®å‚ç…§")]
     [SerializeField] ImageAction imageAction;
 
-    [Header("ƒCƒ“ƒQ[ƒ€")]
-    [Header("ƒQ[ƒ€ƒvƒŒƒC’†‚Éƒf[ƒ^‚ğW–ñ‚³‚¹‚Ä‚¨‚­ƒNƒ‰ƒX‚ÌQÆ")]
+    [Header("ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ")]
+    [Header("ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤ä¸­ã«ãƒ‡ãƒ¼ã‚¿ã‚’é›†ç´„ã•ã›ã¦ãŠãã‚¯ãƒ©ã‚¹ã®å‚ç…§")]
     [SerializeField] InGameStockData gameDataStock;
 
-    //‘¼‚©‚çƒAƒNƒZƒXo—ˆ‚È‚¢^‚Ìƒf[ƒ^
+    //ä»–ã‹ã‚‰ã‚¢ã‚¯ã‚»ã‚¹å‡ºæ¥ãªã„çœŸã®ãƒ‡ãƒ¼ã‚¿
     private Data data = new Data();
-    //ƒVƒ‡ƒbƒv‚Ìî•ñ‚ª“ü‚Á‚Ä‚¢‚éƒn[ƒhƒR[ƒfƒBƒ“ƒO‚µ‚½ƒNƒ‰ƒX
+    //ã‚·ãƒ§ãƒƒãƒ—ã®æƒ…å ±ãŒå…¥ã£ã¦ã„ã‚‹ãƒãƒ¼ãƒ‰ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã—ãŸã‚¯ãƒ©ã‚¹
     private shopPrices shopData = new shopPrices();
-    //Œ»İ‚ÌƒXƒ|[ƒcŠeí‚ÌƒXƒvƒ‰ƒCƒg‚ğ•Û‚µA‘¼ƒNƒ‰ƒX‚Å‚àg—p‚·‚é
+    //ç¾åœ¨ã®ã‚¹ãƒãƒ¼ãƒ„å„ç¨®ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä¿æŒã—ã€ä»–ã‚¯ãƒ©ã‚¹ã§ã‚‚ä½¿ç”¨ã™ã‚‹
     public Sprite[] sportSprites = new Sprite[9];
 
-    //’…‚¹‘Ö‚¦‚Ì’†‚ÅŒ»İƒAƒNƒVƒ‡ƒ“‚ğs‚Á‚Ä‚¢‚éƒXƒ|[ƒc‚ÌƒCƒ“ƒfƒbƒNƒX
+    //ç€ã›æ›¿ãˆã®ä¸­ã§ç¾åœ¨ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’è¡Œã£ã¦ã„ã‚‹ã‚¹ãƒãƒ¼ãƒ„ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
     private int clothChangeIndex;
-    //Json‚Ìƒf[ƒ^‚ğ•Û‘¶‚µ‚Ä‚ ‚éƒtƒ@ƒCƒ‹‚Ö‚ÌƒpƒX
+    //Jsonã®ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã—ã¦ã‚ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ‘ã‚¹
     private string dataFilePath;
     private void Start()
     {
-        //ƒf[ƒ^ŠÖ˜A‚Ìinitialize
+        //ãƒ‡ãƒ¼ã‚¿é–¢é€£ã®initialize
         dataFilePath = Application.persistentDataPath + "/Data.json";
         DataLoad();
         if (SceneManager.GetActiveScene().name == menuSceneName)
         {
-            //‚»‚Ì‘¼initialize
+            //ãã®ä»–initialize
             SpritesInsert();
             textAction.DataIntoText();
             textAction.ItemDataIntoText();
         }
     }
 
-    //Á”ï‚·‚éƒXƒ|[ƒcƒ^ƒCƒv‚ğŒˆ’è‚·‚éŠÖ”
+    //æ¶ˆè²»ã™ã‚‹ã‚¹ãƒãƒ¼ãƒ„ã‚¿ã‚¤ãƒ—ã‚’æ±ºå®šã™ã‚‹é–¢æ•°
     public void ClothDesicion(int inputIndex)
     {
         clothChangeIndex = inputIndex;
@@ -54,10 +54,10 @@ public class DataAction : MonoBehaviour
         textAction.ShopDataIntoText(clothChangeIndex);
     }
 
-    //’…‚¹‘Ö‚¦‚ÌÁ”ï‚ğŠm’è‚·‚éŠÖ”
+    //ç€ã›æ›¿ãˆã®æ¶ˆè²»ã‚’ç¢ºå®šã™ã‚‹é–¢æ•°
     public void ClothConsume(int consumeIndex)
     {
-        //‚à‚µŠù‚Éw“ü‚µ‚Ä‚¢‚½‚ç‚½‚¾’…‚¹‘Ö‚¦‚ğÀs
+        //ã‚‚ã—æ—¢ã«è³¼å…¥ã—ã¦ã„ãŸã‚‰ãŸã ç€ã›æ›¿ãˆã‚’å®Ÿè¡Œ
         if (data.clothAchive[clothChangeIndex] > consumeIndex - 1)
         {
             AudioManager.instance.PlaySE(AudioManager.SE.ItemOk);
@@ -85,10 +85,10 @@ public class DataAction : MonoBehaviour
         SpritesInsert();
     }
 
-    //ƒAƒCƒeƒ€‚ÌÁ”ï‚ğŠm’è‚·‚éŠÖ”
+    //ã‚¢ã‚¤ãƒ†ãƒ ã®æ¶ˆè²»ã‚’ç¢ºå®šã™ã‚‹é–¢æ•°
     public void ItemConsume(int itemIndex)
     {
-        //ƒRƒCƒ“‚Ìˆ—
+        //ã‚³ã‚¤ãƒ³ã®å‡¦ç†
         if(itemIndex == 0)
         {
             if(data.coinLevel == shopData.coinPrices.Length + 1) { return; }
@@ -104,7 +104,7 @@ public class DataAction : MonoBehaviour
                 AudioManager.instance.PlaySE(AudioManager.SE.ItemMiss);
             }
         }
-        //ƒn[ƒg‚Ìˆ—
+        //ãƒãƒ¼ãƒˆã®å‡¦ç†
         else if(itemIndex == 1)
         {
             if(data.heartLevel == shopData.heartPrices.Length + 1) { return; }
@@ -125,7 +125,7 @@ public class DataAction : MonoBehaviour
         DataSave();
     }
 
-    //ƒQ[ƒ€‚ªI—¹‚µ‚½Û‚Éƒf[ƒ^‚ğW–ñ‚µ‚Ä‚¢‚½ƒNƒ‰ƒX‚ğŒ³‚ÉƒZ[ƒu‚ğs‚¤ŠÖ”
+    //ã‚²ãƒ¼ãƒ ãŒçµ‚äº†ã—ãŸéš›ã«ãƒ‡ãƒ¼ã‚¿ã‚’é›†ç´„ã—ã¦ã„ãŸã‚¯ãƒ©ã‚¹ã‚’å…ƒã«ã‚»ãƒ¼ãƒ–ã‚’è¡Œã†é–¢æ•°
     public void GameEndDataSaveStarter(int scoreIndex)
     {
         if (gameDataStock.kickCount > data.GameScores[scoreIndex])
@@ -136,7 +136,7 @@ public class DataAction : MonoBehaviour
         DataSave();
     }
 
-    //ƒXƒ|[ƒcŠeí‚ÌŒ»İ‚ÌƒXƒvƒ‰ƒCƒg‚ğæ“¾‚·‚éŠÖ”
+    //ã‚¹ãƒãƒ¼ãƒ„å„ç¨®ã®ç¾åœ¨ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’å–å¾—ã™ã‚‹é–¢æ•°
     private void SpritesInsert()
     {
         for(int i = 0; i < sportSprites.Length; i++)
@@ -145,7 +145,7 @@ public class DataAction : MonoBehaviour
         }
     }
 
-    //ƒtƒ@ƒCƒ‹‚©‚çJson‚Ìƒf[ƒ^‚ğæ“¾‚·‚éŠÖ”
+    //ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰Jsonã®ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹é–¢æ•°
     private void DataLoad()
     {
         string datastr = "";
@@ -156,7 +156,7 @@ public class DataAction : MonoBehaviour
         reader.Close();
     }
 
-    //ƒtƒ@ƒCƒ‹‚ÖJsonŒ`®‚Åƒf[ƒ^‚ğ•Û‘¶‚·‚éŠÖ”
+    //ãƒ•ã‚¡ã‚¤ãƒ«ã¸Jsonå½¢å¼ã§ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã™ã‚‹é–¢æ•°
     private void DataSave()
     {
         StreamWriter writer;
@@ -167,7 +167,7 @@ public class DataAction : MonoBehaviour
         writer.Close();
     }
 
-    //DataƒNƒ‰ƒX‚Ö‚Ì‘‚«‚İ‚â“Ç‚İæ‚è‚ğ‘¼ƒNƒ‰ƒX‚ÅÀs‚³‚¹‚È‚¢‚½‚ß‚ÉƒRƒs[‚ğ“n‚·‚½‚ß‚ÌŠÖ”
+    //Dataã‚¯ãƒ©ã‚¹ã¸ã®æ›¸ãè¾¼ã¿ã‚„èª­ã¿å–ã‚Šã‚’ä»–ã‚¯ãƒ©ã‚¹ã§å®Ÿè¡Œã•ã›ãªã„ãŸã‚ã«ã‚³ãƒ”ãƒ¼ã‚’æ¸¡ã™ãŸã‚ã®é–¢æ•°
     public Data DataCopy()
     {
         Data copyData = data;

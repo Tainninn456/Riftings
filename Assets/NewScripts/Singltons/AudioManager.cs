@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+/// <summary>
+/// サウンドに関するクラス、シングルトンでどのクラスからも呼び出すことができる
+/// </summary>
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
+    [Header("BGMとSEの内容物を保持")]
     [SerializeField]
     private AudioClip[] bgmClips;
     [SerializeField]
     private AudioClip[] seClips;
 
+    [Header("BGMとSE用のAudioSourceを保持")]
     [SerializeField]
     private AudioSource bgm;
     [SerializeField]
@@ -57,6 +63,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    //BGMを再生する関数
     public void PlayBGM(BGM bgmName)
     {
         if (bgm.isPlaying)
@@ -67,16 +74,19 @@ public class AudioManager : MonoBehaviour
         bgm.Play();
     }
 
+    //BGMを停止する関数
     public void StopBGM()
     {
         bgm.Stop();
     }
 
+    //SEを再生する関数
     public void PlaySE(SE seName)
     {
         se.PlayOneShot(seClips[(int)seName]);
     }
 
+    //BGMのボリュームを変更する関数
     public void BGMVolumeChange(VolumeInstruction inst)
     {
         if(inst == VolumeInstruction.up)
@@ -89,6 +99,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    //SEのボリュームを変更する関数
     public void SEVolumeChange(VolumeInstruction inst)
     {
         if(inst == VolumeInstruction.up)

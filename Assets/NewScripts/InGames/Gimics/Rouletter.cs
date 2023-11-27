@@ -3,23 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Rouleter : MonoBehaviour
+
+/// <summary>
+/// ルーレットを担当するクラス
+/// </summary>
+public class Rouletter : MonoBehaviour
 {
-    [Header("���[���b�g�Ɏg�p����摜(�v���X���[���b�g)")]
+    [Header("ルーレットに使用する画像(プラスルーレット)")]
     [SerializeField] Sprite[] plusSprites;
 
-    [Header("���[���b�g�Ɏg�p����摜(�}�C�i�X���[���b�g)")]
+    [Header("ルーレットに使用する画像(マイナスルーレット)")]
     [SerializeField] Sprite[] minusSprites;
 
-    [Header("�\������X�v���C�g")]
+    [Header("表示するスプライト")]
     [SerializeField] Image rouletteSprite;
 
-    [Header("�M�~�b�N�}�l�[�W���[�̎Q��")]
-    [SerializeField] GimicManager gMane;
-    //�Ώۂ̉摜�Q
+    [Header("ギミックマネージャーの参照")]
+    [SerializeField] GimicManager gimicManager;
+
+    //プラスかマイナスのルーレットにて表示するスプライト群を保持する変数
     private Sprite[] InsertSprites;
 
+    //回すルーレットがプラスかマイナスかを保持する変数
     private int nowRouletteType;
+
+    //ルーレットを実行する関数
     public void RouletteStart(int rouletteType)
     {
         nowRouletteType = rouletteType;
@@ -32,11 +40,12 @@ public class Rouleter : MonoBehaviour
                 InsertSprites = minusSprites;
                 break;
         }
-        gMane.RouletteReset();
-        StartCoroutine("Roulette");
+        gimicManager.RouletteReset();
+        StartCoroutine("RotationRoulette");
     }
 
-    IEnumerator Roulette()
+    //ルーレットの非同期処理
+    IEnumerator RotationRoulette()
     {
         int returnNumber = 0;
         for (int i = 0; i < 30; i++)
@@ -49,6 +58,6 @@ public class Rouleter : MonoBehaviour
                 returnNumber = rand;
             }
         }
-        gMane.RouletteDesicion(returnNumber, nowRouletteType);
+        gimicManager.RouletteDecision(returnNumber, nowRouletteType);
     }
 }

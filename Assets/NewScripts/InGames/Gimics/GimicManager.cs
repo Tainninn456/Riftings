@@ -3,43 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// ã‚®ãƒŸãƒƒã‚¯ã«é–¢ã™ã‚‹å‡¦ç†ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
+/// </summary>
 public class GimicManager : MonoBehaviour
 {
-    [Header("ƒMƒ~ƒbƒN‚Ì•p“x")]
+    [Header("ã‚®ãƒŸãƒƒã‚¯ã®é »åº¦")]
     [SerializeField] int gimicPoint;
 
-    [Header("ƒRƒCƒ“”­¶•p“x‚Ì•ÏX’l")]
+    [Header("ã‚³ã‚¤ãƒ³ç™ºç”Ÿé »åº¦ã®å¤‰æ›´å€¤")]
     [SerializeField] int frequencyValue;
 
-    [Header("ƒvƒŒƒCƒ„[‚ÌQÆ")]
-    [SerializeField] Newplayer playerReference;
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‚ç…§")]
+    [SerializeField] Player playerReference;
 
-    [Header("ƒ{[ƒ‹‚ÌQÆ")]
-    [SerializeField] NewBall ballReference;
+    [Header("ãƒœãƒ¼ãƒ«ã®å‚ç…§")]
+    [SerializeField] Ball ballReference;
 
-    [Header("ƒ{[ƒ‹‚ÌƒgƒŠƒK[QÆ(“–‚½‚Á‚½‚Ìˆ—‚Í‚±‚Á‚¿‚Ì•û‚ª‘½‚¢‚©‚à?)")]
+    [Header("ãƒœãƒ¼ãƒ«ã®ãƒˆãƒªã‚¬ãƒ¼å‚ç…§(å½“ãŸã£ãŸæ™‚ã®å‡¦ç†ã¯ã“ã£ã¡ã®æ–¹ãŒå¤šã„ã‹ã‚‚?)")]
     [SerializeField] ballTrigger ballTriggerReference;
 
-    [Header("ƒQ[ƒ€“àƒf[ƒ^‚ÌQÆ")]
+    [Header("ã‚²ãƒ¼ãƒ å†…ãƒ‡ãƒ¼ã‚¿ã®å‚ç…§")]
     [SerializeField] InGameStockData gameDatas;
 
-    [Header("ƒ‹[ƒŒƒbƒg")]
-    [SerializeField] Rouleter roulette;
+    [Header("ãƒ«ãƒ¼ãƒ¬ãƒƒãƒˆã®å‚ç…§")]
+    [SerializeField] Rouletter roulette;
 
-    [Header("ƒRƒCƒ“ƒ}ƒl[ƒWƒƒ[")]
-    [SerializeField] coinManager cMane;
+    [Header("ã‚³ã‚¤ãƒ³ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®å‚ç…§")]
+    [SerializeField] coinManager coinManagerReference;
 
-    [Header("ƒMƒ~ƒbƒNƒXƒvƒ‰ƒCƒg")]
+    [Header("ã‚®ãƒŸãƒƒã‚¯ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ")]
     [SerializeField] Sprite[] gimicSprites;
 
-    [Header("ƒMƒ~ƒbƒN‚ğ•\¦‚·‚éƒfƒBƒXƒvƒŒƒC")]
+    [Header("å®Ÿè¡Œä¸­ã‚®ãƒŸãƒƒã‚¯ã‚’è¡¨ç¤ºã™ã‚‹ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤")]
     [SerializeField] Image gimicDisplay;
 
+    //ã‚®ãƒŸãƒƒã‚¯å®Ÿè¡Œã¾ã§ã®ãƒ•ãƒ¬ãƒ¼ãƒ çµŒéã‚’ä¿æŒ
     private int gimicCounter;
 
+    //å®Ÿè¡Œã™ã‚‹ã‚®ãƒŸãƒƒã‚¯ã®ç•ªå·ã‚’ä¿æŒ
     private int gimicNumber;
 
+    //ãƒ—ãƒ©ã‚¹ãƒã‚¤ãƒŠã‚¹ã‚³ã‚¤ãƒ³ã®é…ç½®ã«é–¢ã™ã‚‹boolå€¤ã‚’ä¿æŒ
     private bool gimicCoinning;
+
+    //ä¹±æ°—æµç™ºç”Ÿã‚®ãƒŸãƒƒã‚¯ã«é–¢ã™ã‚‹boolå€¤ã‚’ä¿æŒ
     private bool randGimic;
 
     private void FixedUpdate()
@@ -53,26 +62,27 @@ public class GimicManager : MonoBehaviour
         {
             GimicResetter();
             gimicNumber = Random.Range(0, 7);
+            //ã‚®ãƒŸãƒƒã‚¯å®Ÿè¡Œå‘½ä»¤
             switch(gimicNumber)
             {
                 case 0:
-                    //‰¡•ûŒü‚Ì•—
+                    //æ¨ªæ–¹å‘ã®é¢¨
                     WideWindowGimic();
                     break;
                 case 1:
-                    //ƒ{[ƒ‹‚Ìd—Í‚ğ•ÏX
+                    //ãƒœãƒ¼ãƒ«ã®é‡åŠ›ã‚’å¤‰æ›´
                     GravityChangerGimic();
                     break;
                 case 2:
-                    //ƒ‰ƒ“ƒ_ƒ€‚É•—‚Åƒ{[ƒ‹‚ğ“®‚©‚·
+                    //ãƒ©ãƒ³ãƒ€ãƒ ã«é¢¨ã§ãƒœãƒ¼ãƒ«ã‚’å‹•ã‹ã™
                     RandomWindowGimic(true);
                     break;
                 case 3:
-                    //‘å‚«‚¢
+                    //å¤§ãã„
                     PlayerScaleChangerGimic(1);
                     break;
                 case 4:
-                    //¬‚³‚¢
+                    //å°ã•ã„
                     PlayerScaleChangerGimic(2);
                     break;
                 case 5:
@@ -88,66 +98,79 @@ public class GimicManager : MonoBehaviour
         }
         if (randGimic) { ballReference.WindRandomAttackGimic(); }
     }
-    //‰¡•ûŒü‚Ì•—ƒMƒ~ƒbƒN
+
+    /// <summary>
+    /// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚®ãƒŸãƒƒã‚¯
+    /// </summary>
+
+    //æ¨ªæ–¹å‘ã®é¢¨ã‚®ãƒŸãƒƒã‚¯
     private void WideWindowGimic()
     {
-        ballTriggerReference.WallGimicStarter(true);
+        ballTriggerReference.WideWindGimicStarter(true);
     }
 
-    //d—Í•ÏXƒMƒ~ƒbƒN
+    //é‡åŠ›å¤‰æ›´ã‚®ãƒŸãƒƒã‚¯
     private void GravityChangerGimic()
     {
         ballReference.GravityChanger(1);
     }
 
-    //—‹C—¬ƒMƒ~ƒbƒN
+    //ä¹±æ°—æµã‚®ãƒŸãƒƒã‚¯
     private void RandomWindowGimic(bool randStart)
     {
         randGimic = randStart;
     }
 
-    //ƒvƒŒƒCƒ„[‚Ì‘å‚«‚³•ÏXƒMƒ~ƒbƒN
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å¤§ãã•å¤‰æ›´ã‚®ãƒŸãƒƒã‚¯
     private void PlayerScaleChangerGimic(int scaleDirection)
     {
         playerReference.ScaleChanger(scaleDirection);
     }
 
-    //•Ç«¿•Ï‰»ƒMƒ~ƒbƒN
+    //å£æ€§è³ªå¤‰åŒ–ã‚®ãƒŸãƒƒã‚¯
     private void WallChangerGimic()
     {
         ballReference.WallGimicStarter(true);
     }
 
+    //ã‚³ã‚¤ãƒ³ç™ºç”Ÿé »åº¦å¤‰æ›´ã‚®ãƒŸãƒƒã‚¯
     private void CoinFrequenceGimic()
     {
-        cMane.CoinFrequencyChange(frequencyValue, true);
-    }
-    private void RouletteCoinGimic()
-    {
-        if (!gimicCoinning)
-        {
-            gimicCoinning = true;
-            cMane.GimicCoin(1, true);
-            cMane.GimicCoin(2, true);
-        }
+        coinManagerReference.CoinFrequencyChange(frequencyValue, true);
     }
 
+    private void GimicResetter()
+    {
+        ballTriggerReference.WideWindGimicStarter(false);
+        ballReference.WallGimicStarter(false);
+        ballReference.GravityChanger(2);
+        playerReference.ScaleChanger(0);
+        RandomWindowGimic(false);
+        coinManagerReference.CoinFrequencyChange(0, false);
+    }
+
+    /// <summary>
+    /// ã‚³ã‚¤ãƒ³ã«ã‚ˆã‚‹ã‚®ãƒŸãƒƒã‚¯
+    /// </summary>
+
+    //ã‚³ã‚¤ãƒ³ã®å€¤ã‚’å¤‰æ›´ã™ã‚‹ã‚®ãƒŸãƒƒã‚¯
     private void CoinAmountGimic(int actionType)
     {
         switch (actionType)
         {
             case 0:
-                cMane.CoinValueChanger(2 * gameDatas.coinMultiplication);
+                coinManagerReference.CoinValueChanger(2 * gameDatas.coinMultiplication);
                 break;
             case 1:
-                cMane.CoinValueChanger(-1);
+                coinManagerReference.CoinValueChanger(-1);
                 break;
             case 2:
-                cMane.CoinValueChanger(1 * gameDatas.coinMultiplication);
+                coinManagerReference.CoinValueChanger(1 * gameDatas.coinMultiplication);
                 break;
         }
     }
 
+    //ã‚­ãƒƒã‚¯æ™‚ã®å€¤ã‚’å¤‰æ›´ã™ã‚‹ã‚®ãƒŸãƒƒã‚¯
     private void KickAmountGimic(int actionType)
     {
         switch (actionType)
@@ -164,28 +187,32 @@ public class GimicManager : MonoBehaviour
         }
     }
 
+    //ãƒœãƒ¼ãƒ«ã®ã‚¹ã‚±ãƒ¼ãƒ«ã‚’å¤‰æ›´ã™ã‚‹ã‚®ãƒŸãƒƒã‚¯
     private void BallScaleGimic(int actionType)
     {
         ballReference.BallScaleChanger(actionType);
     }
-    private void GimicResetter()
+
+    //ãƒ—ãƒ©ã‚¹ãƒã‚¤ãƒŠã‚¹ã‚³ã‚¤ãƒ³ã‚’ç™ºç”Ÿã•ã›ã‚‹ã‚®ãƒŸãƒƒã‚¯
+    private void RouletteCoinGimic()
     {
-        ballTriggerReference.WallGimicStarter(false);
-        ballReference.WallGimicStarter(false);
-        ballReference.GravityChanger(2);
-        playerReference.ScaleChanger(0);
-        RandomWindowGimic(false);
-        cMane.CoinFrequencyChange(0, false);
+        if (!gimicCoinning)
+        {
+            gimicCoinning = true;
+            coinManagerReference.GimicCoin(1, true);
+            coinManagerReference.GimicCoin(2, true);
+        }
     }
 
+    //ãƒ«ãƒ¼ãƒ¬ãƒƒãƒˆã‚’ã‚¹ã‚¿ãƒ¼ãƒˆã™ã‚‹é–¢æ•°
     public void RouletStarter(int actionType)
     {
         roulette.RouletteStart(actionType);
         gimicCoinning = false;
     }
 
-    //actionNumber=4í—Ş‚Ì“à1í—Ş‚ğŒˆ’èAactionType=ƒvƒ‰ƒX‚©ƒ}ƒCƒiƒX‚©
-    public void RouletteDesicion(int actionNumber, int actionType)
+    //ãƒ«ãƒ¼ãƒ¬ãƒƒãƒˆã®æœ€çµ‚å€¤ã«ã‚ˆã£ã¦å®Ÿè¡Œã™ã‚‹é–¢æ•°ã€‚actionNumber=4ç¨®é¡ã®å†…1ç¨®é¡ã‚’æ±ºå®šã€actionType=ãƒ—ãƒ©ã‚¹ã‹ãƒã‚¤ãƒŠã‚¹ã‹
+    public void RouletteDecision(int actionNumber, int actionType)
     {
         switch (actionNumber)
         {
@@ -201,7 +228,7 @@ public class GimicManager : MonoBehaviour
         }
     }
 
-    //ƒ‹[ƒŒƒbƒg“à—e•¨‚ğƒŠƒZƒbƒg
+    //ãƒ«ãƒ¼ãƒ¬ãƒƒãƒˆã«ã¦å¤‰æ›´ã—ãŸãƒ¢ãƒã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹é–¢æ•°
     public void RouletteReset()
     {
         CoinAmountGimic(2);

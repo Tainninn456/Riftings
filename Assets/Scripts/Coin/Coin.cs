@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("ball"))
         {
@@ -13,5 +13,5 @@ public class Coin : MonoBehaviour
             Sound.SEplay(8);
             Main.coincounter.text = Main.coinCount.ToString();
         }
-    }
+    }*/
 }

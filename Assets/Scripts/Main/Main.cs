@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour
 {
-    public static Data memory = new Data();
+    /*public static Data memory = new Data();
     public static GameObject ball; public static GameObject player; public static GameObject typhoon; public static GameObject warp; public static GameObject bom;
     public static GameObject[] chains = new GameObject[8]; public static GameObject[] coins = new GameObject[50]; public static GameObject[] Hearts = new GameObject[5]; public static GameObject[] minusCoins = new GameObject[7]; public static GameObject[] numberCoins = new GameObject[7];
     public static GameObject[] panels = new GameObject[8];
@@ -695,5 +695,5 @@ public class Main : MonoBehaviour
                 memory.chainLevel = 8 - (i + 1);
             }
         }
-    }
+    }*/
 }

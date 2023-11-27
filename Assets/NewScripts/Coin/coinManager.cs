@@ -1,49 +1,70 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+/// <summary>
+/// コインに関する操作を行うクラス
+/// </summary>
 public class coinManager : MonoBehaviour
 {
-    [Header("�R�C���I�u�W�F�N�g")]
+    //各コインのPrefab情報を保持し、ここからscript内で使用する
+    [Header("コインオブジェクト")]
     [SerializeField] GameObject coin;
-    [Header("�v���X�R�C���I�u�W�F�N�g")]
+    [Header("プラスコインオブジェクト")]
     [SerializeField] GameObject plusCoin;
-    [Header("�}�C�i�X�R�C���I�u�W�F�N�g")]
+    [Header("マイナスコインオブジェクト")]
     [SerializeField] GameObject minusCoin;
-    [Header("���߂ɐ������Ă����R�C���̖���")]
+
+    [Header("初めに生成しておくコインの枚数")]
     [SerializeField] int InitialCoinAmount;
-    [Header("�R�C���𐶐�����Ԋu�̃f�t�H���g�l")]
+    [Header("コインを生成する間隔のデフォルト値")]
     [SerializeField] int coinCreateIntervalDefault;
 
-    [Header("�R�C���v�[���Q�̐e�I�u�W�F�N�g")]
+    [Header("コイン生成場所のx軸最低値")]
+    [SerializeField] float coinXposUnder;
+    [Header("コイン生成場所のx軸最高値")]
+    [SerializeField] float coinXposOver;
+    [Header("コイン生成場所のy軸最低値")]
+    [SerializeField] float coinYposUnder;
+    [Header("コイン生成場所のy軸最高値")]
+    [SerializeField] float coinYposOver;
+
+    [Header("コインプール群の親オブジェクト")]
     [SerializeField] GameObject coinsParent;
 
-    [Header("�Q�[�����̃f�[�^�ւ̃A�N�Z�X")]
+    [Header("ゲーム中のデータへのアクセス")]
     [SerializeField] InGameStockData gameDatas;
 
-    [Header("�M�~�b�N�}�l�[�W���[�ւ̃A�N�Z�X")]
+    [Header("ギミックマネージャーへのアクセス")]
     [SerializeField] GimicManager gMane;
 
+    [Header("コイン値の参照")]
     [SerializeField] CoinInformation coinInfo;
 
+    [Header("コインプールクラスの参照")]
     [SerializeField] CoinPool coinPool;
 
-    //�t���[���̌o�߉񐔂��L�^
+    //フレームの経過回数を記録
     private int createCounter;
 
-    //�R�C���̔����p�x
+    //コインの発生頻度
     private int coinCreateInterval;
 
-    private float[] gimicCoinCreatePositions = new float[4];
-
+    //外部からコインの生成を止める為の変数
     [HideInInspector]
     public bool porzBool;
+
+    //コインプールに生成するprefabコイン情報を渡し、コインの生成間隔を変数へ代入している
     private void Awake()
     {
         coinPool.CoinInformationInput(coin);
+        coinPool.CoinPositionSetter(coinXposUnder, coinXposOver, coinYposUnder, coinYposOver);
         coinCreateInterval = coinCreateIntervalDefault;
     }
     private void Update()
     {
+        //ポーズ中かゲームオーバーでなければコイン生成カウントを進める
         if (porzBool || gameDatas.GameOver) { return; }
         createCounter++;
         if (createCounter > coinCreateInterval)
@@ -53,27 +74,19 @@ public class coinManager : MonoBehaviour
         }
     }
 
-    //CoinPool�Ɋւ���O������̌Ăяo���֐�
+    //CoinPoolへオブジェクトを返却する外部からの呼び出し関数
     public void CoinPoolReturn(GameObject returnObj)
     {
         coinPool.ReleaseGameObject(returnObj);
     }
 
-    //CoinInformation�Ɋւ���O������̌Ăяo���֐�
+    //CoinInformationに値を代入する外部からの呼び出し関数
     public void CoinValueChanger(int value)
     {
         coinInfo.CoinValue = value;
     }
 
-    public void GimicCoinPositionsGetter(float xunder, float xover, float yunder, float yover)
-    {
-        gimicCoinCreatePositions[0] = xunder;
-        gimicCoinCreatePositions[1] = xover;
-        gimicCoinCreatePositions[2] = yunder;
-        gimicCoinCreatePositions[3] = yover;
-    }
-
-    //�R�C���̔����p�x��ύX
+    //コインの発生頻度を変更する関数
     public void CoinFrequencyChange(int frequencyValue, bool valueChange)
     {
         if (valueChange)
@@ -86,7 +99,7 @@ public class coinManager : MonoBehaviour
         }
     }
 
-    //�v���X�ƃ}�C�i�X�̃R�C���Ɋւ���֐�
+    //プラスとマイナスのコインに関する処理を行う関数
     public void GimicCoin(int gimicCoinIndex, bool createPoint)
     {
         Transform coinTra = null;
@@ -101,7 +114,7 @@ public class coinManager : MonoBehaviour
                 coinTra = minusCoin.GetComponent<Transform>();
                 break;
         }
-        coinTra.position = new Vector2(Random.Range(gimicCoinCreatePositions[0], gimicCoinCreatePositions[1]), Random.Range(gimicCoinCreatePositions[2], gimicCoinCreatePositions[3]));
+        coinTra.position = new Vector2(Random.Range(coinXposUnder, coinXposOver), Random.Range(coinYposUnder, coinYposOver));
         if (createPoint)
         {
             plusCoin.SetActive(true);

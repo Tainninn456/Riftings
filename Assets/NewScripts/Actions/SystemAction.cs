@@ -9,49 +9,49 @@ public class SystemAction : MonoBehaviour
     const string menuSceneName = "menuScene";
     const string playSceneName = "playScene";
 
-    //DotweenƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒXƒs[ƒh
+    //Dotweenã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¹ãƒ”ãƒ¼ãƒ‰
     const float animationSpeed = 0.3f;
-    //DotweenÀs‚Ì‘ÎÛPopup‚ÌTransformÅ¬ƒXƒP[ƒ‹
+    //Dotweenå®Ÿè¡Œæ™‚ã®å¯¾è±¡Popupã®Transformæœ€å°ã‚¹ã‚±ãƒ¼ãƒ«
     const float minScale = 0.05f;
-    //DotweenÀs‚Ì‘ÎÛPopup‚ÌTransformÅ‘åƒXƒP[ƒ‹
+    //Dotweenå®Ÿè¡Œæ™‚ã®å¯¾è±¡Popupã®Transformæœ€å¤§ã‚¹ã‚±ãƒ¼ãƒ«
     const int maxScale = 1;
 
-    [Header("ƒƒCƒ“ƒƒjƒ…[")]
-    [Header("ƒV[ƒ“‘JˆÚ‚É’…‚¹‘Ö‚¦î•ñ‚ğæ“¾‚·‚é‚½‚ß")]
+    [Header("ãƒ¡ã‚¤ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼")]
+    [Header("ã‚·ãƒ¼ãƒ³é·ç§»æ™‚ã«ç€ã›æ›¿ãˆæƒ…å ±ã‚’å–å¾—ã™ã‚‹ãŸã‚")]
     [SerializeField] DataAction useData;
 
-    [Header("ƒpƒlƒ‹‚Ì‘JˆÚæˆÊ’u(ƒCƒ“ƒQ[ƒ€‚Å‚Í0=resultLastPosition)")]
+    [Header("ãƒ‘ãƒãƒ«ã®é·ç§»å…ˆä½ç½®(ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ã§ã¯0=resultLastPosition)")]
     [SerializeField] RectTransform[] movePanelPositions;
 
-    [Header("ÀÛ‚É“®‚©‚·ƒpƒlƒ‹(ƒCƒ“ƒQ[ƒ€‚Å‚Í0=resultPanel)")]
+    [Header("å®Ÿéš›ã«å‹•ã‹ã™ãƒ‘ãƒãƒ«(ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ã§ã¯0=resultPanel)")]
     [SerializeField] RectTransform[] movePanel;
 
-    [Header("ƒTƒEƒ“ƒh‚Ìƒ|ƒbƒvƒAƒbƒv(ƒCƒ“ƒQ[ƒ€‚Å‚àg—p)")]
+    [Header("ã‚µã‚¦ãƒ³ãƒ‰ã®ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—(ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ã§ã‚‚ä½¿ç”¨)")]
     [SerializeField] GameObject soundPopup;
 
-    [Header("’…‚¹‘Ö‚¦‚Ìƒ|ƒbƒvƒAƒbƒv")]
+    [Header("ç€ã›æ›¿ãˆã®ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—")]
     [SerializeField] GameObject clothPopup;
 
-    [Header("ƒ|ƒbƒvƒAƒbƒv‚ÌeƒIƒuƒWƒFƒNƒg(ƒCƒ“ƒQ[ƒ€‚Å‚àg—p)")]
+    [Header("ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã®è¦ªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ(ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ã§ã‚‚ä½¿ç”¨)")]
     [SerializeField] GameObject popupParent;
 
-    [Header("ƒvƒŒƒCƒ„[‚Ìƒf[ƒ^‚Ö‚ÌQÆ")]
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ‡ãƒ¼ã‚¿ã¸ã®å‚ç…§")]
     [SerializeField] DataAction dataAction;
 
-    [Header("ƒCƒ“ƒQ[ƒ€")]
-    [Header("ƒ|[ƒY‚Ìƒ|ƒbƒvƒAƒbƒv")]
+    [Header("ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ")]
+    [Header("ãƒãƒ¼ã‚ºã®ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—")]
     [SerializeField] GameObject porzPopup;
 
-    [Header("ƒV[ƒ“‘JˆÚƒf[ƒ^‚ÌQÆ")]
+    [Header("ã‚·ãƒ¼ãƒ³é·ç§»ãƒ‡ãƒ¼ã‚¿ã®å‚ç…§")]
     [SerializeField] DataReciver referencsData;
 
-    [Header("ƒQ[ƒ€“àƒAƒNƒeƒBƒuƒIƒuƒWƒFƒNƒg‚Ìe")]
+    [Header("ã‚²ãƒ¼ãƒ å†…ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¦ª")]
     [SerializeField] GameObject activeParent;
 
-    [Header("ƒ|[ƒY—pƒIƒuƒWƒFƒNƒg")]
+    [Header("ãƒãƒ¼ã‚ºç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     [SerializeField] RePlayDatas replayer;
 
-    [Header("ƒQ[ƒ€“àƒf[ƒ^‚Ö‚ÌQÆ")]
+    [Header("ã‚²ãƒ¼ãƒ å†…ãƒ‡ãƒ¼ã‚¿ã¸ã®å‚ç…§")]
     [SerializeField] InGameStockData gameDatas;
 
     private int sportTypeNumber = 0;
@@ -90,13 +90,13 @@ public class SystemAction : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒpƒlƒ‹
+    /// ãƒ‘ãƒãƒ«
     /// </summary>
 
-    //ƒpƒlƒ‹‚Ì‘JˆÚ‚ğÀs‚·‚éŠÖ”
+    //ãƒ‘ãƒãƒ«ã®é·ç§»ã‚’å®Ÿè¡Œã™ã‚‹é–¢æ•°
     public void PanelMove(MoveDirection directionName, int panelNumber)
     {
-        //ƒŠƒUƒ‹ƒg‰æ–Ê‚ğ•\¦‚·‚é‚½‚ß‚Ì‘JˆÚ
+        //ãƒªã‚¶ãƒ«ãƒˆç”»é¢ã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®é·ç§»
         if (directionName == MoveDirection.over)
         {
             Vector3 downPosition = new Vector3(0, 0, 0);
@@ -105,18 +105,18 @@ public class SystemAction : MonoBehaviour
         }
         else
         {
-            //ƒƒCƒ“ƒƒjƒ…[‰æ–Ê‘JˆÚ
+            //ãƒ¡ã‚¤ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢é·ç§»
             AudioManager.instance.PlaySE(AudioManager.SE.panelMove);
             Vector3 leftPosition = new Vector3(0, 0, 0);
             Vector3 rightPosition = new Vector3(0, 0, 0);
             switch (panelNumber)
             {
-                //’…‚¹‘Ö‚¦ƒpƒlƒ‹‚Ìê‡
+                //ç€ã›æ›¿ãˆãƒ‘ãƒãƒ«ã®å ´åˆ
                 case 0:
                     leftPosition = movePanelPositions[1].position;
                     rightPosition = movePanelPositions[2].position;
                     break;
-                //ƒXƒRƒAƒpƒlƒ‹‚Ìê‡
+                //ã‚¹ã‚³ã‚¢ãƒ‘ãƒãƒ«ã®å ´åˆ
                 case 1:
                     leftPosition = movePanelPositions[0].position;
                     rightPosition = movePanelPositions[1].position;
@@ -136,10 +136,10 @@ public class SystemAction : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒ|ƒbƒvƒAƒbƒv
+    /// ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—
     /// </summary>
 
-    //ƒ|ƒbƒvƒAƒbƒv‚Ì•\¦‚ğs‚¤ŠÖ”
+    //ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã®è¡¨ç¤ºã‚’è¡Œã†é–¢æ•°
     public void PopupDisplay(PopupName popName)
     {
         popupParent.SetActive(true);
@@ -164,7 +164,7 @@ public class SystemAction : MonoBehaviour
         myTrans.DOScale(new Vector3(maxScale, maxScale, maxScale), animationSpeed);
     }
 
-    //ƒ|ƒbƒvƒAƒbƒv‚Ì”ñ•\¦‚ğs‚¤ŠÖ”
+    //ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã®éè¡¨ç¤ºã‚’è¡Œã†é–¢æ•°
     public void PopupHidden(PopupName popName)
     {
         GameObject myObj = null;
@@ -191,7 +191,7 @@ public class SystemAction : MonoBehaviour
             });
     }
 
-    //˜A‘±‚µ‚Äƒ|ƒbƒvƒAƒbƒv‚ğ•\¦‚·‚é‚½‚ß‚ÌŠÖ”
+    //é€£ç¶šã—ã¦ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®é–¢æ•°
     public void PopupChainDisplay(PopupOperaion operationName, PopupName targetPopName)
     {
         GameObject myObj = null;
@@ -213,18 +213,18 @@ public class SystemAction : MonoBehaviour
                 myObj.SetActive(true);
                 myObj.GetComponent<RectTransform>().DOScale(new Vector3(maxScale, maxScale, maxScale), animationSpeed);
                 break;
-            //©g‚ğ”ñ•\¦‚É‚·‚é‚Ì‚İ
+            //è‡ªèº«ã‚’éè¡¨ç¤ºã«ã™ã‚‹ã®ã¿
             case PopupOperaion.hidden:
                 myObj.GetComponent<RectTransform>().DOScale(new Vector3(minScale, minScale, 1), animationSpeed).OnComplete(() => myObj.SetActive(false));
                 break;
         }
     }
 
-    //ƒ|[ƒY‚ÉŠÖ‚·‚éˆ—(“à—e‚ª‘‚¦‚é‚²‚Æ‚É’Ç‰Á‚µ‚Ä‚¢‚­)
+    //ãƒãƒ¼ã‚ºã«é–¢ã™ã‚‹å‡¦ç†(å†…å®¹ãŒå¢—ãˆã‚‹ã”ã¨ã«è¿½åŠ ã—ã¦ã„ã)
     private void ActiveOperation(bool Operation)
     {
         if(SceneManager.GetActiveScene().name == menuSceneName) { return; }
-        //~‚ß‚éê‡‚Ìˆ—
+        //æ­¢ã‚ã‚‹å ´åˆã®å‡¦ç†
         if (Operation)
         {
             replayer.StopGame();
@@ -240,21 +240,21 @@ public class SystemAction : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒV[ƒ“‘JˆÚ
+    /// ã‚·ãƒ¼ãƒ³é·ç§»
     /// </summary>
 
-    //ƒXƒ|[ƒc‚Ìí—Ş‚ğw’è‚µ‚È‚¢ƒV[ƒ“‘JˆÚ
+    //ã‚¹ãƒãƒ¼ãƒ„ã®ç¨®é¡ã‚’æŒ‡å®šã—ãªã„ã‚·ãƒ¼ãƒ³é·ç§»
     public void SimpleSceneMover(int sceneIndex)
     {
         switch (sceneIndex)
         {
-            //ƒvƒŒƒCƒV[ƒ“‚ÉˆÚ“®‚·‚é
+            //ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã«ç§»å‹•ã™ã‚‹
             case 0:
                 AudioManager.instance.PlaySE(AudioManager.SE.sceneMove);
                 SceneManager.sceneLoaded += ReloadScene;
                 SceneManager.LoadScene(playSceneName);
                 break;
-            //ƒƒjƒ…[ƒV[ƒ“‚ÉˆÚ“®‚·‚é
+            //ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚·ãƒ¼ãƒ³ã«ç§»å‹•ã™ã‚‹
             case 1:
                 AudioManager.instance.PlaySE(AudioManager.SE.sceneMove);
                 SceneManager.LoadScene(menuSceneName);
@@ -262,26 +262,26 @@ public class SystemAction : MonoBehaviour
         }
     }
 
-    //’ÊíƒvƒŒƒCƒ‚[ƒh‚ÅƒV[ƒ“‘JˆÚ
+    //é€šå¸¸ãƒ—ãƒ¬ã‚¤ãƒ¢ãƒ¼ãƒ‰ã§ã‚·ãƒ¼ãƒ³é·ç§»
     public void SceneMoveStarter(int sendSportTypeNumber)
     {
         AudioManager.instance.PlaySE(AudioManager.SE.sceneMove);
         sportTypeNumber = sendSportTypeNumber;
         SceneMove();
     }
-    //ÀÛ‚ÌƒV[ƒ“‘JˆÚ
+    //å®Ÿéš›ã®ã‚·ãƒ¼ãƒ³é·ç§»
     private void SceneMove()
     {
         ActiveOperation(false);
         SceneManager.sceneLoaded += GameSceneLoaded;
         SceneManager.LoadScene(playSceneName);
     }
-    //ƒV[ƒ“‘JˆÚ“à‚Åó‚¯“n‚·ƒf[ƒ^‚Ì“à—e
+    //ã‚·ãƒ¼ãƒ³é·ç§»å†…ã§å—ã‘æ¸¡ã™ãƒ‡ãƒ¼ã‚¿ã®å†…å®¹
     private void GameSceneLoaded(Scene next, LoadSceneMode mode)
     {
-        //‘JˆÚæƒV[ƒ“‚ÌƒIƒuƒWƒFƒNƒgŒŸõ
+        //é·ç§»å…ˆã‚·ãƒ¼ãƒ³ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ¤œç´¢
         var datareciver = GameObject.FindWithTag("DataReciver").GetComponent<DataReciver>();
-        //ƒf[ƒ^‚Ìæ“¾
+        //ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
         Data stockData = dataAction.DataCopy();
         datareciver.sportType = sportTypeNumber;
         datareciver.clothSprite = dataAction.sportSprites[sportTypeNumber];
@@ -291,9 +291,9 @@ public class SystemAction : MonoBehaviour
     }
     private void ReloadScene(Scene next, LoadSceneMode mode)
     {
-        //‘JˆÚæƒV[ƒ“‚ÌƒIƒuƒWƒFƒNƒgŒŸõ
+        //é·ç§»å…ˆã‚·ãƒ¼ãƒ³ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ¤œç´¢
         var datareciver = GameObject.FindWithTag("DataReciver").GetComponent<DataReciver>();
-        //ƒf[ƒ^‚Ìæ“¾
+        //ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
         datareciver.sportType = referencsData.sportType;
         datareciver.clothSprite = referencsData.clothSprite;
         datareciver.heartAmount = referencsData.heartAmount;

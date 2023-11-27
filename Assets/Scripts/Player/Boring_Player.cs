@@ -1,7 +1,7 @@
 using UnityEngine;
 public class Boring_Player : PlayParent
 {
-    public static void move()//trueはゲームオーバー
+    /*public static void move()//trueはゲームオーバー
     {
         pmove(50, 1.875f);
         bmove();
@@ -89,5 +89,5 @@ public class Boring_Player : PlayParent
         Reonce(-50 + Main.powerUps[1] * 70 + Main.powerUps[2] * 70);
         bWall(hx);
         Main.counter.text = timeCount.ToString();
-    }
+    }*/
 }

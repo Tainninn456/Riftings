@@ -4,19 +4,26 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SoundInputer : InputParent
+
+/// <summary>
+/// サウンド系のボタンを保持し、関数を割り当てているクラス
+/// </summary>
+public class SoundVolumeInputer : InputParent
 {
+    //ContextMenuにて使用する関数のstring名
     const string methodBGMName = "BGMButtonGetter";
     const string methodSEName = "SEButtonGetter";
 
+    [Header("SoundActionクラスの参照")]
     [SerializeField] SoundVolumeAction soundAction;
 
-    [Header("0=up�A1=down")]
+    [Header("0=up、1=downとし、それぞれBGMとSEの調整を行うボタンを保持")]
     [SerializeField] Button[] BGMButtons = new Button[0];
     [SerializeField] Button[] SEButtons = new Button[0];
 
     private void Start()
     {
+        //各ボタンに対して、ボリューム変更に関するSoundActionクラス内の関数を割り当てる
         BGMButtons[0].onClick.AddListener(() => soundAction.VolumeUp(SoundVolumeAction.SoundType.BGM));
         BGMButtons[1].onClick.AddListener(() => soundAction.VolumeDown(SoundVolumeAction.SoundType.BGM));
         SEButtons[0].onClick.AddListener(() => soundAction.VolumeUp(SoundVolumeAction.SoundType.SE));
@@ -25,10 +32,13 @@ public class SoundInputer : InputParent
 #if UNITY_EDITOR
 
     /// <summary>
-    /// �G�f�B�^����s�֐�
+    /// エディタ上実行関数
     /// </summary>
+    /// 
+
+    //BGMのボリュームを変更するボタンを取得する関数
     [ContextMenu(methodBGMName)]
-    private void ClothButtonGetter()
+    private void BGMButtonGetter()
     {
         var buttonArray = base.ButtonGetter();
         Array.Resize<Button>(ref BGMButtons, buttonArray.Length);
@@ -38,8 +48,9 @@ public class SoundInputer : InputParent
         }
     }
 
+    //SEのボリュームを変更するボタンを取得する関数
     [ContextMenu(methodSEName)]
-    private void ItemButtonGetter()
+    private void SEButtonGetter()
     {
         var buttonArray = base.ButtonGetter();
         Array.Resize<Button>(ref SEButtons, buttonArray.Length);

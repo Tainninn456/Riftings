@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class warp : MonoBehaviour
 {
-    public float x; //public float y;
+    /*public float x; //public float y;
     public static bool hit = true;
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -25,5 +25,5 @@ public class warp : MonoBehaviour
                     break;
             }
         }
-    }
+    }*/
 }

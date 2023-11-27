@@ -316,7 +316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d5e050cfeaa9ca49b1b281f6c407bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinTex: {fileID: 0}
   parentBoalScript: {fileID: 603763439}
   managerInformation: {fileID: 742631750}
   textAction: {fileID: 604201970}
@@ -2348,7 +2347,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sportType: 0
-  clothNumber: 0
   heartAmount: 0
   coinLevel: 0
   clothSprite: {fileID: 0}
@@ -2364,8 +2362,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb49e409cd9d7b4885725df1787fef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballScript: {fileID: 603763439}
-  cmaneScript: {fileID: 742631751}
+  ballReference: {fileID: 603763439}
+  coinManagerReference: {fileID: 742631751}
 --- !u!1 &603763434
 GameObject:
   m_ObjectHideFlags: 0
@@ -2490,15 +2488,15 @@ MonoBehaviour:
   gravityChangePoint: 20
   maxBallSpeed: 2
   ballSpeedRatio: 0.7
-  addGravity: 0.1
+  addGravity: 0.2
   gravityfrequency: 20
-  kickDefault: 7
+  kickDefault: 9
   rotationPower: 4
-  addKickPower: 0.5
+  addKickPower: 1
   gravitymagnification: 3
-  randPower: 4
-  wallReflectPower: 3
-  windPower: 0.5
+  randPower: 14
+  wallReflectPower: 5
+  windPower: 1
   ballBigScaleValue: 0.16
   ballSmallScaleValue: 0.06
   defaultBallScaleValue: 0.1
@@ -2673,19 +2671,17 @@ MonoBehaviour:
   ToClothButton: {fileID: 0}
   ToScoreButton: {fileID: 0}
   scoreBackButton: {fileID: 0}
-  rotationButtons: []
-  soundPopButtons:
+  soundPopupButtons:
   - {fileID: 2142540480}
   - {fileID: 1017796741}
-  clothPopUpButtons: []
-  clothPopDownButton: {fileID: 0}
+  clothPopupDisplayButtons: []
+  clothPopupHiddenButton: {fileID: 0}
   sceneButtons:
   - {fileID: 1351885605}
   - {fileID: 1183692252}
   - {fileID: 292513142}
   - {fileID: 563922446}
-  pinSceneButton: {fileID: 0}
-  porzPopButtons:
+  porzPopupButtons:
   - {fileID: 1716085587}
   - {fileID: 695789359}
 --- !u!114 &604201972
@@ -3773,6 +3769,10 @@ MonoBehaviour:
   minusCoin: {fileID: 143412014}
   InitialCoinAmount: 30
   coinCreateIntervalDefault: 200
+  coinXposUnder: -1.8
+  coinXposOver: 1.8
+  coinYposUnder: 0.4
+  coinYposOver: 3.5
   coinsParent: {fileID: 1139999155}
   gameDatas: {fileID: 742631753}
   gMane: {fileID: 742631756}
@@ -3813,7 +3813,6 @@ MonoBehaviour:
   heartAmount: 0
   coinMultiplication: 1
   GameOver: 0
-  AnimationEnd: 0
   GimicCalculating: 1
 --- !u!114 &742631754
 MonoBehaviour:
@@ -3827,11 +3826,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02c306e6e1bbee4459936c5ba0b32a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinXposUnder: -1.8
-  coinXposOver: 1.8
-  coinYposUnder: 0.4
-  coinYposOver: 3.5
-  cmane: {fileID: 742631751}
 --- !u!114 &742631755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3863,7 +3857,7 @@ MonoBehaviour:
   ballTriggerReference: {fileID: 86302845}
   gameDatas: {fileID: 742631753}
   roulette: {fileID: 742631757}
-  cMane: {fileID: 742631751}
+  coinManagerReference: {fileID: 742631751}
   gimicSprites:
   - {fileID: 21300000, guid: a2e25aa93665bcc4fb1cb2d169e96719, type: 3}
   - {fileID: 21300000, guid: fb13eeecf7c6ccb4a90441868a422339, type: 3}
@@ -3894,7 +3888,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 77089e2252978064699c382c0241a92c, type: 3}
   - {fileID: 21300000, guid: e1216f06a4b18a04ab75499b76c545d3, type: 3}
   rouletteSprite: {fileID: 1030087351}
-  gMane: {fileID: 742631756}
+  gimicManager: {fileID: 742631756}
 --- !u!1 &755884815
 GameObject:
   m_ObjectHideFlags: 0
@@ -6194,7 +6188,6 @@ MonoBehaviour:
   heartAmount: 0
   coinMultiplication: 1
   GameOver: 0
-  AnimationEnd: 0
   GimicCalculating: 1
 --- !u!1 &1447299089
 GameObject:

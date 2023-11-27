@@ -1,14 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using UnityEditor;
 using DG.Tweening;
 
 /// <summary>
-/// ゲームプレイ中のプレイヤー
+/// ゲームプレイ中のプレイヤーのクラス
 /// </summary>
-public class Newplayer : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [Header("プレイヤーの移動速度")]
     [SerializeField] int movePowerX;
@@ -25,11 +24,13 @@ public class Newplayer : MonoBehaviour
     [Header("スケール変更の速度")]
     [SerializeField] float animSpeed;
 
+    //プレイヤーのトランスフォーム
+    Transform playerTransform;
 
-    Transform tra;
+    //プレイヤーのrigidbody
+    Rigidbody2D playerRigid;
 
-    Rigidbody2D rig;
-
+    //進む方向に関するbool値
     bool right; bool left;
 
     private void FixedUpdate()
@@ -37,25 +38,25 @@ public class Newplayer : MonoBehaviour
         //右方向移動
         if (right)
         {
-            if (rig.velocity.x < 0)
+            if (playerRigid.velocity.x < 0)
             {
-                rig.velocity = new Vector2(0, 0);
+                playerRigid.velocity = new Vector2(0, 0);
             }
-            rig.velocity = new Vector2(movePowerX, 0);
+            playerRigid.velocity = new Vector2(movePowerX, 0);
         }
         //左方向移動
         else if (left)
         {
-            rig.velocity = new Vector2(-1 * movePowerX, 0);
+            playerRigid.velocity = new Vector2(-1 * movePowerX, 0);
         }
         //滑り防止
         else
         {
-            rig.velocity = Vector2.zero;
+            playerRigid.velocity = Vector2.zero;
         }
     }
 
-    //入力及び移動
+    //ボタン押下で呼び出され進行中を知らせる関数
     public void MoveDirectionStart(int directionNumber)
     {
         switch (directionNumber)
@@ -69,6 +70,7 @@ public class Newplayer : MonoBehaviour
         }
     }
 
+    //進行の終了を知らせる関数
     public void MoveDirectionEnd(int directionNumber)
     {
         switch (directionNumber)
@@ -82,29 +84,29 @@ public class Newplayer : MonoBehaviour
         }
     }
 
-    //初期情報入力
+    //PlayerSelecterクラスから初期化されるための関数
     public void PlayerComponentInserter(Rigidbody2D inputRig, Transform inputTra)
     {
-        rig = inputRig;
-        tra = inputTra;
+        playerRigid = inputRig;
+        playerTransform = inputTra;
     }
 
-    //スケール変更ギミック
+    //スケール変更ギミックを実行する関数
     public void ScaleChanger(int scaleNumber)
     {
         switch (scaleNumber)
         {
             //通常の大きさ
             case 0:
-                tra.DOScale(new Vector3(defaultPlayerScaleValue, defaultPlayerScaleValue, 1), animSpeed);
+                playerTransform.DOScale(new Vector3(defaultPlayerScaleValue, defaultPlayerScaleValue, 1), animSpeed);
                 break;
             //大きいバージョン
             case 1:
-                tra.DOScale(new Vector3(playerBigScaleValue, playerBigScaleValue, 1), animSpeed);
+                playerTransform.DOScale(new Vector3(playerBigScaleValue, playerBigScaleValue, 1), animSpeed);
                 break;
             //小さいバージョン
             case 2:
-                tra.DOScale(new Vector3(playerSmallScaleValue, playerSmallScaleValue, 1), animSpeed);
+                playerTransform.DOScale(new Vector3(playerSmallScaleValue, playerSmallScaleValue, 1), animSpeed);
                 break;
         }
     }
