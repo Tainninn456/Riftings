@@ -65,9 +65,9 @@ public class SystemInputer : InputParent
 
             foreach (Button button in clothPopUpButtons)
             {
-                button.onClick.AddListener(() => systemAction.PopUp(SystemAction.PopName.Cloth));
+                button.onClick.AddListener(() => systemAction.PopupDisplay(SystemAction.PopupName.Cloth));
             }
-            clothPopDownButton.onClick.AddListener(() => systemAction.PopDown(SystemAction.PopName.Cloth));
+            clothPopDownButton.onClick.AddListener(() => systemAction.PopupHidden(SystemAction.PopupName.Cloth));
 
             //ƒV[ƒ“‘JˆÚŒn‚ÉŠÖ‚·‚é•”•ª
             for (int i = 0; i < sceneButtons.Length; i++)
@@ -75,19 +75,16 @@ public class SystemInputer : InputParent
                 int inputNumber = i;
                 sceneButtons[i].onClick.AddListener(() => systemAction.SceneMoveStarter(inputNumber));
             }
-            soundPopButtons[0].onClick.AddListener(() => systemAction.PopUp(SystemAction.PopName.Sound));
-            soundPopButtons[1].onClick.AddListener(() => systemAction.PopDown(SystemAction.PopName.Sound));
-
-            rotationButtons[0].onClick.AddListener(() => systemAction.RotationGroups(0));
-            rotationButtons[1].onClick.AddListener(() => systemAction.RotationGroups(1));
+            soundPopButtons[0].onClick.AddListener(() => systemAction.PopupDisplay(SystemAction.PopupName.Sound));
+            soundPopButtons[1].onClick.AddListener(() => systemAction.PopupHidden(SystemAction.PopupName.Sound));
         }
         else if (SceneManager.GetActiveScene().name == playSceneName)
         {
-            porzPopButtons[0].onClick.AddListener(() => systemAction.PopUp(SystemAction.PopName.Porz));
-            porzPopButtons[1].onClick.AddListener(() => systemAction.PopDown(SystemAction.PopName.Porz));
+            porzPopButtons[0].onClick.AddListener(() => systemAction.PopupDisplay(SystemAction.PopupName.Porz));
+            porzPopButtons[1].onClick.AddListener(() => systemAction.PopupHidden(SystemAction.PopupName.Porz));
 
-            soundPopButtons[0].onClick.AddListener(() => systemAction.PopChain(SystemAction.PopOperaition.up, SystemAction.PopName.Sound));
-            soundPopButtons[1].onClick.AddListener(() => systemAction.PopChain(SystemAction.PopOperaition.down, SystemAction.PopName.Sound));
+            soundPopButtons[0].onClick.AddListener(() => systemAction.PopupChainDisplay(SystemAction.PopupOperaion.display, SystemAction.PopupName.Sound));
+            soundPopButtons[1].onClick.AddListener(() => systemAction.PopupChainDisplay(SystemAction.PopupOperaion.hidden, SystemAction.PopupName.Sound));
 
             sceneButtons[0].onClick.AddListener(() => systemAction.SimpleSceneMover(0));
             sceneButtons[1].onClick.AddListener(() => systemAction.SimpleSceneMover(1));

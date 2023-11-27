@@ -47,7 +47,6 @@ public class Rouleter : MonoBehaviour
             if(i == 29)
             {
                 returnNumber = rand;
-                Debug.Log(returnNumber);
             }
         }
         gMane.RouletteDesicion(returnNumber, nowRouletteType);

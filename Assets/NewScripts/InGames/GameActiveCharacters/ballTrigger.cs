@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.UI;
 
 /// <summary>
 /// ボールのOnTrigger用script
@@ -18,7 +19,7 @@ public class ballTrigger : MonoBehaviour
     [SerializeField] TextMeshProUGUI coinTex;
 
     [Header("ボールの参照")]
-    [SerializeField] Newboal parentBoalScript;
+    [SerializeField] NewBall parentBoalScript;
 
     [Header("データ系へのアクセス")]
     [SerializeField] GameObject managerInformation;
@@ -26,30 +27,27 @@ public class ballTrigger : MonoBehaviour
     [Header("テキストへのアクセス")]
     [SerializeField] TextAction textAction;
 
+    [Header("イメージへのアクセス")]
+    [SerializeField] ImageAction imageAction;
+
+    //インゲームプレイ中データ、コインの管理クラス、コインの情報クラスへのアクセス
     InGameStockData parentGameStockData;
     coinManager coinMane;
     CoinInformation coinInfo;
 
     //ギミックを実行するかを判断
     private bool GimicBool;
-
-    int test;
     private void Start()
     {
         parentGameStockData = managerInformation.GetComponent<InGameStockData>();
         coinMane = managerInformation.GetComponent<coinManager>();
         coinInfo = managerInformation.GetComponent<CoinInformation>();
     }
-    private void Update()
-    {
-        test++;
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //コイン衝突時の処理
         if (collision.gameObject.CompareTag(coinTagName))
         {
-            Debug.Log(test);
             AudioManager.instance.PlaySE(AudioManager.SE.coin);
             coinMane.CoinPoolReturn(collision.gameObject);
             parentGameStockData.coinCount += coinInfo.CoinValue;

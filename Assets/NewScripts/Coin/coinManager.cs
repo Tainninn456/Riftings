@@ -11,8 +11,8 @@ public class coinManager : MonoBehaviour
     [SerializeField] GameObject minusCoin;
     [Header("初めに生成しておくコインの枚数")]
     [SerializeField] int InitialCoinAmount;
-    [Header("コインを生成する間隔")]
-    [SerializeField] int coinCreateInterval;
+    [Header("コインを生成する間隔のデフォルト値")]
+    [SerializeField] int coinCreateIntervalDefault;
 
     [Header("コインプール群の親オブジェクト")]
     [SerializeField] GameObject coinsParent;
@@ -27,9 +27,11 @@ public class coinManager : MonoBehaviour
 
     [SerializeField] CoinPool coinPool;
 
+    //フレームの経過回数を記録
     private int createCounter;
 
-    private bool gimicCoinning;
+    //コインの発生頻度
+    private int coinCreateInterval;
 
     private float[] gimicCoinCreatePositions = new float[4];
 
@@ -38,6 +40,7 @@ public class coinManager : MonoBehaviour
     private void Awake()
     {
         coinPool.CoinInformationInput(coin);
+        coinCreateInterval = coinCreateIntervalDefault;
     }
     private void Update()
     {
@@ -68,6 +71,19 @@ public class coinManager : MonoBehaviour
         gimicCoinCreatePositions[1] = xover;
         gimicCoinCreatePositions[2] = yunder;
         gimicCoinCreatePositions[3] = yover;
+    }
+
+    //コインの発生頻度を変更
+    public void CoinFrequencyChange(int frequencyValue, bool valueChange)
+    {
+        if (valueChange)
+        {
+            coinCreateInterval = frequencyValue;
+        }
+        else
+        {
+            coinCreateInterval = coinCreateIntervalDefault;
+        }
     }
 
     //プラスとマイナスのコインに関する関数

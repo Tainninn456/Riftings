@@ -7,6 +7,7 @@ using UnityEditor;
 
 public class InputParent : MonoBehaviour
 {
+    //ボタンコンポーネントを持つオブジェクトのタグを変更する関数
 #if UNITY_EDITOR
     const string ActiveTagName = "ActiveObject";
     protected virtual Button[] ButtonGetter()

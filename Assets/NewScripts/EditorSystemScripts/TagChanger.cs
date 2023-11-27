@@ -11,15 +11,18 @@ using TMPro;
 /// </summary>
 public class TagChanger : MonoBehaviour
 {
-    const string tagResetName = "Untagged";
+    //ContextMenuにて取得するコンポーネントを明示するためのtag名
     const string textActiveTagName = "ActiveObject";
+    //ContextMenuにて取得する対象から外す際に使用する
+    const string tagResetName = "Untagged";
 
+    //Toolsから使用する際の名前
     const string textTagMethod = "Tools/TagChangeToActiveForText";
     const string imageTagMethod = "Tools/TagChangeToActiveForImage";
     const string buttonTagMethod = "Tools/TagChangeToActiveForButton";
+    const string tagReseterMethod = "Tools/DangerTagReseter";
 
-    const string tagReseter = "Tools/DangerTagReseter";
-
+    //取得するテキストにActiveObjectタグを付与する関数
     [MenuItem(textTagMethod)]
     private static void TagChangeToActiveForText()
     {
@@ -33,8 +36,8 @@ public class TagChanger : MonoBehaviour
         }
     }
 
-
-    //Imageはコンポーネントが階層で重なる可能性があるためrootオブジェクトのみ取得
+    //取得するイメージにActiveObjectタグを付与する関数
+    //イメージはコンポーネントが階層で重なる可能性があるためrootオブジェクトのみ取得
     [MenuItem(imageTagMethod)]
     private static void TagChangeToActiveForImageParent()
     {
@@ -44,6 +47,7 @@ public class TagChanger : MonoBehaviour
         }
     }
 
+    //取得するボタンにActiveObjectタグを付与する関数
     [MenuItem(buttonTagMethod)]
     private static void TagChangeToActiveForButton()
     {
@@ -57,8 +61,8 @@ public class TagChanger : MonoBehaviour
         }
     }
 
-    //使用注意：tagをリセット
-    [MenuItem(tagReseter)]
+    //使用注意：タグをリセットする関数
+    [MenuItem(tagReseterMethod)]
     private static void DangerTagReseter()
     {
         foreach (var rootGameObject in Selection.gameObjects)
