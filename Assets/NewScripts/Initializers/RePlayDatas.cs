@@ -5,18 +5,18 @@ using UnityEngine;
 public class RePlayDatas : MonoBehaviour
 {
     [Header("ボールscript取得")]
-    [SerializeField] Newboal ballScript;
+    [SerializeField] NewBall ballScript;
     [Header("コインマネージャー取得")]
     [SerializeField] coinManager cmaneScript;
 
     private Vector2 nowBallSpeed = new Vector2(0, 0);
-    public void StopWorldInfrence()
+    public void StopGame()
     {
         nowBallSpeed = ballScript.BallRigChanger("get", new Vector2(0, 0));
         cmaneScript.porzBool = true;
     }
 
-    public void ReWorldInfrence()
+    public void ReStartGame()
     {
         ballScript.BallRigChanger("set", nowBallSpeed);
         cmaneScript.porzBool = false;

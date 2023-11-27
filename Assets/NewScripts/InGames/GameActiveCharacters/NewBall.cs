@@ -7,7 +7,7 @@ using DG.Tweening;
 /// <summary>
 /// ボール自体のscript
 /// </summary>
-public class Newboal : MonoBehaviour
+public class NewBall : MonoBehaviour
 {
 
     const string playerTagName = "Player";
@@ -19,15 +19,17 @@ public class Newboal : MonoBehaviour
     [Header("重力を変更する境界")]
     [SerializeField] int gravityChangePoint;
     [Header("ボールが超えてはいけない速度(int)")]
-    [SerializeField] int maxBoalSpeed;
+    [SerializeField] int maxBallSpeed;
     [Header("ボールの速度を抑える倍率(float)")]
-    [SerializeField] float boalSpeedRatio;
+    [SerializeField] float ballSpeedRatio;
     [Header("重力が加わる大きさ")]
     [SerializeField] float addGravity;
     [Header("ボールの重力を加える頻度")]
     [SerializeField] int gravityfrequency;
     [Header("ボールを蹴る力")]
     [SerializeField] float kickDefault;
+    [Header("ボールの回転力")]
+    [SerializeField] float rotationPower;
     [Header("ボール蹴り力に加える大きさの倍率")]
     [SerializeField] float addKickPower;
     [Header("ギミック用：一時的に上がる重力の倍率")]
@@ -50,8 +52,6 @@ public class Newboal : MonoBehaviour
 
     [SerializeField] int[] backChangeValues;
 
-    [SerializeField] Transform[] scalePosition;
-
     [Header("Initializeの参照")]
     [SerializeField] DataReciver initialData;
 
@@ -72,9 +72,9 @@ public class Newboal : MonoBehaviour
     private DataAction dataAction;
 
     //ボールのコンポーネントを取得
-    private Rigidbody2D boalRig;
-    private Transform boalTra;
-    private SpriteRenderer boalSprite;
+    private Rigidbody2D ballRigid;
+    private Transform ballTrans;
+    private SpriteRenderer ballSprite;
 
     //エフェクトのコンポーネントを取得
     private Transform effectTrans;
@@ -87,8 +87,9 @@ public class Newboal : MonoBehaviour
     //ボールの初期ポジション
     private Vector2 ballDefaultPosition;
 
-    //
+    //プレイ中のスポーツの種類
     private int playIndex;
+    //背景の表示種類の選択用
     private int judgeValueIndex;
 
     //残基を示す
@@ -100,14 +101,14 @@ public class Newboal : MonoBehaviour
         GameObject obj = gameObject;
 
         //ボールのトランスフォームを取得
-        boalTra = obj.GetComponent<Transform>();
+        ballTrans = obj.GetComponent<Transform>();
 
         //ボールの着せ替え設定
-        boalSprite = obj.GetComponent<SpriteRenderer>();
-        boalSprite.sprite = initialData.clothSprite;
+        ballSprite = obj.GetComponent<SpriteRenderer>();
+        ballSprite.sprite = initialData.clothSprite;
 
         //ボールのcollision用コライダー
-        boalRig = obj.GetComponent<Rigidbody2D>();
+        ballRigid = obj.GetComponent<Rigidbody2D>();
         obj.AddComponent<PolygonCollider2D>();
 
         //ボールのtrigger用コライダー
@@ -136,15 +137,15 @@ public class Newboal : MonoBehaviour
         cMane.CoinValueChanger(1 * gameDatas.coinMultiplication);
 
         //ボールのスタートのポジションを保持
-        ballDefaultPosition = boalTra.position;
+        ballDefaultPosition = ballTrans.position;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //超えてはいけない速度を設定
-        Vector2 boalVec = boalRig.velocity;
-        if (maxBoalSpeed < Mathf.Abs(boalVec.x) + Mathf.Abs(boalVec.y))
+        Vector2 ballVector = ballRigid.velocity;
+        if (maxBallSpeed < Mathf.Abs(ballVector.x) + Mathf.Abs(ballVector.y))
         {
-            boalRig.velocity = boalVec * boalSpeedRatio;
+            ballRigid.velocity = ballVector * ballSpeedRatio;
         }
 
         //プレイヤーに衝突した時の処理
@@ -152,13 +153,20 @@ public class Newboal : MonoBehaviour
         {
             gameDatas.kickCount += kickCountAddValue;
             textAction.KickCountDisplay(gameDatas.kickCount);
-            EffectAction(boalTra.position);
+            EffectAction(ballTrans.position);
 
             //キック時の計算
-            Vector2 kickVelocity = boalRig.velocity.normalized;
-            float newValue = Mathf.Lerp(0.6f, 1, (kickVelocity.y + 1) / 2f);
-            kickVelocity.y = newValue;
-            boalRig.AddForce(kickVelocity * kickDefault, ForceMode2D.Impulse);
+            Vector2 kickVelocity = ballRigid.velocity.normalized;
+            float newValueY = Mathf.Lerp(0.6f, 1, (kickVelocity.y + 1) / 2f);
+            kickVelocity.y = newValueY;
+            float diffierenceValue = ballTrans.position.x - collision.gameObject.transform.position.x;
+            float newValueX = Mathf.Lerp(0.1f, 0.5f, Mathf.Abs(kickVelocity.x)) * Mathf.Sign(diffierenceValue);
+            kickVelocity.x = newValueX;
+            ballRigid.Sleep();
+            //ボールに速度を代入する
+            ballRigid.velocity = kickVelocity * kickDefault;
+            //ボールに回転力を加える
+            ballRigid.AddTorque(newValueX * rotationPower, ForceMode2D.Impulse);
             int judgeValue = gameDatas.kickCount;
             if(judgeValue > gravityChangePoint) 
             {
@@ -178,13 +186,13 @@ public class Newboal : MonoBehaviour
         //デススペースに衝突した時の処理
         else if (collision.gameObject.CompareTag(deathTagName))
         {
-            boalRig.Sleep();
+            ballRigid.Sleep();
             if (useHeartAmount == 0)
             {
                 gameDatas.GameOver = true;
                 dataAction.GameEndDataSaveStarter(playIndex);
                 textAction.GameEndTextDisplay(gameDatas.kickCount, gameDatas.coinCount);
-                imageAction.Animation(gameObject.GetComponent<Transform>().position);
+                imageAction.GameEndAnimation(gameObject.GetComponent<Transform>().position);
                 AudioManager.instance.StopBGM();
                 gameObject.SetActive(false);
             }
@@ -192,17 +200,17 @@ public class Newboal : MonoBehaviour
             {
                 imageAction.DeathDisplay(useHeartAmount);
                 useHeartAmount -= 1;
-                boalTra.position = ballDefaultPosition;
+                ballTrans.position = ballDefaultPosition;
             }
         }
         //壁との衝突処理(ギミック発動中でなければ発生しない処理)
         else if (collision.gameObject.CompareTag(wallTagName))
         {
             AudioManager.instance.PlaySE(AudioManager.SE.wall);
-            EffectAction(boalTra.position);
+            EffectAction(ballTrans.position);
             if (gimicing)
             {
-                boalRig.AddForce(boalRig.velocity.normalized * wallReflectPower, ForceMode2D.Impulse);
+                ballRigid.AddForce(ballRigid.velocity.normalized * wallReflectPower, ForceMode2D.Impulse);
             }
         }
     }
@@ -210,45 +218,49 @@ public class Newboal : MonoBehaviour
     public void WindAttackGimic()
     {
         int rand = Random.Range(0, 11);
-        boalRig.velocity = new Vector2(0, boalRig.velocity.y);
+        ballRigid.velocity = new Vector2(0, ballRigid.velocity.y);
         if(rand > 5)
         {
-            boalRig.AddForce(new Vector2(windPower, 0), ForceMode2D.Impulse);
+            ballRigid.AddForce(new Vector2(windPower, 0), ForceMode2D.Impulse);
         }
         else
         {
-            boalRig.AddForce(new Vector2(-windPower, 0), ForceMode2D.Impulse);
+            ballRigid.AddForce(new Vector2(-windPower, 0), ForceMode2D.Impulse);
         }
     }
 
     public void WindRandomAttackGimic()
     {
-        boalRig.AddForce(new Vector2(Random.Range(-randPower, randPower), Random.Range(-randPower, randPower)), ForceMode2D.Force);
+        ballRigid.AddForce(new Vector2(Random.Range(-randPower, randPower), Random.Range(-randPower, randPower)), ForceMode2D.Force);
     }
 
     public void GravityChanger(int grabityType)
     {
+        float gravityStuck = 0;
+        float kickPowerStuck = 0;
         switch (grabityType)
         {
             //一定頻度で重量が上がる方の処理
             case 0:
-                boalRig.gravityScale += addGravity;
-                kickDefault += addKickPower;
+                gravityStuck = addGravity;
+                kickPowerStuck = addKickPower;
                 break;
             //一時的に重量が跳ねあがる方の処理
             case 1:
-                boalRig.gravityScale += addGravity * gravitymagnification;
-                kickDefault += addKickPower * gravitymagnification;
+                gravityStuck = addGravity * gravitymagnification;
+                kickPowerStuck = addKickPower * gravitymagnification;
                 gravityGimicing = true;
                 break;
             //一時的に上がったgravityScaleを戻す処理
             case 2:
                 if (!gravityGimicing) { break; }
-                boalRig.gravityScale -= addGravity * gravitymagnification;
-                kickDefault -= addKickPower * gravitymagnification;
+                gravityStuck = addGravity * gravitymagnification * -1;
+                kickPowerStuck = addKickPower * gravitymagnification * -1;
                 gravityGimicing = false;
                 break;
         }
+        ballRigid.gravityScale += gravityStuck;
+        kickDefault += kickPowerStuck;
     }
 
     public void KickAddValueChanger(int value)
@@ -256,34 +268,18 @@ public class Newboal : MonoBehaviour
         kickCountAddValue = value;
     }
 
-    public void BallScaleChanger(int value)
+    public void BallScaleChanger(int scaleNumber)
     {
-        Vector2 traStock = boalTra.position;
-        float playerTraXpos = traStock.x;
-
-        float scalePositionLeft = scalePosition[2 * playIndex].position.x;
-        float scalePositionRight = scalePosition[2 * playIndex + 1].position.x;
-        if (playerTraXpos < scalePositionLeft)
-        {
-            boalTra.position = new Vector2(scalePositionLeft, traStock.y);
-        }
-        else if (playerTraXpos > scalePositionRight)
-        {
-            boalTra.position = new Vector2(scalePositionRight, traStock.y);
-        }
-        switch (value)
+        switch (scaleNumber)
         {
             case 0:
-                boalTra.DOScale(new Vector3(ballBigScaleValue, ballBigScaleValue, 1), animSpeed);
-                //boalTra.localScale = new Vector3(ballBigScaleValue, ballBigScaleValue, 1);
+                ballTrans.DOScale(new Vector3(ballBigScaleValue, ballBigScaleValue, 1), animSpeed);
                 break;
             case 1:
-                boalTra.DOScale(new Vector3(ballSmallScaleValue, ballSmallScaleValue, 1), animSpeed);
-                //boalTra.localScale = new Vector3(ballSmallScaleValue, ballSmallScaleValue, 1);
+                ballTrans.DOScale(new Vector3(ballSmallScaleValue, ballSmallScaleValue, 1), animSpeed);
                 break;
             case 2:
-                boalTra.DOScale(new Vector3(defaultBallScaleValue, defaultBallScaleValue, 1), animSpeed);
-                //boalTra.localScale = new Vector3(defaultBallScaleValue, defaultBallScaleValue, 1);
+                ballTrans.DOScale(new Vector3(defaultBallScaleValue, defaultBallScaleValue, 1), animSpeed);
                 break;
         }
     }
@@ -302,9 +298,9 @@ public class Newboal : MonoBehaviour
         switch (access)
         {
             case "get":
-                return boalRig.velocity;
+                return ballRigid.velocity;
             case "set":
-                boalRig.velocity = inputSpeed;
+                ballRigid.velocity = inputSpeed;
                 break;
         }
         return new Vector2(50, 50);

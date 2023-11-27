@@ -8,11 +8,14 @@ public class GimicManager : MonoBehaviour
     [Header("ギミックの頻度")]
     [SerializeField] int gimicPoint;
 
+    [Header("コイン発生頻度の変更値")]
+    [SerializeField] int frequencyValue;
+
     [Header("プレイヤーの参照")]
     [SerializeField] Newplayer playerReference;
 
     [Header("ボールの参照")]
-    [SerializeField] Newboal boalReference;
+    [SerializeField] NewBall ballReference;
 
     [Header("ボールのトリガー参照(当たった時の処理はこっちの方が多いかも?)")]
     [SerializeField] ballTrigger ballTriggerReference;
@@ -49,7 +52,7 @@ public class GimicManager : MonoBehaviour
         if(gimicCounter > gimicPoint)
         {
             GimicResetter();
-            gimicNumber = Random.Range(0, 6);
+            gimicNumber = Random.Range(0, 7);
             switch(gimicNumber)
             {
                 case 0:
@@ -75,38 +78,50 @@ public class GimicManager : MonoBehaviour
                 case 5:
                     WallChangerGimic();
                     break;
+                case 6:
+                    CoinFrequenceGimic();
+                    break;
             }
             RouletteCoinGimic();
             gimicDisplay.sprite = gimicSprites[gimicNumber];
             gimicCounter = 0;
         }
-        if (randGimic) { boalReference.WindRandomAttackGimic(); }
+        if (randGimic) { ballReference.WindRandomAttackGimic(); }
     }
+    //横方向の風ギミック
     private void WideWindowGimic()
     {
         ballTriggerReference.WallGimicStarter(true);
     }
 
+    //重力変更ギミック
     private void GravityChangerGimic()
     {
-        boalReference.GravityChanger(1);
+        ballReference.GravityChanger(1);
     }
 
+    //乱気流ギミック
     private void RandomWindowGimic(bool randStart)
     {
         randGimic = randStart;
     }
 
+    //プレイヤーの大きさ変更ギミック
     private void PlayerScaleChangerGimic(int scaleDirection)
     {
         playerReference.ScaleChanger(scaleDirection);
     }
 
+    //壁性質変化ギミック
     private void WallChangerGimic()
     {
-        boalReference.WallGimicStarter(true);
+        ballReference.WallGimicStarter(true);
     }
 
+    private void CoinFrequenceGimic()
+    {
+        cMane.CoinFrequencyChange(frequencyValue, true);
+    }
     private void RouletteCoinGimic()
     {
         if (!gimicCoinning)
@@ -138,28 +153,29 @@ public class GimicManager : MonoBehaviour
         switch (actionType)
         {
             case 0:
-                boalReference.KickAddValueChanger(2);
+                ballReference.KickAddValueChanger(2);
                 break;
             case 1:
-                boalReference.KickAddValueChanger(-1);
+                ballReference.KickAddValueChanger(-1);
                 break;
             case 2:
-                boalReference.KickAddValueChanger(1);
+                ballReference.KickAddValueChanger(1);
                 break;
         }
     }
 
     private void BallScaleGimic(int actionType)
     {
-        boalReference.BallScaleChanger(actionType);
+        ballReference.BallScaleChanger(actionType);
     }
     private void GimicResetter()
     {
         ballTriggerReference.WallGimicStarter(false);
-        boalReference.WallGimicStarter(false);
-        boalReference.GravityChanger(2);
+        ballReference.WallGimicStarter(false);
+        ballReference.GravityChanger(2);
         playerReference.ScaleChanger(0);
         RandomWindowGimic(false);
+        cMane.CoinFrequencyChange(0, false);
     }
 
     public void RouletStarter(int actionType)
@@ -190,6 +206,6 @@ public class GimicManager : MonoBehaviour
     {
         CoinAmountGimic(2);
         KickAmountGimic(2);
-        boalReference.BallScaleChanger(2);
+        ballReference.BallScaleChanger(2);
     }
 }

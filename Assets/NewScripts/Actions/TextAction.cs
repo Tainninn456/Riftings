@@ -5,28 +5,39 @@ using UnityEngine;
 using UnityEditor;
 using TMPro;
 
+/// <summary>
+/// テキスト系の動作を行うクラス
+/// </summary>
 public class TextAction : MonoBehaviour
 {
     const string ActiveTagName = "ActiveObject";
     const string methodScoreName = "AllScoreTextComponentGeter";
-    const string methodMoneyName = "AllMoneyTextComponentGeter";
-
-    const int levelMax = 10;
 
     [Header("メインメニュー")]
+
+    [Header("各スポーツのスコアを表示するテキスト")]
     [SerializeField] TextMeshProUGUI[] scoreTexts;
+    [Header("所持コイン、コインのレベル、ハートのレベルをそれぞれ表示するテキスト")]
     [SerializeField] TextMeshProUGUI[] moneyTexts;
+    [Header("各スポーツの着せ替え値段を表示するテキスト")]
     [SerializeField] TextMeshProUGUI[] shopTexts;
+    [Header("コインとハートの値段を表示するテキスト")]
     [SerializeField] TextMeshProUGUI[] itemTexts;
 
+    [Header("プレイヤーのデータへの参照")]
     [SerializeField] DataAction dataAction;
 
     [Header("インゲーム")]
-    [SerializeField] TextMeshProUGUI kickText;
-    [SerializeField] TextMeshProUGUI coinText;
+
+    [Header("プレイ中にキックカウントを表示するテキスト")]
+    [SerializeField] TextMeshProUGUI kickCountDisplay;
+    [Header("プレイ中に獲得したコインの総数を表示するテキスト")]
+    [SerializeField] TextMeshProUGUI coinCountDisplay;
+    [Header("上記のそれぞれをリザルトにて表示するテキスト")]
     [SerializeField] TextMeshProUGUI resultKickText;
     [SerializeField] TextMeshProUGUI resultCoinText;
 
+    //各着せ替えやコインレベルとハートレベルの値段をハードコーディングしたクラス
     private shopPrices shopDatas = new shopPrices();
 
     /// <summary>
@@ -34,6 +45,7 @@ public class TextAction : MonoBehaviour
     /// </summary>
     /// 
 
+    //着せ替え購入画面にて、各着せ替えの値段を表示する関数
     public void ShopDataIntoText(int shopValueIndex)
     {
         Data useData = dataAction.DataCopy();
@@ -49,6 +61,8 @@ public class TextAction : MonoBehaviour
             }
         }
     }
+
+    //ショップ画面にある所持コイン、コインのレベル、ハートのレベルを表示する関数
     public void DataIntoText()
     {
         Data useData = dataAction.DataCopy();
@@ -64,12 +78,13 @@ public class TextAction : MonoBehaviour
         moneyTexts[2].text = "× " + useData.heartLevel.ToString();
     }
 
-    public void ItemDataText()
+    //コインレベルとハートレベルの上昇に必要なコイン数を表示する関数
+    public void ItemDataIntoText()
     {
         Data useData = dataAction.DataCopy();
         //コイン側の処理
         string coinString = "";
-        if(useData.coinLevel == levelMax) 
+        if(useData.coinLevel == shopDatas.coinPrices.Length + 1) 
         {
             coinString = "Max";
         }
@@ -80,7 +95,7 @@ public class TextAction : MonoBehaviour
         itemTexts[0].text = coinString;
         //ハート側の処理
         string heartString = "";
-        if(useData.heartLevel == levelMax)
+        if(useData.heartLevel == shopDatas.coinPrices.Length + 1)
         {
             heartString = "Max";
         }
@@ -91,32 +106,33 @@ public class TextAction : MonoBehaviour
         itemTexts[1].text = heartString;
     }
 
-    //game終了時のリザルト表示：kick回数、coin個数
+    //ゲームプレイ終了時のリザルト表示：kick回数、coin枚数
     public void GameEndTextDisplay(int kickCount, int coinCount)
     {
         resultKickText.text = kickCount.ToString();
         resultCoinText.text = coinCount.ToString();
     }
 
-    /// <summary>
-    /// インゲーム内実行関数
-    /// </summary>
-    
-    public void KickCountDisplay(int kickCount)
+    //ゲームプレイ中にキックカウントを表示する関数
+    public void KickCountDisplay(int Value)
     {
-        kickText.text = kickCount.ToString();
+        kickCountDisplay.text = Value.ToString();
     }
 
-    public void CoinCountDisplay(int coinAmount)
+    //ゲームプレイ中に獲得したコインの総数を表示する関数
+    public void CoinCountDisplay(int Value)
     {
-        coinText.text = coinAmount.ToString();
+        coinCountDisplay.text = Value.ToString();
     }
 
 #if UNITY_EDITOR
 
     /// <summary>
-    /// エディタ上実行関数
+    /// エディタ上実行関数、serializeへ一度に値を登録するための関数
     /// </summary>
+    /// 
+
+    //各スポーツのスコアを表示するテキストを一度に取得する関数
     [ContextMenu(methodScoreName)]
     private void AllScoreTextComponentGeter()
     {
@@ -134,26 +150,6 @@ public class TextAction : MonoBehaviour
         for(int i = 0; i < texs.Count; i++)
         {
             scoreTexts[i] = texs[i];
-        }
-    }
-
-    [ContextMenu(methodMoneyName)]
-    private void AllMoneyTextComponentGeter()
-    {
-        List<TextMeshProUGUI> texs = new List<TextMeshProUGUI>();
-        foreach (var rootGameObject in Selection.gameObjects)
-        {
-            var children = rootGameObject.GetComponentsInChildren<TextMeshProUGUI>(true);
-            foreach (TextMeshProUGUI ob in children)
-            {
-                if (ob.tag != ActiveTagName) { continue; }
-                texs.Add(ob);
-            }
-        }
-        Array.Resize<TextMeshProUGUI>(ref moneyTexts, texs.Count);
-        for (int i = 0; i < texs.Count; i++)
-        {
-            moneyTexts[i] = texs[i];
         }
     }
 #endif

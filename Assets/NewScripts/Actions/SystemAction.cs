@@ -9,11 +9,12 @@ public class SystemAction : MonoBehaviour
     const string menuSceneName = "menuScene";
     const string playSceneName = "playScene";
 
-    const float animaionSpeed = 0.3f;
+    //Dotweenアニメーションのスピード
+    const float animationSpeed = 0.3f;
+    //Dotween実行時の対象PopupのTransform最小スケール
     const float minScale = 0.05f;
+    //Dotween実行時の対象PopupのTransform最大スケール
     const int maxScale = 1;
-
-    const float animationSpeed = 0.4f;
 
     [Header("メインメニュー")]
     [Header("シーン遷移時に着せ替え情報を取得するため")]
@@ -25,23 +26,21 @@ public class SystemAction : MonoBehaviour
     [Header("実際に動かすパネル(インゲームでは0=resultPanel)")]
     [SerializeField] RectTransform[] movePanel;
 
-    [Header("モードチェンジ用の回転アクション(0=menu,1=sub)")]
-    [SerializeField] GameObject[] rotationGroups;
+    [Header("サウンドのポップアップ(インゲームでも使用)")]
+    [SerializeField] GameObject soundPopup;
 
-    [Header("サウンドのポップ(インゲームでも使用)")]
-    [SerializeField] GameObject soundPop;
+    [Header("着せ替えのポップアップ")]
+    [SerializeField] GameObject clothPopup;
 
-    [Header("着せ替えのポップ")]
-    [SerializeField] GameObject clothPop;
+    [Header("ポップアップの親オブジェクト(インゲームでも使用)")]
+    [SerializeField] GameObject popupParent;
 
-    [Header("ポップの親オブジェクト(インゲームでも使用)")]
-    [SerializeField] GameObject popParent;
-
+    [Header("プレイヤーのデータへの参照")]
     [SerializeField] DataAction dataAction;
 
     [Header("インゲーム")]
-    [Header("ポーズのポップ")]
-    [SerializeField] GameObject porzPop;
+    [Header("ポーズのポップアップ")]
+    [SerializeField] GameObject porzPopup;
 
     [Header("シーン遷移データの参照")]
     [SerializeField] DataReciver referencsData;
@@ -63,7 +62,7 @@ public class SystemAction : MonoBehaviour
         over
     }
 
-    public enum PopName
+    public enum PopupName
     {
         None,
         Sound,
@@ -71,10 +70,10 @@ public class SystemAction : MonoBehaviour
         Porz
     }
 
-    public enum PopOperaition
+    public enum PopupOperaion
     {
-        up,
-        down
+        display,
+        hidden
     }
 
     private void Start()
@@ -90,13 +89,19 @@ public class SystemAction : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// パネル
+    /// </summary>
+
+    //パネルの遷移を実行する関数
     public void PanelMove(MoveDirection directionName, int panelNumber)
     {
+        //リザルト画面を表示するための遷移
         if (directionName == MoveDirection.over)
         {
             Vector3 downPosition = new Vector3(0, 0, 0);
             RectTransform myTrans = movePanel[panelNumber];
-            myTrans.DOMove(downPosition, animaionSpeed);
+            myTrans.DOMove(downPosition, animationSpeed);
         }
         else
         {
@@ -121,130 +126,96 @@ public class SystemAction : MonoBehaviour
             switch (directionName)
             {
                 case MoveDirection.left:
-                    myTrans.DOMove(leftPosition, animaionSpeed);
+                    myTrans.DOMove(leftPosition, animationSpeed);
                     break;
                 case MoveDirection.right:
-                    myTrans.DOMove(rightPosition, animaionSpeed);
+                    myTrans.DOMove(rightPosition, animationSpeed);
                     break;
             }
         }
     }
 
     /// <summary>
-    /// 下記ポップ系
+    /// ポップアップ
     /// </summary>
 
-    //下記popに関して
-    public void PopUp(PopName popName)
+    //ポップアップの表示を行う関数
+    public void PopupDisplay(PopupName popName)
     {
-        popParent.SetActive(true);
+        popupParent.SetActive(true);
         RectTransform myTrans = null;
         AudioManager.instance.PlaySE(AudioManager.SE.popUp);
         switch (popName)
         {
-            case PopName.Sound:
-                soundPop.SetActive(true);
-                myTrans = soundPop.GetComponent<RectTransform>();
+            case PopupName.Sound:
+                soundPopup.SetActive(true);
+                myTrans = soundPopup.GetComponent<RectTransform>();
                 break;
-            case PopName.Cloth:
-                clothPop.SetActive(true);
-                myTrans = clothPop.GetComponent<RectTransform>();
+            case PopupName.Cloth:
+                clothPopup.SetActive(true);
+                myTrans = clothPopup.GetComponent<RectTransform>();
                 break;
-            case PopName.Porz:
-                porzPop.SetActive(true);
-                myTrans = porzPop.GetComponent<RectTransform>();
+            case PopupName.Porz:
+                porzPopup.SetActive(true);
+                myTrans = porzPopup.GetComponent<RectTransform>();
                 ActiveOperation(true);
                 break;
         }
-        myTrans.DOScale(new Vector3(maxScale, maxScale, maxScale), animaionSpeed);
+        myTrans.DOScale(new Vector3(maxScale, maxScale, maxScale), animationSpeed);
     }
 
-    public void PopDown(PopName popName)
+    //ポップアップの非表示を行う関数
+    public void PopupHidden(PopupName popName)
     {
         GameObject myObj = null;
         AudioManager.instance.PlaySE(AudioManager.SE.popDown);
         switch (popName)
         {
-            case PopName.Sound:
-                myObj = soundPop;
+            case PopupName.Sound:
+                myObj = soundPopup;
                 break;
-            case PopName.Cloth:
-                myObj = clothPop;
+            case PopupName.Cloth:
+                myObj = clothPopup;
                 break;
-            case PopName.Porz:
-                myObj = porzPop;
+            case PopupName.Porz:
+                myObj = porzPopup;
                 ActiveOperation(false);
                 break;
         }
         myObj.GetComponent<RectTransform>()
-    .DOScale(new Vector3(minScale, minScale, 1), animationSpeed)
-    .OnComplete(() =>
-    {
+            .DOScale(new Vector3(minScale, minScale, 1), animationSpeed)
+            .OnComplete(() =>
+            {
         myObj.SetActive(false);
-        popParent.SetActive(false);
-    });
+        popupParent.SetActive(false);
+            });
     }
 
-    public void PopChain(PopOperaition operationName, PopName targetPopName)
+    //連続してポップアップを表示するための関数
+    public void PopupChainDisplay(PopupOperaion operationName, PopupName targetPopName)
     {
         GameObject myObj = null;
         switch (targetPopName)
         {
-            case PopName.Sound:
-                myObj = soundPop;
+            case PopupName.Sound:
+                myObj = soundPopup;
                 break;
-            case PopName.Cloth:
-                myObj = clothPop;
+            case PopupName.Cloth:
+                myObj = clothPopup;
                 break;
-            case PopName.Porz:
-                myObj = porzPop;
+            case PopupName.Porz:
+                myObj = porzPopup;
                 break;
         }
         switch (operationName)
         {
-            case PopOperaition.up:
+            case PopupOperaion.display:
                 myObj.SetActive(true);
-                myObj.GetComponent<RectTransform>().DOScale(new Vector3(maxScale, maxScale, maxScale), animaionSpeed);
+                myObj.GetComponent<RectTransform>().DOScale(new Vector3(maxScale, maxScale, maxScale), animationSpeed);
                 break;
             //自身を非表示にするのみ
-            case PopOperaition.down:
-                myObj.GetComponent<RectTransform>().DOScale(new Vector3(minScale, minScale, 1), animaionSpeed).OnComplete(() => myObj.SetActive(false));
-                break;
-        }
-    }
-
-    public void RotationGroups(int rotatoNumber)
-    {
-        Transform r1tra = rotationGroups[1].GetComponent<Transform>();
-        Transform r0tra = rotationGroups[0].GetComponent<Transform>();
-        switch (rotatoNumber)
-        {
-            //メインからピンボールへ
-            case 0:
-                Debug.Log("#");
-                r1tra.rotation = Quaternion.Euler(0.0f, -90, 0);
-                rotationGroups[1].SetActive(true);
-                r0tra.DORotate(new Vector3(0, -90, 0), animaionSpeed).OnComplete(() =>
-                {
-                    r1tra.DORotate(new Vector3(0, 0, 0), animaionSpeed).OnComplete(() =>
-                    {//非同期処理タイミング対策
-                        rotationGroups[1].SetActive(true);
-                        rotationGroups[0].SetActive(false);
-                    });
-                });
-                break;
-            //ピンボールからメインへ
-            case 1:
-                r0tra.rotation = Quaternion.Euler(0.0f, -90, 0);
-                rotationGroups[0].SetActive(true);
-                r1tra.DORotate(new Vector3(0, -90, 0), animaionSpeed).OnComplete(() =>
-                {//非同期処理タイミング対策
-                    r0tra.DORotate(new Vector3(0, 0, 0), animaionSpeed).OnComplete(() =>
-                    {
-                        rotationGroups[0].SetActive(true);
-                        rotationGroups[1].SetActive(false);
-                    });
-                });
+            case PopupOperaion.hidden:
+                myObj.GetComponent<RectTransform>().DOScale(new Vector3(minScale, minScale, 1), animationSpeed).OnComplete(() => myObj.SetActive(false));
                 break;
         }
     }
@@ -256,7 +227,7 @@ public class SystemAction : MonoBehaviour
         //止める場合の処理
         if (Operation)
         {
-            replayer.StopWorldInfrence();
+            replayer.StopGame();
             activeParent.SetActive(false);
             gameDatas.GimicCalculating = false;
         }
@@ -264,18 +235,17 @@ public class SystemAction : MonoBehaviour
         {
             gameDatas.GimicCalculating = true;
             activeParent.SetActive(true);
-            replayer.ReWorldInfrence();
+            replayer.ReStartGame();
         }
     }
 
     /// <summary>
-    /// 下記シーン遷移系
+    /// シーン遷移
     /// </summary>
 
     //スポーツの種類を指定しないシーン遷移
     public void SimpleSceneMover(int sceneIndex)
     {
-        //ActiveOperation(false);
         switch (sceneIndex)
         {
             //プレイシーンに移動する

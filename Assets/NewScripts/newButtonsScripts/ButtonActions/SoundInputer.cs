@@ -9,7 +9,7 @@ public class SoundInputer : InputParent
     const string methodBGMName = "BGMButtonGetter";
     const string methodSEName = "SEButtonGetter";
 
-    [SerializeField] SoundAction soundAction;
+    [SerializeField] SoundVolumeAction soundAction;
 
     [Header("0=upA1=down")]
     [SerializeField] Button[] BGMButtons = new Button[0];
@@ -17,10 +17,10 @@ public class SoundInputer : InputParent
 
     private void Start()
     {
-        BGMButtons[0].onClick.AddListener(() => soundAction.VolumeUp(SoundAction.SoundType.BGM));
-        BGMButtons[1].onClick.AddListener(() => soundAction.VolumeDown(SoundAction.SoundType.BGM));
-        SEButtons[0].onClick.AddListener(() => soundAction.VolumeUp(SoundAction.SoundType.SE));
-        SEButtons[1].onClick.AddListener(() => soundAction.VolumeDown(SoundAction.SoundType.SE));
+        BGMButtons[0].onClick.AddListener(() => soundAction.VolumeUp(SoundVolumeAction.SoundType.BGM));
+        BGMButtons[1].onClick.AddListener(() => soundAction.VolumeDown(SoundVolumeAction.SoundType.BGM));
+        SEButtons[0].onClick.AddListener(() => soundAction.VolumeUp(SoundVolumeAction.SoundType.SE));
+        SEButtons[1].onClick.AddListener(() => soundAction.VolumeDown(SoundVolumeAction.SoundType.SE));
     }
 #if UNITY_EDITOR
 

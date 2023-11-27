@@ -27,6 +27,6 @@ public class PlayerSelecter : MonoBehaviour
         //Žg—p‚·‚é‚à‚Ì‚¾‚¯true‚É‚·‚é
         GameObject playerObj = objs[initialData.sportType];
         playerObj.SetActive(true);
-        player.PlayerComponentInserter(playerObj.GetComponent<Rigidbody2D>(), playerObj.GetComponent<Transform>(), initialData.sportType);
+        player.PlayerComponentInserter(playerObj.GetComponent<Rigidbody2D>(), playerObj.GetComponent<Transform>());
     }
 }

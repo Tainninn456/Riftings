@@ -3577,7 +3577,7 @@ GameObject:
   - component: {fileID: 516053165}
   - component: {fileID: 516053164}
   m_Layer: 5
-  m_Name: Pop
+  m_Name: PopupPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4467,7 +4467,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -171.5}
+  m_AnchoredPosition: {x: 0, y: -269.67}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &733359173
@@ -5601,7 +5601,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 215.2}
+  m_AnchoredPosition: {x: 0, y: 125.8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &903251386
@@ -9830,9 +9830,9 @@ MonoBehaviour:
   rotationGroups:
   - {fileID: 670652974}
   - {fileID: 1854019453}
-  soundPop: {fileID: 190273900}
-  clothPop: {fileID: 184464670}
-  popParent: {fileID: 516053162}
+  soundPopup: {fileID: 190273900}
+  clothPopup: {fileID: 184464670}
+  popupParent: {fileID: 516053162}
   dataAction: {fileID: 1487266087}
   porzPop: {fileID: 0}
   referencsData: {fileID: 0}
@@ -10003,9 +10003,10 @@ MonoBehaviour:
   gameDatas: {fileID: 0}
   ingameAllObjects: {fileID: 0}
   systemAction: {fileID: 0}
-  heartDisplays: []
+  heartParent: {fileID: 0}
   backImages: []
   backGroundImage: {fileID: 0}
+  bombEffect: {fileID: 0}
 --- !u!114 &1487266089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10046,8 +10047,8 @@ MonoBehaviour:
   - {fileID: 1948815575}
   - {fileID: 354464834}
   dataAction: {fileID: 1487266087}
-  kickText: {fileID: 0}
-  coinText: {fileID: 0}
+  kickCountDisplay: {fileID: 0}
+  coinCountDisplay: {fileID: 0}
   resultKickText: {fileID: 0}
   resultCoinText: {fileID: 0}
 --- !u!114 &1487266090

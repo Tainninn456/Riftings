@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundAction : MonoBehaviour
+public class SoundVolumeAction : MonoBehaviour
 {
     public enum SoundType
     {
@@ -10,6 +10,7 @@ public class SoundAction : MonoBehaviour
         SE
     }
 
+    //対象のAudioSourceのボリュームを上げる関数
     public void VolumeUp(SoundType soundType)
     {
         AudioManager.instance.PlaySE(AudioManager.SE.popUp);
@@ -24,6 +25,7 @@ public class SoundAction : MonoBehaviour
         }
     }
 
+    //対象のAudioSourceのボリュームを下げる関数
     public void VolumeDown(SoundType soundType)
     {
         AudioManager.instance.PlaySE(AudioManager.SE.popDown);

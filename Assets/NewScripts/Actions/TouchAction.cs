@@ -38,7 +38,6 @@ public class TouchAction : MonoBehaviour
     private Vector2 GetTouchPosition()
     {
         Vector2 screenPos = Input.mousePosition;
-        Debug.Log(Camera.main);
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
         return worldPos;
     }
