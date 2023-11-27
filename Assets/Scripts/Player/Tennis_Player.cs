@@ -1,7 +1,7 @@
 using UnityEngine;
 public class Tennis_Player : PlayParent
 {
-    public static void move()
+    /*public static void move()
     {
         pmove(50, 1.875f);
         bmove();
@@ -91,5 +91,5 @@ public class Tennis_Player : PlayParent
         Reonce(-70 + Main.powerUps[1] * 70 + Main.powerUps[2] * 70);
         bWall(hx);
         Main.counter.text = timeCount.ToString();
-    }
+    }*/
 }

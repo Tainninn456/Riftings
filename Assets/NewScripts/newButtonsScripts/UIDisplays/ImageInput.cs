@@ -4,20 +4,24 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// ã‚¤ãƒ¡ãƒ¼ã‚¸å¤‰æ›´ã«é–¢ã™ã‚‹ãƒœã‚¿ãƒ³ã‚’ä¿æŒã—ã€é–¢æ•°ã‚’å‰²ã‚Šå½“ã¦ã¦ã„ã‚‹ã‚¯ãƒ©ã‚¹
+/// </summary>
 public class ImageInput : InputParent
 {
-    //ContextMenu‚Åg—p‚·‚éŠÖ”‚Ìstring–¼
+    //ContextMenuã§ä½¿ç”¨ã™ã‚‹é–¢æ•°ã®stringå
     const string methodClothMoneyName = "ClothChangeButtonsGetter";
 
-    [Header("ImageActionƒNƒ‰ƒX‚ÌQÆ")]
+    [Header("ImageActionã‚¯ãƒ©ã‚¹ã®å‚ç…§")]
     [SerializeField] ImageAction imageAction;
 
-    [Header("’…‚¹‘Ö‚¦w“ü‚É‚Äg—p‚·‚éƒ{ƒ^ƒ“")]
+    [Header("ç€ã›æ›¿ãˆè³¼å…¥ã«ã¦ä½¿ç”¨ã™ã‚‹ãƒœã‚¿ãƒ³")]
     [SerializeField] Button[] clothChangeButtons;
 
     private void Start()
     {
-        //’…‚¹‘Ö‚¦w“üƒ{ƒ^ƒ“‚Ì‚»‚ê‚¼‚ê‚ÉImageActionƒNƒ‰ƒX“à‚ÌŠÖ”‚ğŒÄ‚Ño‚·‚æ‚¤‚ÉŠ„‚è“–‚Ä‚é
+        //ç€ã›æ›¿ãˆè³¼å…¥ãƒœã‚¿ãƒ³ã®ãã‚Œãã‚Œã«ImageActionã‚¯ãƒ©ã‚¹å†…ã®é–¢æ•°ã‚’å‘¼ã³å‡ºã™ã‚ˆã†ã«å‰²ã‚Šå½“ã¦ã‚‹
         for(int i = 0; i < clothChangeButtons.Length; i++)
         {
             int indexNumber = i;
@@ -25,7 +29,7 @@ public class ImageInput : InputParent
         }
     }
 #if UNITY_EDITOR
-    //’…‚¹‘Ö‚¦w“ü‚ÌÛ‚Ég—p‚·‚éƒ{ƒ^ƒ“‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾‚·‚éŠÖ”
+    //ç€ã›æ›¿ãˆè³¼å…¥ã®éš›ã«ä½¿ç”¨ã™ã‚‹ãƒœã‚¿ãƒ³ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—ã™ã‚‹é–¢æ•°
     [ContextMenu(methodClothMoneyName)]
     private void ClothChangeButtonsGetter()
     {

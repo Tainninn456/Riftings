@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TouchAction : MonoBehaviour
 {
-    [Header("ƒ^ƒbƒ`ƒGƒtƒFƒNƒg")]
+    [Header("ã‚¿ãƒƒãƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     [SerializeField] GameObject touchEffect;
 
-    //ƒ^ƒbƒ`ƒGƒtƒFƒNƒg‚ÌêŠ
+    //ã‚¿ãƒƒãƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å ´æ‰€
     Transform effectTrans;
 
     private void Start()

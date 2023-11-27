@@ -32,7 +32,7 @@ public class PinPlayer : MonoBehaviour
     }
     void Update()
     {
-        //ƒ^ƒbƒv‚É‚æ‚é‚Á”ò‚Î‚µ
+        //ã‚¿ãƒƒãƒ—ã«ã‚ˆã‚‹å¹ã£é£›ã°ã—
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 screenPos = Input.mousePosition;
@@ -42,23 +42,23 @@ public class PinPlayer : MonoBehaviour
             {
                 //Debug.Log(worldPos);
                 //Debug.Log((Vector2)ballTransReference.position);
-                //ƒ^ƒbƒvˆÊ’u‚Æƒ{[ƒ‹‚Ü‚Å‚Ì‹——£‚ªŠÖ”Às”ÍˆÍ“à
+                //ã‚¿ãƒƒãƒ—ä½ç½®ã¨ãƒœãƒ¼ãƒ«ã¾ã§ã®è·é›¢ãŒé–¢æ•°å®Ÿè¡Œç¯„å›²å†…
                 if (Vector2.Distance(ballTransReference.position, worldPos) < tapReflectRange)
                 {
                     Vector2 directionStock = (Vector2)ballTransReference.position - worldPos;
-                    //ƒ{[ƒ‹‚ÌˆÊ’u‚ªƒ^ƒbƒvˆÊ’u‚æ‚è’á‚¢ê‡”½“]
+                    //ãƒœãƒ¼ãƒ«ã®ä½ç½®ãŒã‚¿ãƒƒãƒ—ä½ç½®ã‚ˆã‚Šä½ã„å ´åˆåè»¢
                     if (directionStock.y < 0)
                     {
                         directionStock = new Vector2(directionStock.x, -1 * directionStock.y);
                     }
-                    //ƒ{[ƒ‹‚ÌˆÊ’u‚Æƒ^ƒbƒvˆÊ’u‚ÉˆË‘¶‚·‚éŒX‚«‚ª’á‚¢ê‡‚ÌC³ˆ—
+                    //ãƒœãƒ¼ãƒ«ã®ä½ç½®ã¨ã‚¿ãƒƒãƒ—ä½ç½®ã«ä¾å­˜ã™ã‚‹å‚¾ããŒä½ã„å ´åˆã®ä¿®æ­£å‡¦ç†
                     Vector2 returnDirection = GetSlope(directionStock.normalized, worldPos.normalized);
                     ballScriptReference.ShotBall(returnDirection.normalized);
                 }
             }
         }
     }
-    //ŒX‚«‚ª¬‚³‚¢ê‡C³‚ğs‚¤ŠÖ”
+    //å‚¾ããŒå°ã•ã„å ´åˆä¿®æ­£ã‚’è¡Œã†é–¢æ•°
     private Vector2 GetSlope(Vector2 targetDirection, Vector2 myPosition)
     {
         float deltaY = targetDirection.y - myPosition.y;
@@ -69,17 +69,17 @@ public class PinPlayer : MonoBehaviour
 
         if (slope < slopeJudgeValue)
         {
-            Debug.Log("C³");
+            Debug.Log("ä¿®æ­£");
             return targetDirection;
         }
         
-        //³•ûŒü‚Ì’µ‚Ë•Ô‚è
+        //æ­£æ–¹å‘ã®è·³ã­è¿”ã‚Š
         if(deltaX > 0)
         {
             //Debug.Log("goplus");
             return new Vector2(defaultShotDirection, defaultShotDirection);
         }
-        //•‰•ûŒü‚Ì’µ‚Ë•Ô‚è
+        //è² æ–¹å‘ã®è·³ã­è¿”ã‚Š
         else
         {
             //Debug.Log("gominus");

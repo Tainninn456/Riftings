@@ -6,16 +6,16 @@ using UnityEditor;
 using UnityEngine.UI;
 
 /// <summary>
-/// •‰‰×‚Ìd‚¢RaycastTarget‚ğ•K—v‚Ì–³‚¢‚à‚Ì‚ÉŠÖ‚µ‚Ä‘S‚ÄƒIƒt‚É‚·‚é‚½‚ß‚ÌƒNƒ‰ƒX
+/// è² è·ã®é‡ã„RaycastTargetã‚’å¿…è¦ã®ç„¡ã„ã‚‚ã®ã«é–¢ã—ã¦å…¨ã¦ã‚ªãƒ•ã«ã™ã‚‹ãŸã‚ã®ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class RaycastFalse : MonoBehaviour
 {
-    //‰º‹L‚É‚Äg—p‚·‚éŠÖ”‚Ìstring–¼
+    //ä¸‹è¨˜ã«ã¦ä½¿ç”¨ã™ã‚‹é–¢æ•°ã®stringå
     const string raycastOnMethod = "Tools/SetRaycastDisableNoButton";
     const string raycastOffMethod = "Tools/SetRaycastEnable";
 
-    //RaycastTarget‚ğƒIƒt‚É‚·‚éŠÖ”
-    // ƒ{ƒ^ƒ“‚ª‚ ‚ê‚Î Raycast ‚ğ false ‚É‚µ‚È‚¢   
+    //RaycastTargetã‚’ã‚ªãƒ•ã«ã™ã‚‹é–¢æ•°
+    // ãƒœã‚¿ãƒ³ãŒã‚ã‚Œã° Raycast ã‚’ false ã«ã—ãªã„   
     [MenuItem(raycastOnMethod)]
     private static void SetRaycastDisableNoButton()
     {
@@ -32,7 +32,7 @@ public class RaycastFalse : MonoBehaviour
         }
     }
 
-    // Raycast‚ğƒIƒ“‚É‚·‚éŠÖ”  
+    // Raycastã‚’ã‚ªãƒ³ã«ã™ã‚‹é–¢æ•°  
     [MenuItem(raycastOffMethod)]
     private static void SetRaycastEnable()
     {

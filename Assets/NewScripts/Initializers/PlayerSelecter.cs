@@ -3,28 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚Ì‰Šú‰»‚ð’S“–
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åˆæœŸåŒ–ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class PlayerSelecter : MonoBehaviour
 {
-    [Header("initialize‚ÌŽQÆ")]
+    [Header("DataReciverã‚¯ãƒ©ã‚¹ã®å‚ç…§")]
     [SerializeField] DataReciver initialData;
 
-    [Header("ŽÀÛ‚ÌƒvƒŒƒCƒ„[‚ÌŽQÆ")]
-    [SerializeField] Newplayer player;
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‚ç…§")]
+    [SerializeField] Player player;
     void Start()
     {
         GameObject mine = gameObject;
         Transform parentTrans = mine.GetComponent<Transform>();
         List<GameObject> objs = new List<GameObject>();
         int childAmount = mine.transform.childCount;
-        //ƒvƒŒƒCƒ„[‚Ìsprite&collision—p‚ð‘S‚Äfalse‚É‚·‚é
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®sprite&collisionç”¨ã‚’å…¨ã¦falseã«ã™ã‚‹
         for (int i = 0; i < childAmount; i++)
         {
             objs.Add(parentTrans.GetChild(i).gameObject);
             objs[i].SetActive(false);
         }
-        //Žg—p‚·‚é‚à‚Ì‚¾‚¯true‚É‚·‚é
+        //ä½¿ç”¨ã™ã‚‹ã‚‚ã®ã ã‘trueã«ã™ã‚‹
         GameObject playerObj = objs[initialData.sportType];
         playerObj.SetActive(true);
         player.PlayerComponentInserter(playerObj.GetComponent<Rigidbody2D>(), playerObj.GetComponent<Transform>());

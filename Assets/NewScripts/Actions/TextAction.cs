@@ -6,46 +6,46 @@ using UnityEditor;
 using TMPro;
 
 /// <summary>
-/// ƒeƒLƒXƒgŒn‚Ì“®ì‚ğs‚¤ƒNƒ‰ƒX
+/// ãƒ†ã‚­ã‚¹ãƒˆç³»ã®å‹•ä½œã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class TextAction : MonoBehaviour
 {
     const string ActiveTagName = "ActiveObject";
     const string methodScoreName = "AllScoreTextComponentGeter";
 
-    [Header("ƒƒCƒ“ƒƒjƒ…[")]
+    [Header("ãƒ¡ã‚¤ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼")]
 
-    [Header("ŠeƒXƒ|[ƒc‚ÌƒXƒRƒA‚ğ•\¦‚·‚éƒeƒLƒXƒg")]
+    [Header("å„ã‚¹ãƒãƒ¼ãƒ„ã®ã‚¹ã‚³ã‚¢ã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ")]
     [SerializeField] TextMeshProUGUI[] scoreTexts;
-    [Header("ŠƒRƒCƒ“AƒRƒCƒ“‚ÌƒŒƒxƒ‹Aƒn[ƒg‚ÌƒŒƒxƒ‹‚ğ‚»‚ê‚¼‚ê•\¦‚·‚éƒeƒLƒXƒg")]
+    [Header("æ‰€æŒã‚³ã‚¤ãƒ³ã€ã‚³ã‚¤ãƒ³ã®ãƒ¬ãƒ™ãƒ«ã€ãƒãƒ¼ãƒˆã®ãƒ¬ãƒ™ãƒ«ã‚’ãã‚Œãã‚Œè¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ")]
     [SerializeField] TextMeshProUGUI[] moneyTexts;
-    [Header("ŠeƒXƒ|[ƒc‚Ì’…‚¹‘Ö‚¦’l’i‚ğ•\¦‚·‚éƒeƒLƒXƒg")]
+    [Header("å„ã‚¹ãƒãƒ¼ãƒ„ã®ç€ã›æ›¿ãˆå€¤æ®µã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ")]
     [SerializeField] TextMeshProUGUI[] shopTexts;
-    [Header("ƒRƒCƒ“‚Æƒn[ƒg‚Ì’l’i‚ğ•\¦‚·‚éƒeƒLƒXƒg")]
+    [Header("ã‚³ã‚¤ãƒ³ã¨ãƒãƒ¼ãƒˆã®å€¤æ®µã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ")]
     [SerializeField] TextMeshProUGUI[] itemTexts;
 
-    [Header("ƒvƒŒƒCƒ„[‚Ìƒf[ƒ^‚Ö‚ÌQÆ")]
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ‡ãƒ¼ã‚¿ã¸ã®å‚ç…§")]
     [SerializeField] DataAction dataAction;
 
-    [Header("ƒCƒ“ƒQ[ƒ€")]
+    [Header("ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ")]
 
-    [Header("ƒvƒŒƒC’†‚ÉƒLƒbƒNƒJƒEƒ“ƒg‚ğ•\¦‚·‚éƒeƒLƒXƒg")]
+    [Header("ãƒ—ãƒ¬ã‚¤ä¸­ã«ã‚­ãƒƒã‚¯ã‚«ã‚¦ãƒ³ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ")]
     [SerializeField] TextMeshProUGUI kickCountDisplay;
-    [Header("ƒvƒŒƒC’†‚ÉŠl“¾‚µ‚½ƒRƒCƒ“‚Ì‘”‚ğ•\¦‚·‚éƒeƒLƒXƒg")]
+    [Header("ãƒ—ãƒ¬ã‚¤ä¸­ã«ç²å¾—ã—ãŸã‚³ã‚¤ãƒ³ã®ç·æ•°ã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ")]
     [SerializeField] TextMeshProUGUI coinCountDisplay;
-    [Header("ã‹L‚Ì‚»‚ê‚¼‚ê‚ğƒŠƒUƒ‹ƒg‚É‚Ä•\¦‚·‚éƒeƒLƒXƒg")]
+    [Header("ä¸Šè¨˜ã®ãã‚Œãã‚Œã‚’ãƒªã‚¶ãƒ«ãƒˆã«ã¦è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ")]
     [SerializeField] TextMeshProUGUI resultKickText;
     [SerializeField] TextMeshProUGUI resultCoinText;
 
-    //Še’…‚¹‘Ö‚¦‚âƒRƒCƒ“ƒŒƒxƒ‹‚Æƒn[ƒgƒŒƒxƒ‹‚Ì’l’i‚ğƒn[ƒhƒR[ƒfƒBƒ“ƒO‚µ‚½ƒNƒ‰ƒX
+    //å„ç€ã›æ›¿ãˆã‚„ã‚³ã‚¤ãƒ³ãƒ¬ãƒ™ãƒ«ã¨ãƒãƒ¼ãƒˆãƒ¬ãƒ™ãƒ«ã®å€¤æ®µã‚’ãƒãƒ¼ãƒ‰ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã—ãŸã‚¯ãƒ©ã‚¹
     private shopPrices shopDatas = new shopPrices();
 
     /// <summary>
-    /// ƒƒCƒ“ƒƒjƒ…[“àÀsŠÖ”
+    /// ãƒ¡ã‚¤ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼å†…å®Ÿè¡Œé–¢æ•°
     /// </summary>
     /// 
 
-    //’…‚¹‘Ö‚¦w“ü‰æ–Ê‚É‚ÄAŠe’…‚¹‘Ö‚¦‚Ì’l’i‚ğ•\¦‚·‚éŠÖ”
+    //ç€ã›æ›¿ãˆè³¼å…¥ç”»é¢ã«ã¦ã€å„ç€ã›æ›¿ãˆã®å€¤æ®µã‚’è¡¨ç¤ºã™ã‚‹é–¢æ•°
     public void ShopDataIntoText(int shopValueIndex)
     {
         Data useData = dataAction.DataCopy();
@@ -53,7 +53,7 @@ public class TextAction : MonoBehaviour
         {
             if (useData.clothAchive[shopValueIndex] >= i)
             {
-                shopTexts[i].text = "g—p";
+                shopTexts[i].text = "ä½¿ç”¨";
             }
             else
             {
@@ -62,7 +62,7 @@ public class TextAction : MonoBehaviour
         }
     }
 
-    //ƒVƒ‡ƒbƒv‰æ–Ê‚É‚ ‚éŠƒRƒCƒ“AƒRƒCƒ“‚ÌƒŒƒxƒ‹Aƒn[ƒg‚ÌƒŒƒxƒ‹‚ğ•\¦‚·‚éŠÖ”
+    //ã‚·ãƒ§ãƒƒãƒ—ç”»é¢ã«ã‚ã‚‹æ‰€æŒã‚³ã‚¤ãƒ³ã€ã‚³ã‚¤ãƒ³ã®ãƒ¬ãƒ™ãƒ«ã€ãƒãƒ¼ãƒˆã®ãƒ¬ãƒ™ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹é–¢æ•°
     public void DataIntoText()
     {
         Data useData = dataAction.DataCopy();
@@ -70,19 +70,19 @@ public class TextAction : MonoBehaviour
         {
             scoreTexts[i].text = useData.GameScores[i].ToString();
         }
-        //‚¨‹à‚Ì‘Šz‚ğ•\¦
+        //ãŠé‡‘ã®ç·é¡ã‚’è¡¨ç¤º
         moneyTexts[0].text = useData.CoinAmount.ToString();
-        //ƒRƒCƒ“‚ÌƒŒƒxƒ‹‚ğ•\¦
-        moneyTexts[1].text = "~ " + useData.coinLevel.ToString();
-        //ƒn[ƒg‚ÌƒŒƒxƒ‹‚ğ•\¦
-        moneyTexts[2].text = "~ " + useData.heartLevel.ToString();
+        //ã‚³ã‚¤ãƒ³ã®ãƒ¬ãƒ™ãƒ«ã‚’è¡¨ç¤º
+        moneyTexts[1].text = "Ã— " + useData.coinLevel.ToString();
+        //ãƒãƒ¼ãƒˆã®ãƒ¬ãƒ™ãƒ«ã‚’è¡¨ç¤º
+        moneyTexts[2].text = "Ã— " + useData.heartLevel.ToString();
     }
 
-    //ƒRƒCƒ“ƒŒƒxƒ‹‚Æƒn[ƒgƒŒƒxƒ‹‚Ìã¸‚É•K—v‚ÈƒRƒCƒ“”‚ğ•\¦‚·‚éŠÖ”
+    //ã‚³ã‚¤ãƒ³ãƒ¬ãƒ™ãƒ«ã¨ãƒãƒ¼ãƒˆãƒ¬ãƒ™ãƒ«ã®ä¸Šæ˜‡ã«å¿…è¦ãªã‚³ã‚¤ãƒ³æ•°ã‚’è¡¨ç¤ºã™ã‚‹é–¢æ•°
     public void ItemDataIntoText()
     {
         Data useData = dataAction.DataCopy();
-        //ƒRƒCƒ“‘¤‚Ìˆ—
+        //ã‚³ã‚¤ãƒ³å´ã®å‡¦ç†
         string coinString = "";
         if(useData.coinLevel == shopDatas.coinPrices.Length + 1) 
         {
@@ -93,7 +93,7 @@ public class TextAction : MonoBehaviour
             coinString = shopDatas.coinPrices[useData.coinLevel - 1].ToString();
         }
         itemTexts[0].text = coinString;
-        //ƒn[ƒg‘¤‚Ìˆ—
+        //ãƒãƒ¼ãƒˆå´ã®å‡¦ç†
         string heartString = "";
         if(useData.heartLevel == shopDatas.coinPrices.Length + 1)
         {
@@ -106,20 +106,20 @@ public class TextAction : MonoBehaviour
         itemTexts[1].text = heartString;
     }
 
-    //ƒQ[ƒ€ƒvƒŒƒCI—¹‚ÌƒŠƒUƒ‹ƒg•\¦Fkick‰ñ”Acoin–‡”
+    //ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤çµ‚äº†æ™‚ã®ãƒªã‚¶ãƒ«ãƒˆè¡¨ç¤ºï¼škickå›æ•°ã€coinæšæ•°
     public void GameEndTextDisplay(int kickCount, int coinCount)
     {
         resultKickText.text = kickCount.ToString();
         resultCoinText.text = coinCount.ToString();
     }
 
-    //ƒQ[ƒ€ƒvƒŒƒC’†‚ÉƒLƒbƒNƒJƒEƒ“ƒg‚ğ•\¦‚·‚éŠÖ”
+    //ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤ä¸­ã«ã‚­ãƒƒã‚¯ã‚«ã‚¦ãƒ³ãƒˆã‚’è¡¨ç¤ºã™ã‚‹é–¢æ•°
     public void KickCountDisplay(int Value)
     {
         kickCountDisplay.text = Value.ToString();
     }
 
-    //ƒQ[ƒ€ƒvƒŒƒC’†‚ÉŠl“¾‚µ‚½ƒRƒCƒ“‚Ì‘”‚ğ•\¦‚·‚éŠÖ”
+    //ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤ä¸­ã«ç²å¾—ã—ãŸã‚³ã‚¤ãƒ³ã®ç·æ•°ã‚’è¡¨ç¤ºã™ã‚‹é–¢æ•°
     public void CoinCountDisplay(int Value)
     {
         coinCountDisplay.text = Value.ToString();
@@ -128,11 +128,11 @@ public class TextAction : MonoBehaviour
 #if UNITY_EDITOR
 
     /// <summary>
-    /// ƒGƒfƒBƒ^ãÀsŠÖ”Aserialize‚Öˆê“x‚É’l‚ğ“o˜^‚·‚é‚½‚ß‚ÌŠÖ”
+    /// ã‚¨ãƒ‡ã‚£ã‚¿ä¸Šå®Ÿè¡Œé–¢æ•°ã€serializeã¸ä¸€åº¦ã«å€¤ã‚’ç™»éŒ²ã™ã‚‹ãŸã‚ã®é–¢æ•°
     /// </summary>
     /// 
 
-    //ŠeƒXƒ|[ƒc‚ÌƒXƒRƒA‚ğ•\¦‚·‚éƒeƒLƒXƒg‚ğˆê“x‚Éæ“¾‚·‚éŠÖ”
+    //å„ã‚¹ãƒãƒ¼ãƒ„ã®ã‚¹ã‚³ã‚¢ã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆã‚’ä¸€åº¦ã«å–å¾—ã™ã‚‹é–¢æ•°
     [ContextMenu(methodScoreName)]
     private void AllScoreTextComponentGeter()
     {

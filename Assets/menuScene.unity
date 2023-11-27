@@ -1986,7 +1986,7 @@ GameObject:
   - component: {fileID: 312200267}
   - component: {fileID: 312200266}
   m_Layer: 5
-  m_Name: clothPopDownButton
+  m_Name: clothPopupHiddenButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7471,7 +7471,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -800.00006, y: 0}
+  m_AnchoredPosition: {x: -800, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1218468360
@@ -9827,14 +9827,11 @@ MonoBehaviour:
   movePanel:
   - {fileID: 1218468359}
   - {fileID: 918281790}
-  rotationGroups:
-  - {fileID: 670652974}
-  - {fileID: 1854019453}
   soundPopup: {fileID: 190273900}
   clothPopup: {fileID: 184464670}
   popupParent: {fileID: 516053162}
   dataAction: {fileID: 1487266087}
-  porzPop: {fileID: 0}
+  porzPopup: {fileID: 0}
   referencsData: {fileID: 0}
   activeParent: {fileID: 0}
   replayer: {fileID: 0}
@@ -9888,16 +9885,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce11a8c3e34bf234eab6b66ef688d608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreImages:
-  - {fileID: 402213654}
-  - {fileID: 1731405473}
-  - {fileID: 1073078415}
-  - {fileID: 142183153}
-  - {fileID: 1047307677}
-  - {fileID: 620084672}
-  - {fileID: 109132222}
-  - {fileID: 605661148}
-  - {fileID: 485971643}
   clothImages:
   - {fileID: 1391025970}
   - {fileID: 1422658582}
@@ -10001,7 +9988,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ae95b1470e7746847b0329ab300f975a, type: 3}
   endAnimationBom: {fileID: 0}
   gameDatas: {fileID: 0}
-  ingameAllObjects: {fileID: 0}
+  ingameParentObj: {fileID: 0}
   systemAction: {fileID: 0}
   heartParent: {fileID: 0}
   backImages: []
@@ -10068,13 +10055,10 @@ MonoBehaviour:
   ToClothButton: {fileID: 2128801207}
   ToScoreButton: {fileID: 373329510}
   scoreBackButton: {fileID: 1633176086}
-  rotationButtons:
-  - {fileID: 115080957}
-  - {fileID: 108546675}
-  soundPopButtons:
+  soundPopupButtons:
   - {fileID: 241959242}
   - {fileID: 2015324057}
-  clothPopUpButtons:
+  clothPopupDisplayButtons:
   - {fileID: 5934271341880759289}
   - {fileID: 1825861344}
   - {fileID: 1459406727}
@@ -10084,7 +10068,7 @@ MonoBehaviour:
   - {fileID: 1971383815}
   - {fileID: 1304193968}
   - {fileID: 1640082720}
-  clothPopDownButton: {fileID: 312200266}
+  clothPopupHiddenButton: {fileID: 312200266}
   sceneButtons:
   - {fileID: 2124823620}
   - {fileID: 1082377883}
@@ -10095,8 +10079,7 @@ MonoBehaviour:
   - {fileID: 214801156}
   - {fileID: 2053428079}
   - {fileID: 1221761468}
-  pinSceneButton: {fileID: 442990726}
-  porzPopButtons: []
+  porzPopupButtons: []
 --- !u!114 &1487266091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10139,7 +10122,7 @@ MonoBehaviour:
   - {fileID: 1971383815}
   - {fileID: 1304193968}
   - {fileID: 1640082720}
-  consumeDesicionButtons:
+  consumeDecisionButtons:
   - {fileID: 1787382325}
   - {fileID: 1422658585}
   - {fileID: 2104386242}

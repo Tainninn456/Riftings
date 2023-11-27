@@ -6,36 +6,34 @@ using DG.Tweening;
 using UnityEngine.UI;
 
 /// <summary>
-/// �{�[����OnTrigger�pscript
+/// ボールのTrigger用クラス
 /// </summary>
 public class ballTrigger : MonoBehaviour
 {
+    //OnTrigger実行時に判別するタグ名を定数で保持
     const string coinTagName = "coin";
     const string coinPlusTagName = "pluscoin";
     const string coinMinusTagName = "minuscoin";
     const string gimicTagName = "Gimic";
 
-    [Header("�R�C���̎擾����\������e�L�X�g")]
-    [SerializeField] TextMeshProUGUI coinTex;
+    [Header("ボールの参照")]
+    [SerializeField] Ball parentBoalScript;
 
-    [Header("�{�[���̎Q��")]
-    [SerializeField] NewBall parentBoalScript;
-
-    [Header("�f�[�^�n�ւ̃A�N�Z�X")]
+    [Header("データ系へのアクセス")]
     [SerializeField] GameObject managerInformation;
 
-    [Header("�e�L�X�g�ւ̃A�N�Z�X")]
+    [Header("テキストへのアクセス")]
     [SerializeField] TextAction textAction;
 
-    [Header("�C���[�W�ւ̃A�N�Z�X")]
+    [Header("イメージへのアクセス")]
     [SerializeField] ImageAction imageAction;
 
-    //�C���Q�[���v���C���f�[�^�A�R�C���̊Ǘ��N���X�A�R�C���̏��N���X�ւ̃A�N�Z�X
+    //インゲームプレイ中データ、コインの管理クラス、コインの情報クラスへのアクセス
     InGameStockData parentGameStockData;
     coinManager coinMane;
     CoinInformation coinInfo;
 
-    //�M�~�b�N�����s���邩�𔻒f
+    //ギミックを実行するかを判断
     private bool GimicBool;
     private void Start()
     {
@@ -45,7 +43,7 @@ public class ballTrigger : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //�R�C���Փˎ��̏���
+        //コイン衝突時の処理
         if (collision.gameObject.CompareTag(coinTagName))
         {
             AudioManager.instance.PlaySE(AudioManager.SE.coin);
@@ -53,7 +51,7 @@ public class ballTrigger : MonoBehaviour
             parentGameStockData.coinCount += coinInfo.CoinValue;
             textAction.CoinCountDisplay(parentGameStockData.coinCount);
         }
-        //�������̕�����
+        //横方向の風処理
         else if (collision.gameObject.CompareTag(gimicTagName))
         {
             if (GimicBool)
@@ -61,13 +59,13 @@ public class ballTrigger : MonoBehaviour
                 parentBoalScript.WindAttackGimic();
             }
         }
-        //�v���X�R�C���Փˎ��̏���
+        //プラスコイン衝突時の処理
         else if (collision.gameObject.CompareTag(coinPlusTagName))
         {
             AudioManager.instance.PlaySE(AudioManager.SE.coin);
             coinMane.GimicCoin(1, false);
         }
-        //�}�C�i�X�R�C���Փˎ��̏���
+        //マイナスコイン衝突時の処理
         else if (collision.gameObject.CompareTag(coinMinusTagName))
         {
             AudioManager.instance.PlaySE(AudioManager.SE.coin);
@@ -75,7 +73,8 @@ public class ballTrigger : MonoBehaviour
         }
     }
 
-    public void WallGimicStarter(bool gimicBool)
+    //壁衝突時の処理を変更する関数
+    public void WideWindGimicStarter(bool gimicBool)
     {
         GimicBool = gimicBool;
     }

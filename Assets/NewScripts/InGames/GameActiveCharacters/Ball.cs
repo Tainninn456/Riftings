@@ -1,15 +1,15 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
 /// <summary>
-/// ボール自体のscript
+/// ボールのクラス
 /// </summary>
-public class NewBall : MonoBehaviour
+public class Ball : MonoBehaviour
 {
-
+    //衝突時のタグ判定に用いる文字列
     const string playerTagName = "Player";
     const string deathTagName = "Death";
     const string wallTagName = "wall";
@@ -41,6 +41,7 @@ public class NewBall : MonoBehaviour
     [Header("ギミック用：横方向の風力")]
     [SerializeField] float windPower;
 
+    [Header("スケール変更時の各スケール値")]
     [SerializeField] float ballBigScaleValue;
 
     [SerializeField] float ballSmallScaleValue;
@@ -50,9 +51,10 @@ public class NewBall : MonoBehaviour
     [Header("スケール変更の速度")]
     [SerializeField] float animSpeed;
 
+    [Header("背景変更に必要なキックカウントを保持")]
     [SerializeField] int[] backChangeValues;
 
-    [Header("Initializeの参照")]
+    [Header("DataReciverクラスの参照")]
     [SerializeField] DataReciver initialData;
 
     [Header("ゲーム内データ群へのアクセス")]
@@ -215,6 +217,7 @@ public class NewBall : MonoBehaviour
         }
     }
 
+    //ボールを横方向に一時的に
     public void WindAttackGimic()
     {
         int rand = Random.Range(0, 11);
@@ -229,11 +232,13 @@ public class NewBall : MonoBehaviour
         }
     }
 
+    //乱気流ギミックを実行する関数
     public void WindRandomAttackGimic()
     {
         ballRigid.AddForce(new Vector2(Random.Range(-randPower, randPower), Random.Range(-randPower, randPower)), ForceMode2D.Force);
     }
 
+    //ボールにかかる重力を変更するギミックを実行する関数
     public void GravityChanger(int grabityType)
     {
         float gravityStuck = 0;
@@ -263,11 +268,13 @@ public class NewBall : MonoBehaviour
         kickDefault += kickPowerStuck;
     }
 
+    //キックカウントに値を加算する関数
     public void KickAddValueChanger(int value)
     {
         kickCountAddValue = value;
     }
 
+    //ボールのスケールを変更する関数
     public void BallScaleChanger(int scaleNumber)
     {
         switch (scaleNumber)
@@ -283,16 +290,14 @@ public class NewBall : MonoBehaviour
                 break;
         }
     }
+
+    //壁衝突時の処理を変更する関数
     public void WallGimicStarter(bool wallBool)
     {
         gimicing = wallBool;
     }
-    public void GravityGimicStarter()
-    {
-        gravityGimicing = true;
-    }
 
-    //ポーズ中の処理
+    //ポーズにおけるvelocityを操作する関数
     public Vector2 BallRigChanger(string access, Vector2 inputSpeed)
     {
         switch (access)
@@ -306,7 +311,7 @@ public class NewBall : MonoBehaviour
         return new Vector2(50, 50);
     }
 
-    //エフェクト実行
+    //衝突時エフェクトを実行する関数
     private void EffectAction(Vector2 targetPosition)
     {
         effectTrans.position = targetPosition;

@@ -1,7 +1,7 @@
 using UnityEngine;
 public class Tableteniss_Player : PlayParent
 {
-    static bool carb;
+    /*static bool carb;
     public static void move()//trueはゲームオーバー
     {
         pmove(50, 1.875f);
@@ -120,5 +120,5 @@ public class Tableteniss_Player : PlayParent
         Reonce(-70 + Main.powerUps[1] * 70 + Main.powerUps[2] * 70);
         bWall(hx);
         Main.counter.text = timeCount.ToString();
-    }
+    }*/
 }

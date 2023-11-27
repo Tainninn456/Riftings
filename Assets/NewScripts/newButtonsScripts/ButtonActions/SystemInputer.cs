@@ -5,86 +5,89 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
+
+/// <summary>
+/// ãƒ‘ãƒãƒ«ã€ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã€ã‚·ãƒ¼ãƒ³é·ç§»ç­‰ã«é–¢ã™ã‚‹ãƒœã‚¿ãƒ³ã‚’ä¿æŒã—ã€é–¢æ•°ã‚’å‰²ã‚Šå½“ã¦ã¦ã„ã‚‹ã‚¯ãƒ©ã‚¹
+/// </summary>
 public class SystemInputer : InputParent
 {
+    //ContextMenuã«ã¦ä½¿ç”¨ã—ã¦ã„ã‚‹é–¢æ•°ã®stringå
     const string sceneButtonGetName = "SceneButtonGetter";
+
     const string mainSceneName = "menuScene";
     const string playSceneName = "playScene";
-    //•¡”‚ÌƒIƒuƒWƒFƒNƒg‚ÆŠK‘w‚Å”í‚Á‚Ä‚¢‚é‚½‚ßƒVƒŠƒAƒ‰ƒCƒY‚É“ü‚ê‚Ş
 
+    [Header("SystemActionã‚¯ãƒ©ã‚¹ã®å‚ç…§")]
     [SerializeField] SystemAction systemAction;
 
-    [Header("ƒƒCƒ“ƒƒjƒ…[")]
-    //ˆÚ“®ƒ{ƒ^ƒ“‚Ìæ“¾
-    [Header("’…‚¹‘Ö‚¦ƒpƒlƒ‹‚©‚çƒƒCƒ“ƒpƒlƒ‹‚Ö–ß‚é")]
+    [Header("ãƒ¡ã‚¤ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼")]
+    //ãƒ‘ãƒãƒ«é·ç§»ã®ãƒœã‚¿ãƒ³
+    [Header("ç€ã›æ›¿ãˆãƒ‘ãƒãƒ« â†’ ãƒ¡ã‚¤ãƒ³ãƒ‘ãƒãƒ«ã‚’å®Ÿè¡Œã™ã‚‹ãƒœã‚¿ãƒ³")]
     [SerializeField] Button clothBackButton;
 
-    [Header("’…‚¹‘Ö‚¦ƒpƒlƒ‹‚Ö‚ÌˆÚ“®")]
+    [Header("ãƒ¡ã‚¤ãƒ³ãƒ‘ãƒãƒ« â†’ ç€ã›æ›¿ãˆãƒ‘ãƒãƒ«ã‚’å®Ÿè¡Œã™ã‚‹ãƒœã‚¿ãƒ³")]
     [SerializeField] Button ToClothButton;
 
-    [Header("ƒXƒRƒAƒpƒlƒ‹‚Ö‚ÌˆÚ“®")]
+    [Header("ãƒ¡ã‚¤ãƒ³ãƒ‘ãƒãƒ« â†’ ã‚¹ã‚³ã‚¢ãƒ‘ãƒãƒ«ã‚’å®Ÿè¡Œã™ã‚‹ãƒœã‚¿ãƒ³")]
     [SerializeField] Button ToScoreButton;
 
-    [Header("ƒXƒRƒAƒpƒlƒ‹‚©‚çƒƒCƒ“ƒpƒlƒ‹‚Ö–ß‚é")]
+    [Header("ã‚¹ã‚³ã‚¢ãƒ‘ãƒãƒ« â†’ ãƒ¡ã‚¤ãƒ³ãƒ‘ãƒãƒ«ã‚’å®Ÿè¡Œã™ã‚‹ãƒœã‚¿ãƒ³")]
     [SerializeField] Button scoreBackButton;
 
-    [Header("ƒ‚[ƒh•ÏXƒ{ƒ^ƒ“(0=menu,1=sub)")]
-    [SerializeField] Button[] rotationButtons;
+    //ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãƒœã‚¿ãƒ³ã®å–å¾—
+    [Header("ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã®ãƒœã‚¿ãƒ³(0=display,1=hidden)&(ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ã§ã‚‚ä½¿ç”¨)")]
+    [SerializeField] Button[] soundPopupButtons;
 
-    //ƒ|ƒbƒvƒ{ƒ^ƒ“‚Ìæ“¾
-    [Header("ƒTƒEƒ“ƒhƒ|ƒbƒv(0=up,1=down)&(ƒCƒ“ƒQ[ƒ€‚Å‚àg—p)")]
-    [SerializeField] Button[] soundPopButtons;
+    [Header("ç€ã›æ›¿ãˆãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—è¡¨ç¤ºãƒœã‚¿ãƒ³")]
+    [SerializeField] Button[] clothPopupDisplayButtons;
 
-    [Header("’…‚¹‘Ö‚¦ƒ|ƒbƒvƒAƒbƒv")]
-    [SerializeField] Button[] clothPopUpButtons;
+    [Header("ç€ã›æ›¿ãˆãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—éè¡¨ç¤ºãƒœã‚¿ãƒ³")]
+    [SerializeField] Button clothPopupHiddenButton;
 
-    [Header("’…‚¹‘Ö‚¦ƒ|ƒbƒvƒ_ƒEƒ“")]
-    [SerializeField] Button clothPopDownButton;
-
-    //ƒV[ƒ“‘JˆÚƒ{ƒ^ƒ“‚Ìæ“¾
-    [Header("ƒV[ƒ“‘JˆÚƒ{ƒ^ƒ“(ƒCƒ“ƒQ[ƒ€‚Å‚àg—p,0=ƒŠƒ[ƒh,1=ƒƒjƒ…[‚É‘JˆÚAƒ|[ƒY‚ÆƒŠƒUƒ‹ƒg‚Ì‡”Ô‚Å•Û)")]
+    //ã‚·ãƒ¼ãƒ³é·ç§»ãƒœã‚¿ãƒ³ã®å–å¾—
+    [Header("ã‚·ãƒ¼ãƒ³é·ç§»ãƒœã‚¿ãƒ³(ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ã§ã‚‚ä½¿ç”¨,0=ãƒªãƒ­ãƒ¼ãƒ‰,1=ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«é·ç§»ã€ãƒãƒ¼ã‚ºã¨ãƒªã‚¶ãƒ«ãƒˆã®é †ç•ªã§ä¿æŒ)")]
     [SerializeField] Button[] sceneButtons;
 
-    [Header("ƒsƒ“ƒ{[ƒ‹ƒV[ƒ“‘JˆÚƒ{ƒ^ƒ“")]
-    [SerializeField] Button pinSceneButton;
-
-    [Header("ƒCƒ“ƒQ[ƒ€")]
-    [Header("ƒ|[ƒYƒ|ƒbƒv(0=up,1=down)")]
-    [SerializeField] Button[] porzPopButtons;
+    [Header("ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ")]
+    [Header("ãƒãƒ¼ã‚ºãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—(0=display,1=hidden)")]
+    [SerializeField] Button[] porzPopupButtons;
 
     private void Start()
     {
+        //ãƒ¡ã‚¤ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®ã‚·ãƒ¼ãƒ³å†…ã§ãƒœã‚¿ãƒ³ã«å¯¾ã—ã¦ã€SystemActionã‚¯ãƒ©ã‚¹å†…ã®é–¢æ•°ã‚’å‰²ã‚Šå½“ã¦ã¦ã„ã‚‹
         if (SceneManager.GetActiveScene().name == mainSceneName)
         {
-            //ƒpƒlƒ‹‘JˆÚ‚ÉŠÖ‚·‚é•”•ª
+            //ãƒ‘ãƒãƒ«é·ç§»ã«é–¢ã™ã‚‹éƒ¨åˆ†
             clothBackButton.onClick.AddListener(() => systemAction.PanelMove(SystemAction.MoveDirection.right, 0));
             ToClothButton.onClick.AddListener(() => systemAction.PanelMove(SystemAction.MoveDirection.left, 0));
             ToScoreButton.onClick.AddListener(() => systemAction.PanelMove(SystemAction.MoveDirection.right, 1));
             scoreBackButton.onClick.AddListener(() => systemAction.PanelMove(SystemAction.MoveDirection.left, 1));
 
-            foreach (Button button in clothPopUpButtons)
+            foreach (Button button in clothPopupDisplayButtons)
             {
                 button.onClick.AddListener(() => systemAction.PopupDisplay(SystemAction.PopupName.Cloth));
             }
-            clothPopDownButton.onClick.AddListener(() => systemAction.PopupHidden(SystemAction.PopupName.Cloth));
+            clothPopupHiddenButton.onClick.AddListener(() => systemAction.PopupHidden(SystemAction.PopupName.Cloth));
 
-            //ƒV[ƒ“‘JˆÚŒn‚ÉŠÖ‚·‚é•”•ª
+            //ã‚·ãƒ¼ãƒ³é·ç§»ç³»ã«é–¢ã™ã‚‹éƒ¨åˆ†
             for (int i = 0; i < sceneButtons.Length; i++)
             {
                 int inputNumber = i;
                 sceneButtons[i].onClick.AddListener(() => systemAction.SceneMoveStarter(inputNumber));
             }
-            soundPopButtons[0].onClick.AddListener(() => systemAction.PopupDisplay(SystemAction.PopupName.Sound));
-            soundPopButtons[1].onClick.AddListener(() => systemAction.PopupHidden(SystemAction.PopupName.Sound));
+            soundPopupButtons[0].onClick.AddListener(() => systemAction.PopupDisplay(SystemAction.PopupName.Sound));
+            soundPopupButtons[1].onClick.AddListener(() => systemAction.PopupHidden(SystemAction.PopupName.Sound));
         }
+        //ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤ã®ã‚·ãƒ¼ãƒ³å†…ã§ãƒœã‚¿ãƒ³ã«å¯¾ã—ã¦ã€SystemActionã‚¯ãƒ©ã‚¹å†…ã®é–¢æ•°ã‚’å‰²ã‚Šå½“ã¦ã¦ã„ã‚‹
         else if (SceneManager.GetActiveScene().name == playSceneName)
         {
-            porzPopButtons[0].onClick.AddListener(() => systemAction.PopupDisplay(SystemAction.PopupName.Porz));
-            porzPopButtons[1].onClick.AddListener(() => systemAction.PopupHidden(SystemAction.PopupName.Porz));
+            porzPopupButtons[0].onClick.AddListener(() => systemAction.PopupDisplay(SystemAction.PopupName.Porz));
+            porzPopupButtons[1].onClick.AddListener(() => systemAction.PopupHidden(SystemAction.PopupName.Porz));
 
-            soundPopButtons[0].onClick.AddListener(() => systemAction.PopupChainDisplay(SystemAction.PopupOperaion.display, SystemAction.PopupName.Sound));
-            soundPopButtons[1].onClick.AddListener(() => systemAction.PopupChainDisplay(SystemAction.PopupOperaion.hidden, SystemAction.PopupName.Sound));
+            soundPopupButtons[0].onClick.AddListener(() => systemAction.PopupChainDisplay(SystemAction.PopupOperaion.display, SystemAction.PopupName.Sound));
+            soundPopupButtons[1].onClick.AddListener(() => systemAction.PopupChainDisplay(SystemAction.PopupOperaion.hidden, SystemAction.PopupName.Sound));
 
             sceneButtons[0].onClick.AddListener(() => systemAction.SimpleSceneMover(0));
             sceneButtons[1].onClick.AddListener(() => systemAction.SimpleSceneMover(1));
@@ -95,8 +98,11 @@ public class SystemInputer : InputParent
 
 #if UNITY_EDITOR
     /// <summary>
-    /// ƒGƒfƒBƒ^ãÀsŠÖ”
+    /// ã‚¨ãƒ‡ã‚£ã‚¿ä¸Šå®Ÿè¡Œé–¢æ•°
     /// </summary>
+    /// 
+
+    //ã‚·ãƒ¼ãƒ³é·ç§»ã‚’å®Ÿè¡Œã™ã‚‹ãƒœã‚¿ãƒ³ã‚’å–å¾—ã™ã‚‹é–¢æ•°
     [ContextMenu(sceneButtonGetName)]
     private void SceneButtonGetter()
     {

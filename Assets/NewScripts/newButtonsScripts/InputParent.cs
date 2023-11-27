@@ -5,9 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 
+/// <summary>
+/// Inputer系の親クラス、Button取得のContextMenuでの関数を保持
+/// </summary>
 public class InputParent : MonoBehaviour
 {
-    //�{�^���R���|�[�l���g�����I�u�W�F�N�g�̃^�O��ύX����֐�
+    //ボタンコンポーネントを持つオブジェクトのタグを変更する関数
 #if UNITY_EDITOR
     const string ActiveTagName = "ActiveObject";
     protected virtual Button[] ButtonGetter()

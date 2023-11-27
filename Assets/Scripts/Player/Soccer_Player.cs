@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Soccer_Player : PlayParent
 {
-    public static void move()//trueはゲームオーバー
+    /*public static void move()//trueはゲームオーバー
     {
         pmove(50, 1.875f);
         bmove();
@@ -83,5 +83,5 @@ public class Soccer_Player : PlayParent
         Reonce(-70 + Main.powerUps[1] * 70 + Main.powerUps[2] * 70);
         bWall(hx);
         Main.counter.text = timeCount.ToString();
-    }
+    }*/
 }

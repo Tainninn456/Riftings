@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class PlayParent : MonoBehaviour
 {
-    public static float px;
+    /*public static float px;
     public static int bx; public static int by; public static int hx; public static int backIndex = 0; public static int coindex;public static int dif = 20;
     static int[] xRange = new int[9] {250, 160, 290, 280, 260, 190, 250, 350, 250 };
     public static float addY; public static float timeCount;
@@ -237,5 +237,5 @@ public class PlayParent : MonoBehaviour
         {
             Main.nextTex.text = (100 - timeCount).ToString();
         }
-    }
+    }*/
 }

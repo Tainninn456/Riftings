@@ -1,7 +1,7 @@
 using UnityEngine;
 public class Baseball_Player : PlayParent
 {
-    public static void move()//trueはゲームオーバー
+    /*public static void move()//trueはゲームオーバー
     {
         pmove(50, 1.875f);
         bmove();
@@ -80,5 +80,5 @@ public class Baseball_Player : PlayParent
         Reonce(-60 + Main.powerUps[1] * 70 + Main.powerUps[2] * 70);
         bWall(hx);
         Main.counter.text = timeCount.ToString();
-    }
+    }*/
 }

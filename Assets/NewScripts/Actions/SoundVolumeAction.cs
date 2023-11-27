@@ -10,7 +10,7 @@ public class SoundVolumeAction : MonoBehaviour
         SE
     }
 
-    //対象のAudioSourceのボリュームを上げる関数
+    //蟇ｾ雎｡縺ｮAudioSource縺ｮ繝懊Μ繝･繝ｼ繝繧剃ｸ翫￡繧矩未謨ｰ
     public void VolumeUp(SoundType soundType)
     {
         AudioManager.instance.PlaySE(AudioManager.SE.popUp);
@@ -25,7 +25,7 @@ public class SoundVolumeAction : MonoBehaviour
         }
     }
 
-    //対象のAudioSourceのボリュームを下げる関数
+    //蟇ｾ雎｡縺ｮAudioSource縺ｮ繝懊Μ繝･繝ｼ繝繧剃ｸ九￡繧矩未謨ｰ
     public void VolumeDown(SoundType soundType)
     {
         AudioManager.instance.PlaySE(AudioManager.SE.popDown);

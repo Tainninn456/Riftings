@@ -1,7 +1,7 @@
 using UnityEngine;
 public class Ragby_Player : PlayParent
 {
-    static int stack;
+    /*static int stack;
     public static void move()//trueはゲームオーバー
     {
         pmove(50, 1.875f);
@@ -81,5 +81,5 @@ public class Ragby_Player : PlayParent
         Reonce(-70 + Main.powerUps[1] * 70 + Main.powerUps[2] * 70);
         bWall(hx);
         Main.counter.text = timeCount.ToString();
-    }
+    }*/
 }

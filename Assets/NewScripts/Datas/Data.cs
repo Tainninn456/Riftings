@@ -3,27 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+
+/// <summary>
+/// ãƒ‡ãƒ¼ã‚¿ã‚’å®šç¾©ã—ã¦ã„ã‚‹ã‚¯ãƒ©ã‚¹
+/// </summary>
 [System.Serializable]
 public class Data
 {
+    //å„ã‚¹ãƒãƒ¼ãƒ„ã®ã‚¹ã‚³ã‚¢ã‚’ä¿æŒ
     public int[] GameScores = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    public int Heart;
-    public int CoinLevel = 1;
+    //ç·ã‚³ã‚¤ãƒ³æšæ•°ã‚’ä¿æŒ
     public int CoinAmount = 0;
-    public int chainLevel = 8;
-    public int[] cloths = new int[] { 9, 9, 9, 9, 9, 9, 9, 9, 9 };
-    public int[] nowCloth = new int[] { 9, 9, 9, 9, 9, 9, 9, 9, 9 };
-    public int SEVolume = 2;
-    public int BGMVolume = 2;
-
-    //’…‚¹‘Ö‚¦‚ğ‚Ç‚±‚Ü‚ÅƒAƒ“ƒƒbƒN‚µ‚Ä‚¢‚é‚©
+    //ç€ã›æ›¿ãˆã‚’ã©ã“ã¾ã§ã‚¢ãƒ³ãƒ­ãƒƒã‚¯ã—ã¦ã„ã‚‹ã‹
     public int[] clothAchive = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    //ƒRƒCƒ“‚ÌƒAƒ“ƒƒbƒNƒŒƒxƒ‹
+    //ã‚³ã‚¤ãƒ³ã®ã‚¢ãƒ³ãƒ­ãƒƒã‚¯ãƒ¬ãƒ™ãƒ«
     public int coinLevel = 1;
-    //ƒn[ƒg‚ÌƒAƒ“ƒƒbƒNƒŒƒxƒ‹
+    //ãƒãƒ¼ãƒˆã®ã‚¢ãƒ³ãƒ­ãƒƒã‚¯ãƒ¬ãƒ™ãƒ«
     public int heartLevel = 1;
-    //ƒCƒ“ƒfƒbƒNƒX‚É‘Î‰‚µ‚½’…‚¹‘Ö‚¦‚Ì“à—e
+    //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã«å¯¾å¿œã—ãŸç€ã›æ›¿ãˆã®å†…å®¹
     public int[] sportCloth = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    //ƒQ[ƒ€‚Ì‹L˜^
+    //ã‚²ãƒ¼ãƒ ã®è¨˜éŒ²
     public int[] PlayScores = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 }

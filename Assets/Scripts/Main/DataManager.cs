@@ -6,7 +6,7 @@ using TMPro;
 
 public class DataManager : MonoBehaviour
 {
-    public static string dataPath;
+    /*public static string dataPath;
     void Start()
     {
         dataPath = Path.Combine(Application.persistentDataPath, "Data.json");
@@ -48,5 +48,5 @@ public class DataManager : MonoBehaviour
         writer.Write(jsonstr);
         writer.Flush();
         writer.Close();
-    }
+    }*/
 }

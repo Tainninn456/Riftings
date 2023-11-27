@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine.UI;
 public class ButtonChil : MonoBehaviour//ButtonParent
 {
-    public static int gameMord = 9; public static bool startKey; public static bool porzKey;
+    /*public static int gameMord = 9; public static bool startKey; public static bool porzKey;
     static GameObject[] cloChain = new GameObject[8];
     static GameObject[] bgmval = new GameObject[5];
     static GameObject[] seval = new GameObject[5];
@@ -707,7 +707,7 @@ public class ButtonChil : MonoBehaviour//ButtonParent
         {
             nowImage.sprite = Main.buttoncloth[c];
         }
-    }*/
+    }
     static void Clother(int cost, int clothLevel, int level)
     {
         if (Main.memory.cloths[clothLevel] > 0 && Main.memory.cloths[clothLevel] < level + 1)
@@ -739,5 +739,5 @@ public class ButtonChil : MonoBehaviour//ButtonParent
             nowImage.sprite = Main.buttoncloth[9 * clothLevel + (10 - level) + 8];
         }
         ImaRig.AddTorque(Random.Range(-0.3f, 0.4f), ForceMode2D.Impulse);
-    }
+    }*/
 }

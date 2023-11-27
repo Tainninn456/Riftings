@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sound : MonoBehaviour
 {
-    public static AudioSource SEAudio; public static AudioSource BGMAudio;
+    /*public static AudioSource SEAudio; public static AudioSource BGMAudio;
     public AudioClip[] Inclips = new AudioClip[12];
     public static AudioClip[] clips = new AudioClip[12];
     public static bool playSESound = true; public static bool playBGMSound = true;
@@ -71,5 +71,5 @@ public class Sound : MonoBehaviour
             default:
                 break;
         }
-    }
+    }*/
 }
