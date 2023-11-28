@@ -7,76 +7,76 @@ using UnityEditor;
 using DG.Tweening;
 
 /// <summary>
-/// ƒCƒ[ƒWŒn‚Ì“®ì‚ğs‚¤ƒNƒ‰ƒX
+/// ã‚¤ãƒ¡ãƒ¼ã‚¸ç³»ã®å‹•ä½œã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class ImageAction : MonoBehaviour
 {
     const string unActiveTagName = "ActiveObject";
 
-    //ContextMenu‚É‚Äg—p‚·‚éŠÖ”‚Ìstring–¼
+    //ContextMenuã«ã¦ä½¿ç”¨ã™ã‚‹é–¢æ•°ã®stringå
     const string clothImageGetName = "AllClothImageComponentGeter";
     const string sportSpritesGetName = "AllSportSpritesGeter";
 
-    //ƒXƒ|[ƒc‚Ìí—Ş”
+    //ã‚¹ãƒãƒ¼ãƒ„ã®ç¨®é¡æ•°
     const int sportTypeCount = 9;
-    //ÅŒã‚Ìƒ{ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÅ‘åƒXƒP[ƒ‹
+    //æœ€å¾Œã®ãƒœãƒ ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®æœ€å¤§ã‚¹ã‚±ãƒ¼ãƒ«
     const int bomAnimationMaxScale = 3;
-    //’…‚¹‘Ö‚¦‚ÌƒƒbƒN‚ÌÅ‘å”
+    //ç€ã›æ›¿ãˆã®ãƒ­ãƒƒã‚¯ã®æœ€å¤§æ•°
     const int rockMax = 8;
-    //ƒ{ƒ€ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÀsƒXƒs[ƒh
+    //ãƒœãƒ ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å®Ÿè¡Œã‚¹ãƒ”ãƒ¼ãƒ‰
     const float animSpeed = 1.3f;
 
-    //ContextMenu‚É‚ÄˆêÄ‚Éæ“¾‚ğ‚·‚éÛ‚Ég—p‚·‚é’è”
+    //ContextMenuã«ã¦ä¸€æ–‰ã«å–å¾—ã‚’ã™ã‚‹éš›ã«ä½¿ç”¨ã™ã‚‹å®šæ•°
     readonly string[] resourceSelect = new string[9] { "soccer/", "tennis/", "baseball/", "boring/", "panchi/", "tabletennis/", "ragby/", "biriyard", "volley/" };
 
-    [Header("ƒƒCƒ“ƒƒjƒ…[")]
-    [Header("’…‚¹‘Ö‚¦‚ÌƒCƒ[ƒW")]
+    [Header("ãƒ¡ã‚¤ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼")]
+    [Header("ç€ã›æ›¿ãˆã®ã‚¤ãƒ¡ãƒ¼ã‚¸")]
     [SerializeField] Image[] clothImages;
-    [Header("’…‚¹‘Ö‚¦‚ÌƒƒbƒN‚ÉŠÖ‚·‚éƒCƒ[ƒW")]
+    [Header("ç€ã›æ›¿ãˆã®ãƒ­ãƒƒã‚¯ã«é–¢ã™ã‚‹ã‚¤ãƒ¡ãƒ¼ã‚¸")]
     [SerializeField] GameObject[] rockObjs;
 
-    [Header("ƒvƒŒƒCƒ„[‚Ìƒf[ƒ^‚Ö‚ÌQÆ")]
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ‡ãƒ¼ã‚¿ã¸ã®å‚ç…§")]
     [SerializeField] DataAction dataAction;
 
-    [Header("’…‚¹‘Ö‚¦‚Ìspriteî•ñ‚ğ•Û")]
+    [Header("ç€ã›æ›¿ãˆã®spriteæƒ…å ±ã‚’ä¿æŒ")]
     [SerializeField]
     public Sprite[] sportSprites;
 
-    [Header("ƒCƒ“ƒQ[ƒ€")]
-    [Header("ƒQ[ƒ€ƒI[ƒo[‚Ìƒ{ƒ€ƒIƒuƒWƒF‚ğ•Û")]
+    [Header("ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ")]
+    [Header("ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®ãƒœãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚’ä¿æŒ")]
     [SerializeField] GameObject endAnimationBom;
 
-    [Header("ƒQ[ƒ€ƒvƒŒƒC“à‚Åƒf[ƒ^‚ğW–ñ‚µ‚Ä‚¨‚­ƒNƒ‰ƒX‚Ö‚ÌQÆ")]
+    [Header("ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤å†…ã§ãƒ‡ãƒ¼ã‚¿ã‚’é›†ç´„ã—ã¦ãŠãã‚¯ãƒ©ã‚¹ã¸ã®å‚ç…§")]
     [SerializeField] InGameStockData gameDatas;
 
-    [Header("ƒQ[ƒ€ƒvƒŒƒC’†‚ÌƒIƒuƒWƒFƒNƒg‚ğ‚Ü‚Æ‚ß‚½eƒIƒuƒWƒFƒNƒg")]
+    [Header("ã‚²ãƒ¼ãƒ ãƒ—ãƒ¬ã‚¤ä¸­ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã¾ã¨ã‚ãŸè¦ªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     [SerializeField] GameObject ingameParentObj;
 
-    [Header("SystemActionƒNƒ‰ƒX‚Ö‚ÌQÆ")]
+    [Header("SystemActionã‚¯ãƒ©ã‚¹ã¸ã®å‚ç…§")]
     [SerializeField] SystemAction systemAction;
 
-    [Header("ƒn[ƒg’B‚ÌeƒIƒuƒWƒFƒNƒg")]
+    [Header("ãƒãƒ¼ãƒˆé”ã®è¦ªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     [SerializeField] GameObject heartParent;
 
-    [Header("”wŒi•ÏX—pSprite‚ğ•Û")]
+    [Header("èƒŒæ™¯å¤‰æ›´ç”¨Spriteã‚’ä¿æŒ")]
     [SerializeField] Sprite[] backImages;
 
-    [Header("”wŒi•\¦—p")]
+    [Header("èƒŒæ™¯è¡¨ç¤ºç”¨")]
     [SerializeField] Image backGroundImage;
 
-    [Header("ƒn[ƒg”š”­—pƒGƒtƒFƒNƒg‚ÌPrefab")]
+    [Header("ãƒãƒ¼ãƒˆçˆ†ç™ºç”¨ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®Prefab")]
     [SerializeField] GameObject bombEffect;
 
-    //ƒn[ƒg‚ğ•\¦‚µ‚Ä‚¢‚éƒIƒuƒWƒFƒNƒg
+    //ãƒãƒ¼ãƒˆã‚’è¡¨ç¤ºã—ã¦ã„ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     GameObject[] heartDisplays = new GameObject[10];
 
-    //ƒn[ƒg”š”­ƒGƒtƒFƒNƒg¶¬Œã‚ÌŠi”[æ
+    //ãƒãƒ¼ãƒˆçˆ†ç™ºã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”Ÿæˆå¾Œã®æ ¼ç´å…ˆ
     GameObject heartEndEffect;
 
-    //‘ÎÛƒvƒŒƒC‚Åg—p‚·‚éƒn[ƒg‚Ì”
+    //å¯¾è±¡ãƒ—ãƒ¬ã‚¤ã§ä½¿ç”¨ã™ã‚‹ãƒãƒ¼ãƒˆã®æ•°
     private int useHeartAmount;
 
-    //’…‚¹‘Ö‚¦‚Ég—p‚·‚éƒ{ƒ^ƒ“‚Ì‰æ‘œ‚ğ•ÏX‚·‚éŠÖ”
+    //ç€ã›æ›¿ãˆã«ä½¿ç”¨ã™ã‚‹ãƒœã‚¿ãƒ³ã®ç”»åƒã‚’å¤‰æ›´ã™ã‚‹é–¢æ•°
     public void clothButtonImageChanger(int index)
     {
         for(int i = 0; i < clothImages.Length; i++)
@@ -85,7 +85,7 @@ public class ImageAction : MonoBehaviour
         }
     }
 
-    //ƒQ[ƒ€I—¹‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğÀs‚·‚éŠÖ”
+    //ã‚²ãƒ¼ãƒ çµ‚äº†æ™‚ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å®Ÿè¡Œã™ã‚‹é–¢æ•°
     public void GameEndAnimation(Vector2 lastBallPosition)
     {
         Transform bomTra = endAnimationBom.GetComponent<Transform>();
@@ -93,7 +93,7 @@ public class ImageAction : MonoBehaviour
         bomTra.DOScale(new Vector3(bomAnimationMaxScale, bomAnimationMaxScale, bomAnimationMaxScale), animSpeed).OnComplete(() => { ingameParentObj.SetActive(false); systemAction.PanelMove(SystemAction.MoveDirection.over, 0); AudioManager.instance.PlaySE(AudioManager.SE.ResultSE); });
     }
 
-    //’…‚¹‘Ö‚¦‚É‚¨‚¯‚éƒƒbƒN‚ğ•\¦‚·‚éŠÖ”
+    //ç€ã›æ›¿ãˆã«ãŠã‘ã‚‹ãƒ­ãƒƒã‚¯ã‚’è¡¨ç¤ºã™ã‚‹é–¢æ•°
     public void RockDataIntoImage(int achiveIndex)
     {
         Data useData = dataAction.DataCopy();
@@ -116,7 +116,7 @@ public class ImageAction : MonoBehaviour
         }
     }
 
-    //ƒQ[ƒ€“à‚Åc‹@‚Æ‚µ‚Ä‚Ìƒn[ƒg‚ğ•\¦‚·‚éŠÖ”
+    //ã‚²ãƒ¼ãƒ å†…ã§æ®‹æ©Ÿã¨ã—ã¦ã®ãƒãƒ¼ãƒˆã‚’è¡¨ç¤ºã™ã‚‹é–¢æ•°
     public void HeartDisplay(int heartActiveValue)
     {
         useHeartAmount = heartActiveValue;
@@ -133,7 +133,7 @@ public class ImageAction : MonoBehaviour
         heartEndEffect.transform.parent = heartParent.transform;
     }
 
-    //ƒn[ƒg‚ğŒ¸‚ç‚·Û‚Ì•\¦‚ğ‚·‚éŠÖ”
+    //ãƒãƒ¼ãƒˆã‚’æ¸›ã‚‰ã™éš›ã®è¡¨ç¤ºã‚’ã™ã‚‹é–¢æ•°
     public void DeathDisplay(int heartIndex)
     {
         heartEndEffect.GetComponent<Transform>().position = heartDisplays[useHeartAmount - heartIndex].GetComponent<Transform>().position;
@@ -145,7 +145,7 @@ public class ImageAction : MonoBehaviour
             );
     }
 
-    //ƒXƒRƒA‚É‚æ‚Á‚Ä”wŒi‚ğ•ÏX‚·‚éŠÖ”
+    //ã‚¹ã‚³ã‚¢ã«ã‚ˆã£ã¦èƒŒæ™¯ã‚’å¤‰æ›´ã™ã‚‹é–¢æ•°
     public void BackGroundChanger(int backIndex)
     {
         backGroundImage.sprite = backImages[backIndex];
@@ -153,10 +153,10 @@ public class ImageAction : MonoBehaviour
 
 #if UNITY_EDITOR
     /// <summary>
-    /// ƒGƒfƒBƒ^ãÀsŠÖ”
+    /// ã‚¨ãƒ‡ã‚£ã‚¿ä¸Šå®Ÿè¡Œé–¢æ•°
     /// </summary>
 
-    //’…‚¹‘Ö‚¦‚É‚Äg—p‚·‚éƒ{ƒ^ƒ“‚ÌimageƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾‚·‚éŠÖ”
+    //ç€ã›æ›¿ãˆã«ã¦ä½¿ç”¨ã™ã‚‹ãƒœã‚¿ãƒ³ã®imageã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—ã™ã‚‹é–¢æ•°
     [ContextMenu(clothImageGetName)]
     private void AllClothImageComponentGeter()
     {
@@ -177,7 +177,7 @@ public class ImageAction : MonoBehaviour
         }
     }
 
-    //’…‚¹‘Ö‚¦‚Ìsprite‚ğResourcesƒtƒHƒ‹ƒ_‚©‚çserialize‚É‘ã“ü‚·‚éŠÖ”
+    //ç€ã›æ›¿ãˆã®spriteã‚’Resourcesãƒ•ã‚©ãƒ«ãƒ€ã‹ã‚‰serializeã«ä»£å…¥ã™ã‚‹é–¢æ•°
     [ContextMenu(sportSpritesGetName)]
     private void AllSportSpritesGeter()
     {
