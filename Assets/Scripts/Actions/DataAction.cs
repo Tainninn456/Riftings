@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
@@ -60,7 +58,7 @@ public class DataAction : MonoBehaviour
         //もし既に購入していたらただ着せ替えを実行
         if (data.clothAchive[clothChangeIndex] > consumeIndex - 1)
         {
-            AudioManager.instance.PlaySE(AudioManager.SE.ItemOk);
+            AudioManager.Instance.PlaySE(AudioManager.SE.ItemOk);
             data.sportCloth[clothChangeIndex] = consumeIndex;
         }
         else
@@ -74,11 +72,11 @@ public class DataAction : MonoBehaviour
                 imageAction.RockDataIntoImage(clothChangeIndex);
                 textAction.ShopDataIntoText(clothChangeIndex);
                 textAction.DataIntoText();
-                AudioManager.instance.PlaySE(AudioManager.SE.ItemOk);
+                AudioManager.Instance.PlaySE(AudioManager.SE.ItemOk);
             }
             else
             {
-                AudioManager.instance.PlaySE(AudioManager.SE.ItemMiss);
+                AudioManager.Instance.PlaySE(AudioManager.SE.ItemMiss);
             }
         }
         DataSave();
@@ -89,35 +87,35 @@ public class DataAction : MonoBehaviour
     public void ItemConsume(int itemIndex)
     {
         //コインの処理
-        if(itemIndex == 0)
+        if (itemIndex == 0)
         {
-            if(data.coinLevel == shopData.coinPrices.Length + 1) { return; }
+            if (data.coinLevel == shopData.coinPrices.Length + 1) { return; }
             int moneyValue = shopData.coinPrices[data.coinLevel - 1];
             if (data.CoinAmount > moneyValue)
             {
-                AudioManager.instance.PlaySE(AudioManager.SE.ItemOk);
+                AudioManager.Instance.PlaySE(AudioManager.SE.ItemOk);
                 data.CoinAmount -= moneyValue;
                 data.coinLevel++;
             }
             else
             {
-                AudioManager.instance.PlaySE(AudioManager.SE.ItemMiss);
+                AudioManager.Instance.PlaySE(AudioManager.SE.ItemMiss);
             }
         }
         //ハートの処理
-        else if(itemIndex == 1)
+        else if (itemIndex == 1)
         {
-            if(data.heartLevel == shopData.heartPrices.Length + 1) { return; }
+            if (data.heartLevel == shopData.heartPrices.Length + 1) { return; }
             int moneyValue = shopData.heartPrices[data.heartLevel - 1];
             if (data.CoinAmount > moneyValue)
             {
-                AudioManager.instance.PlaySE(AudioManager.SE.ItemOk);
+                AudioManager.Instance.PlaySE(AudioManager.SE.ItemOk);
                 data.CoinAmount -= moneyValue;
                 data.heartLevel++;
             }
             else
             {
-                AudioManager.instance.PlaySE(AudioManager.SE.ItemMiss);
+                AudioManager.Instance.PlaySE(AudioManager.SE.ItemMiss);
             }
         }
         textAction.DataIntoText();
@@ -139,7 +137,7 @@ public class DataAction : MonoBehaviour
     //スポーツ各種の現在のスプライトを取得する関数
     private void SpritesInsert()
     {
-        for(int i = 0; i < sportSprites.Length; i++)
+        for (int i = 0; i < sportSprites.Length; i++)
         {
             sportSprites[i] = imageAction.sportSprites[i * 9 + data.sportCloth[i]];
         }
@@ -148,23 +146,30 @@ public class DataAction : MonoBehaviour
     //ファイルからJsonのデータを取得する関数
     private void DataLoad()
     {
-        string datastr = "";
-        StreamReader reader;
-        reader = new StreamReader(dataFilePath);
-        datastr = reader.ReadToEnd();
-        JsonUtility.FromJsonOverwrite(datastr, data);
-        reader.Close();
+        if (!File.Exists(dataFilePath)) { DataRevive(); }
+        else
+        {
+            StreamReader reader = new StreamReader(dataFilePath);
+            string datastr = reader.ReadToEnd();
+            reader.Close();
+            JsonUtility.FromJsonOverwrite(datastr, data);
+        }
     }
 
     //ファイルへJson形式でデータを保存する関数
     private void DataSave()
     {
-        StreamWriter writer;
         string jsonstr = JsonUtility.ToJson(data);
-        writer = new StreamWriter(dataFilePath, false);
+        StreamWriter writer = new StreamWriter(dataFilePath, false);
         writer.Write(jsonstr);
         writer.Flush();
         writer.Close();
+    }
+
+    //セーブデータのファイルが存在しない場合、データを初期化する
+    private void DataRevive()
+    {
+        DataSave();
     }
 
     //Dataクラスへの書き込みや読み取りを他クラスで実行させないためにコピーを渡すための関数

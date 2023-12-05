@@ -1,15 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
 
 /// <summary>
 /// サウンドに関するクラス、シングルトンでどのクラスからも呼び出すことができる
 /// </summary>
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
+    private static AudioManager instance;
+    public static AudioManager Instance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = FindObjectOfType<AudioManager>();
+            }
+            return instance;
+        }
+    }
 
     [Header("BGMとSEの内容物を保持")]
     [SerializeField]
@@ -50,7 +57,7 @@ public class AudioManager : MonoBehaviour
         up,
         down
     }
-    private void Start()
+    private void Awake()
     {
         if(instance == null)
         {

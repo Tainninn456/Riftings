@@ -10308,11 +10308,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
---- !u!1 &1429063124 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
-  m_PrefabInstance: {fileID: 1429063123}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1447299089
 GameObject:
   m_ObjectHideFlags: 0
@@ -11128,7 +11123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f544365cebf4f408302e898b812366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  touchEffect: {fileID: 1429063124}
 --- !u!1001 &1549647452
 PrefabInstance:
   m_ObjectHideFlags: 0

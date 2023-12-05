@@ -183,7 +183,7 @@ public class Ball : MonoBehaviour
                     imageAction.BackGroundChanger(judgeValueIndex - 1);
                 }
             }
-            AudioManager.instance.PlaySE(AudioManager.SE.kick);
+            AudioManager.Instance.PlaySE(AudioManager.SE.kick);
         }
         //デススペースに衝突した時の処理
         else if (collision.gameObject.CompareTag(deathTagName))
@@ -195,7 +195,7 @@ public class Ball : MonoBehaviour
                 dataAction.GameEndDataSaveStarter(playIndex);
                 textAction.GameEndTextDisplay(gameDatas.kickCount, gameDatas.coinCount);
                 imageAction.GameEndAnimation(gameObject.GetComponent<Transform>().position);
-                AudioManager.instance.StopBGM();
+                AudioManager.Instance.StopBGM();
                 gameObject.SetActive(false);
             }
             else
@@ -208,7 +208,7 @@ public class Ball : MonoBehaviour
         //壁との衝突処理(ギミック発動中でなければ発生しない処理)
         else if (collision.gameObject.CompareTag(wallTagName))
         {
-            AudioManager.instance.PlaySE(AudioManager.SE.wall);
+            AudioManager.Instance.PlaySE(AudioManager.SE.wall);
             EffectAction(ballTrans.position);
             if (gimicing)
             {
