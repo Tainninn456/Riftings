@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +7,18 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class ChangeScene : MonoBehaviour
 {
-    public static ChangeScene instance;
+    private static ChangeScene instance;
+    public static ChangeScene Instance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = FindObjectOfType<ChangeScene>();
+            }
+            return instance;
+        }
+    }
 
     public enum SceneName
     {

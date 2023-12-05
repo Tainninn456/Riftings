@@ -81,11 +81,11 @@ public class SystemAction : MonoBehaviour
         Application.targetFrameRate = 60;
         if (SceneManager.GetActiveScene().name == menuSceneName)
         {
-            AudioManager.instance.PlayBGM(AudioManager.BGM.menu);
+            AudioManager.Instance.PlayBGM(AudioManager.BGM.menu);
         }
         else if (SceneManager.GetActiveScene().name == playSceneName)
         {
-            AudioManager.instance.PlayBGM(AudioManager.BGM.play);
+            AudioManager.Instance.PlayBGM(AudioManager.BGM.play);
         }
     }
 
@@ -106,7 +106,7 @@ public class SystemAction : MonoBehaviour
         else
         {
             //メインメニュー画面遷移
-            AudioManager.instance.PlaySE(AudioManager.SE.panelMove);
+            AudioManager.Instance.PlaySE(AudioManager.SE.panelMove);
             Vector3 leftPosition = new Vector3(0, 0, 0);
             Vector3 rightPosition = new Vector3(0, 0, 0);
             switch (panelNumber)
@@ -144,7 +144,7 @@ public class SystemAction : MonoBehaviour
     {
         popupParent.SetActive(true);
         RectTransform myTrans = null;
-        AudioManager.instance.PlaySE(AudioManager.SE.popUp);
+        AudioManager.Instance.PlaySE(AudioManager.SE.popUp);
         switch (popName)
         {
             case PopupName.Sound:
@@ -168,7 +168,7 @@ public class SystemAction : MonoBehaviour
     public void PopupHidden(PopupName popName)
     {
         GameObject myObj = null;
-        AudioManager.instance.PlaySE(AudioManager.SE.popDown);
+        AudioManager.Instance.PlaySE(AudioManager.SE.popDown);
         switch (popName)
         {
             case PopupName.Sound:
@@ -250,13 +250,13 @@ public class SystemAction : MonoBehaviour
         {
             //プレイシーンに移動する
             case 0:
-                AudioManager.instance.PlaySE(AudioManager.SE.sceneMove);
+                AudioManager.Instance.PlaySE(AudioManager.SE.sceneMove);
                 SceneManager.sceneLoaded += ReloadScene;
                 SceneManager.LoadScene(playSceneName);
                 break;
             //メニューシーンに移動する
             case 1:
-                AudioManager.instance.PlaySE(AudioManager.SE.sceneMove);
+                AudioManager.Instance.PlaySE(AudioManager.SE.sceneMove);
                 SceneManager.LoadScene(menuSceneName);
                 break;
         }
@@ -265,7 +265,7 @@ public class SystemAction : MonoBehaviour
     //通常プレイモードでシーン遷移
     public void SceneMoveStarter(int sendSportTypeNumber)
     {
-        AudioManager.instance.PlaySE(AudioManager.SE.sceneMove);
+        AudioManager.Instance.PlaySE(AudioManager.SE.sceneMove);
         sportTypeNumber = sendSportTypeNumber;
         SceneMove();
     }

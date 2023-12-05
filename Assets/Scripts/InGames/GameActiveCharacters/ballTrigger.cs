@@ -46,7 +46,7 @@ public class ballTrigger : MonoBehaviour
         //コイン衝突時の処理
         if (collision.gameObject.CompareTag(coinTagName))
         {
-            AudioManager.instance.PlaySE(AudioManager.SE.coin);
+            AudioManager.Instance.PlaySE(AudioManager.SE.coin);
             coinMane.CoinPoolReturn(collision.gameObject);
             parentGameStockData.coinCount += coinInfo.CoinValue;
             textAction.CoinCountDisplay(parentGameStockData.coinCount);
@@ -62,13 +62,13 @@ public class ballTrigger : MonoBehaviour
         //プラスコイン衝突時の処理
         else if (collision.gameObject.CompareTag(coinPlusTagName))
         {
-            AudioManager.instance.PlaySE(AudioManager.SE.coin);
+            AudioManager.Instance.PlaySE(AudioManager.SE.coin);
             coinMane.GimicCoin(1, false);
         }
         //マイナスコイン衝突時の処理
         else if (collision.gameObject.CompareTag(coinMinusTagName))
         {
-            AudioManager.instance.PlaySE(AudioManager.SE.coin);
+            AudioManager.Instance.PlaySE(AudioManager.SE.coin);
             coinMane.GimicCoin(2, false);
         }
     }

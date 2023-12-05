@@ -1,9 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.IO;
-
-
 /// <summary>
 /// データを定義しているクラス
 /// </summary>

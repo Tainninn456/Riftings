@@ -90,7 +90,7 @@ public class ImageAction : MonoBehaviour
     {
         Transform bomTra = endAnimationBom.GetComponent<Transform>();
         bomTra.position = lastBallPosition;
-        bomTra.DOScale(new Vector3(bomAnimationMaxScale, bomAnimationMaxScale, bomAnimationMaxScale), animSpeed).OnComplete(() => { ingameParentObj.SetActive(false); systemAction.PanelMove(SystemAction.MoveDirection.over, 0); AudioManager.instance.PlaySE(AudioManager.SE.ResultSE); });
+        bomTra.DOScale(new Vector3(bomAnimationMaxScale, bomAnimationMaxScale, bomAnimationMaxScale), animSpeed).OnComplete(() => { ingameParentObj.SetActive(false); systemAction.PanelMove(SystemAction.MoveDirection.over, 0); AudioManager.Instance.PlaySE(AudioManager.SE.ResultSE); });
     }
 
     //着せ替えにおけるロックを表示する関数
