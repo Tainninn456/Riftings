@@ -45,7 +45,7 @@ public class coinManager : MonoBehaviour
     [Header("コインプールクラスの参照")]
     [SerializeField] CoinPool coinPool;
 
-    //フレームの経過回数を記録
+    //フレームの経過を記録
     private int createCounter;
 
     //コインの発生頻度
@@ -127,7 +127,7 @@ public class coinManager : MonoBehaviour
             gameDatas.minusCoinCount = 0;
             plusCoin.SetActive(false);
 
-            gMane.RouletStarter(0);
+            gMane.RouletteStarter(0);
         }
         else if(gameDatas.minusCoinCount > 7)
         {
@@ -135,7 +135,7 @@ public class coinManager : MonoBehaviour
             gameDatas.minusCoinCount = 0;
             minusCoin.SetActive(false);
 
-            gMane.RouletStarter(1);
+            gMane.RouletteStarter(1);
         }
     }
 }

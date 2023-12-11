@@ -60,35 +60,37 @@ public class GimicManager : MonoBehaviour
     {
         if(gimicCounter > gimicPoint)
         {
-            GimicResetter();
+            GimicReseter();
             gimicNumber = Random.Range(0, 7);
             //ギミック実行命令
             switch(gimicNumber)
             {
                 case 0:
-                    //横方向の風
+                    //横方向に突風を吹かせるギミック
                     WideWindowGimic();
                     break;
                 case 1:
-                    //ボールの重力を変更
+                    //ボールの重力を変更するギミック
                     GravityChangerGimic();
                     break;
                 case 2:
-                    //ランダムに風でボールを動かす
+                    //ランダムにボールに対して風の力を与えるギミック
                     RandomWindowGimic(true);
                     break;
                 case 3:
-                    //大きい
+                    //プレイヤーを大きくするギミック
                     PlayerScaleChangerGimic(1);
                     break;
                 case 4:
-                    //小さい
+                    //プレイヤーを小さくするギミック
                     PlayerScaleChangerGimic(2);
                     break;
                 case 5:
+                    //壁の反射率を変更するギミック
                     WallChangerGimic();
                     break;
                 case 6:
+                    //コインの発生頻度を変更するギミック
                     CoinFrequenceGimic();
                     break;
             }
@@ -139,7 +141,8 @@ public class GimicManager : MonoBehaviour
         coinManagerReference.CoinFrequencyChange(frequencyValue, true);
     }
 
-    private void GimicResetter()
+    //ギミックによって変更された値等を元に戻す関数
+    private void GimicReseter()
     {
         ballTriggerReference.WideWindGimicStarter(false);
         ballReference.WallGimicStarter(false);
@@ -205,7 +208,7 @@ public class GimicManager : MonoBehaviour
     }
 
     //ルーレットをスタートする関数
-    public void RouletStarter(int actionType)
+    public void RouletteStarter(int actionType)
     {
         roulette.RouletteStart(actionType);
         gimicCoinning = false;
