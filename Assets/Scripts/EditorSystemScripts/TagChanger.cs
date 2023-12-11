@@ -13,7 +13,7 @@ public class TagChanger : MonoBehaviour
 {
     //ContextMenuにて取得するコンポーネントを明示するためのtag名
     const string textActiveTagName = "ActiveObject";
-    //ContextMenuにて取得する対象から外す際に使用する
+    //ContextMenuにて取得する対象から外す際に使用するtag名
     const string tagResetName = "Untagged";
 
     //Toolsから使用する際の名前

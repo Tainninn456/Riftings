@@ -213,7 +213,6 @@ public class SystemAction : MonoBehaviour
                 myObj.SetActive(true);
                 myObj.GetComponent<RectTransform>().DOScale(new Vector3(maxScale, maxScale, maxScale), animationSpeed);
                 break;
-            //自身を非表示にするのみ
             case PopupOperaion.hidden:
                 myObj.GetComponent<RectTransform>().DOScale(new Vector3(minScale, minScale, 1), animationSpeed).OnComplete(() => myObj.SetActive(false));
                 break;

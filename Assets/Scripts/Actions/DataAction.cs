@@ -146,7 +146,7 @@ public class DataAction : MonoBehaviour
     //ファイルからJsonのデータを取得する関数
     private void DataLoad()
     {
-        if (!File.Exists(dataFilePath)) { DataRevive(); }
+        if (!File.Exists(dataFilePath)) { DataReset(); }
         else
         {
             StreamReader reader = new StreamReader(dataFilePath);
@@ -166,8 +166,8 @@ public class DataAction : MonoBehaviour
         writer.Close();
     }
 
-    //セーブデータのファイルが存在しない場合、データを初期化する
-    private void DataRevive()
+    //セーブデータのファイルが存在しない場合、データを初期化する関数
+    private void DataReset()
     {
         DataSave();
     }

@@ -83,7 +83,7 @@ public class Ball : MonoBehaviour
     private ParticleSystem hitParticle;
 
     //ボールのギミックに関すること
-    private bool gimicing;
+    private bool wallGimicing;
     private bool gravityGimicing;
 
     //ボールの初期ポジション
@@ -94,7 +94,7 @@ public class Ball : MonoBehaviour
     //背景の表示種類の選択用
     private int judgeValueIndex;
 
-    //残基を示す
+    //残機を示す
     private int useHeartAmount;
 
     private void Start()
@@ -135,7 +135,9 @@ public class Ball : MonoBehaviour
         useHeartAmount = initialData.heartAmount;
         gameDatas.coinMultiplication = initialData.coinLevel;
 
+        //ハートを表示する
         imageAction.HeartDisplay(useHeartAmount);
+        //コインの値を反映
         cMane.CoinValueChanger(1 * gameDatas.coinMultiplication);
 
         //ボールのスタートのポジションを保持
@@ -158,17 +160,12 @@ public class Ball : MonoBehaviour
             EffectAction(ballTrans.position);
 
             //キック時の計算
-            Vector2 kickVelocity = ballRigid.velocity.normalized;
-            float newValueY = Mathf.Lerp(0.6f, 1, (kickVelocity.y + 1) / 2f);
-            kickVelocity.y = newValueY;
-            float diffierenceValue = ballTrans.position.x - collision.gameObject.transform.position.x;
-            float newValueX = Mathf.Lerp(0.1f, 0.5f, Mathf.Abs(kickVelocity.x)) * Mathf.Sign(diffierenceValue);
-            kickVelocity.x = newValueX;
+            Vector2 kickVelocity = KickPowerCalculation(collision.gameObject.transform.position.x);
             ballRigid.Sleep();
             //ボールに速度を代入する
             ballRigid.velocity = kickVelocity * kickDefault;
             //ボールに回転力を加える
-            ballRigid.AddTorque(newValueX * rotationPower, ForceMode2D.Impulse);
+            ballRigid.AddTorque(kickVelocity.x * rotationPower, ForceMode2D.Impulse);
             int judgeValue = gameDatas.kickCount;
             if(judgeValue > gravityChangePoint) 
             {
@@ -210,14 +207,14 @@ public class Ball : MonoBehaviour
         {
             AudioManager.Instance.PlaySE(AudioManager.SE.wall);
             EffectAction(ballTrans.position);
-            if (gimicing)
+            if (wallGimicing)
             {
                 ballRigid.AddForce(ballRigid.velocity.normalized * wallReflectPower, ForceMode2D.Impulse);
             }
         }
     }
 
-    //ボールを横方向に一時的に
+    //ボールに対して横方向の突風の力を加える関数
     public void WindAttackGimic()
     {
         int rand = Random.Range(0, 11);
@@ -256,7 +253,7 @@ public class Ball : MonoBehaviour
                 kickPowerStuck = addKickPower * gravitymagnification;
                 gravityGimicing = true;
                 break;
-            //一時的に上がったgravityScaleを戻す処理
+            //一時的に上がった重力を元に戻す処理
             case 2:
                 if (!gravityGimicing) { break; }
                 gravityStuck = addGravity * gravitymagnification * -1;
@@ -294,7 +291,7 @@ public class Ball : MonoBehaviour
     //壁衝突時の処理を変更する関数
     public void WallGimicStarter(bool wallBool)
     {
-        gimicing = wallBool;
+        wallGimicing = wallBool;
     }
 
     //ポーズにおけるvelocityを操作する関数
@@ -309,6 +306,19 @@ public class Ball : MonoBehaviour
                 break;
         }
         return new Vector2(50, 50);
+    }
+
+    //キックの力を計算する関数
+    private Vector2 KickPowerCalculation(float collisionXPosition)
+    {
+        Vector2 kickVelocity = ballRigid.velocity.normalized;
+        float newValueY = Mathf.Lerp(0.6f, 1, (kickVelocity.y + 1) / 2f);
+        kickVelocity.y = newValueY;
+        float diffierenceValue = ballTrans.position.x - collisionXPosition;
+        float newValueX = Mathf.Lerp(0.1f, 0.5f, Mathf.Abs(kickVelocity.x)) * Mathf.Sign(diffierenceValue);
+        kickVelocity.x = newValueX;
+
+        return kickVelocity;
     }
 
     //衝突時エフェクトを実行する関数
