@@ -21,7 +21,7 @@ public class GimicManager : MonoBehaviour
     [Header("ボールの参照")]
     [SerializeField] Ball ballReference;
 
-    [Header("ボールのトリガー参照(当たった時の処理はこっちの方が多いかも?)")]
+    [Header("ボールのトリガー参照")]
     [SerializeField] ballTrigger ballTriggerReference;
 
     [Header("ゲーム内データの参照")]
@@ -196,7 +196,7 @@ public class GimicManager : MonoBehaviour
         ballReference.BallScaleChanger(actionType);
     }
 
-    //プラスマイナスコインを発生させるギミック
+    //プラスマイナスコインを発生させる関数
     private void RouletteCoinGimic()
     {
         if (!gimicCoinning)
@@ -211,7 +211,6 @@ public class GimicManager : MonoBehaviour
     public void RouletteStarter(int actionType)
     {
         roulette.RouletteStart(actionType);
-        gimicCoinning = false;
     }
 
     //ルーレットの最終値によって実行する関数。actionNumber=4種類の内1種類を決定、actionType=プラスかマイナスか
@@ -229,6 +228,7 @@ public class GimicManager : MonoBehaviour
                 BallScaleGimic(actionType);
                 break;
         }
+        gimicCoinning = false;
     }
 
     //ルーレットにて変更したモノをリセットする関数

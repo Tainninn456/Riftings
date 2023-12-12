@@ -243,7 +243,7 @@ public class SystemAction : MonoBehaviour
     /// </summary>
 
     //スポーツの種類を指定しないシーン遷移
-    public void SimpleSceneMover(int sceneIndex)
+    public void InGameSceneMover(int sceneIndex)
     {
         switch (sceneIndex)
         {
@@ -266,12 +266,11 @@ public class SystemAction : MonoBehaviour
     {
         AudioManager.Instance.PlaySE(AudioManager.SE.sceneMove);
         sportTypeNumber = sendSportTypeNumber;
-        SceneMove();
+        MainSceneMover();
     }
     //実際のシーン遷移
-    private void SceneMove()
+    private void MainSceneMover()
     {
-        ActiveOperation(false);
         SceneManager.sceneLoaded += GameSceneLoaded;
         SceneManager.LoadScene(playSceneName);
     }

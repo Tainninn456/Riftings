@@ -23,6 +23,7 @@ public class InputParent : MonoBehaviour
             foreach (Button ob in children)
             {
                 if (ob.tag != ActiveTagName) { continue; }
+                Debug.Log(ob.name);
                 buttons.Add(ob);
             }
         }

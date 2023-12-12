@@ -123,19 +123,24 @@ public class coinManager : MonoBehaviour
         
         if (gameDatas.plusCoinCount > 7)
         {
-            gameDatas.plusCoinCount = 0;
-            gameDatas.minusCoinCount = 0;
-            plusCoin.SetActive(false);
+            GimicCoinChanger();
 
             gMane.RouletteStarter(0);
         }
         else if(gameDatas.minusCoinCount > 7)
         {
-            gameDatas.plusCoinCount = 0;
-            gameDatas.minusCoinCount = 0;
-            minusCoin.SetActive(false);
+            GimicCoinChanger();
 
             gMane.RouletteStarter(1);
         }
+    }
+
+    private void GimicCoinChanger()
+    {
+        gameDatas.plusCoinCount = 0;
+        gameDatas.minusCoinCount = 0;
+
+        plusCoin.SetActive(false);
+        minusCoin.SetActive(false);
     }
 }
