@@ -15,6 +15,7 @@ public class SystemInputer : InputParent
 {
     //ContextMenuにて使用している関数のstring名
     const string sceneButtonGetName = "SceneButtonGetter";
+    const string clothButtonGetName = "ClothButtonGetter";
 
     const string mainSceneName = "menuScene";
     const string playSceneName = "playScene";
@@ -47,7 +48,7 @@ public class SystemInputer : InputParent
     [SerializeField] Button clothPopupHiddenButton;
 
     //シーン遷移ボタンの取得
-    [Header("シーン遷移ボタン(インゲームでも使用,0=リロード,1=メニューに遷移、ポーズとリザルトの順番で保持)")]
+    [Header("シーン遷移ボタン")]
     [SerializeField] Button[] sceneButtons;
 
     [Header("インゲーム")]
@@ -89,10 +90,10 @@ public class SystemInputer : InputParent
             soundPopupButtons[0].onClick.AddListener(() => systemAction.PopupChainDisplay(SystemAction.PopupOperaion.display, SystemAction.PopupName.Sound));
             soundPopupButtons[1].onClick.AddListener(() => systemAction.PopupChainDisplay(SystemAction.PopupOperaion.hidden, SystemAction.PopupName.Sound));
 
-            sceneButtons[0].onClick.AddListener(() => systemAction.SimpleSceneMover(0));
-            sceneButtons[1].onClick.AddListener(() => systemAction.SimpleSceneMover(1));
-            sceneButtons[2].onClick.AddListener(() => systemAction.SimpleSceneMover(0));
-            sceneButtons[3].onClick.AddListener(() => systemAction.SimpleSceneMover(1));
+            sceneButtons[0].onClick.AddListener(() => systemAction.InGameSceneMover(0));
+            sceneButtons[1].onClick.AddListener(() => systemAction.InGameSceneMover(1));
+            sceneButtons[2].onClick.AddListener(() => systemAction.InGameSceneMover(0));
+            sceneButtons[3].onClick.AddListener(() => systemAction.InGameSceneMover(1));
         }
     }
 
@@ -111,6 +112,18 @@ public class SystemInputer : InputParent
         for (int i = 0; i < buttonArray.Length; i++)
         {
             sceneButtons[i] = buttonArray[i];
+        }
+    }
+
+    //着せ替え実行ボタンを取得する関数
+    [ContextMenu(clothButtonGetName)]
+    private void ClothButtonGetter()
+    {
+        var buttonArray = base.ButtonGetter();
+        Array.Resize<Button>(ref clothPopupDisplayButtons, buttonArray.Length);
+        for (int i = 0; i < buttonArray.Length; i++)
+        {
+            clothPopupDisplayButtons[i] = buttonArray[i];
         }
     }
 #endif
